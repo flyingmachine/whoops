@@ -1,0 +1,19 @@
+= will_paginate(@event_groups)
+%table.event-group-list
+  %thead
+    %tr
+      %th.header Service
+      %th.header Message
+      %th.header Type
+      %th.header Env
+      %th.header Last Occurrence
+      %th.header
+  - @event_groups.each do |event_group|
+    %tr
+      %td= event_group_scoped_link(event_group, :service)
+      %td= link_to event_group.message, whoops_event_group_events_path(event_group)
+      %td= event_group_scoped_link(event_group, :event_type)
+      %td= event_group_scoped_link(event_group, :environment)
+      %td= event_group.last_recorded_at.to_s
+      %td= event_group.events.count
+= will_paginate(@event_groups)

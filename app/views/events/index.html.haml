@@ -1,0 +1,25 @@
+- content_for :breadcrumbs do
+  = breadcrumbs(["Event Details", whoops_event_group_path(@event_group)])
+  
+- content_for :sidebar do
+  %h3 Instances
+  = will_paginate @event, :previous_label => "", :next_label => ""
+  %ul#instances
+    - @events.each_with_index do |event, index|
+      %li{:class => ("selected" if index == 0)}= link_to event.event_time, event
+
+%article.module.width_full
+  %header
+    %h3= @event_group.message
+  %table
+    - [:environment, :event_type, :last_recorded_at].each do |field|
+      %tr
+        %td.label= field.to_s.humanize
+        %td= @event_group.send(field)
+
+%article.module.width_full
+  %header
+    %h3 Details
+  #event-details
+    = render :partial => "events/details", :object => @events.first, :as => :event
+
