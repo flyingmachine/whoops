@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   layout 'whoops'
+  
   def index
     @event_group = Whoops::EventGroup.find(params[:whoops_event_group_id])
     @events = @event_group.events.paginate(

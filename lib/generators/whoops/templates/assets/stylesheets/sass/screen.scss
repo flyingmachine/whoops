@@ -1,6 +1,8 @@
-@import "compass/utilities/general/clearfix";
-
 /* Essentials */
+@mixin clearfix {
+  overflow: hidden;
+  @include has-layout;
+}
 
 html, div, map, dt, isindex, form, header, aside, section, section, article, footer {  
     display: block;  
@@ -265,7 +267,6 @@ text-decoration: none;
     display:block;
     font-size:13px;
     margin:0 0 2px 12%;
-    @include clearfix;
     a, em {
       float:left;
       display:block;
