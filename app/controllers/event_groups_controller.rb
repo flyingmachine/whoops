@@ -4,8 +4,7 @@ class EventGroupsController < ApplicationController
   helper_method :event_group_filter
   
   def index
-    @event_groups = Whoops::EventGroup.desc(:last_recorded_at).paginate(
-      :conditions => event_group_filter.to_query_document,
+    @event_groups = Whoops::EventGroup.where(event_group_filter.to_query_document).desc(:last_recorded_at).paginate(
       :page => params[:page],
       :per_page => 20
     )
