@@ -6,7 +6,7 @@
   = will_paginate @event, :previous_label => "", :next_label => ""
   %ul#instances
     - @events.each_with_index do |event, index|
-      %li{:class => ("selected" if index == 0)}= link_to event.event_time, event
+      %li{:class => ("selected" if index == 0)}= link_to event.event_time.to_s(:whoops_default), event
 
 %article.module.width_full
   %header

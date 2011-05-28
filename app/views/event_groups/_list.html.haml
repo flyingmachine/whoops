@@ -14,6 +14,6 @@
       %td= link_to event_group.message, whoops_event_group_events_path(event_group)
       %td= event_group_scoped_link(event_group, :event_type)
       %td= event_group_scoped_link(event_group, :environment)
-      %td= event_group.last_recorded_at.to_s
+      %td= event_group.last_recorded_at.to_s(:whoops_default)
       %td= event_group.events.count
 = will_paginate(@event_groups)

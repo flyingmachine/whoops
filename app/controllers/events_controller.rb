@@ -3,8 +3,7 @@ class EventsController < ApplicationController
   
   def index
     @event_group = Whoops::EventGroup.find(params[:whoops_event_group_id])
-    @events = @event_group.events.paginate(
-      :sort => [[:event_time, :desc]],
+    @events = @event_group.events.desc(:event_time).paginate(
       :page => params[:page],
       :per_page => 20
     )
