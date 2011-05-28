@@ -1,0 +1,49 @@
+/* line 1, ../../app/stylesheets/ie.scss */
+.quick_search {
+  text-align: center;
+  padding: 14px 0 0px 0;
+}
+
+/* line 6, ../../app/stylesheets/ie.scss */
+.quick_search input[type=text] {
+  text-align: left;
+  height: 22px;
+  width: 88%;
+  color: #ccc;
+  padding-left: 2%;
+  padding-top: 5px;
+  background: white url(../images/icn_search.png) no-repeat;
+  background-position: 10px 6px;
+}
+
+/* line 17, ../../app/stylesheets/ie.scss */
+.toggleLink {
+  display: inline;
+  float: none;
+  margin-left: 2%;
+}
+
+/* line 23, ../../app/stylesheets/ie.scss */
+html ul.tabs li.active, html ul.tabs li.active a:hover {
+  background: #ccc;
+}
+
+/* line 27, ../../app/stylesheets/ie.scss */
+input[type=submit].btn_post_message {
+  background: url(../images/post_message.png) no-repeat;
+}
+
+/* line 31, ../../app/stylesheets/ie.scss */
+fieldset input[type=text] {
+  margin-left: -10px;
+}
+
+/* line 36, ../../app/stylesheets/ie.scss */
+fieldset select {
+  margin-left: -10px;
+}
+
+/* line 40, ../../app/stylesheets/ie.scss */
+fieldset textarea {
+  margin-left: -10px;
+}

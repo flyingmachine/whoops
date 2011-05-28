@@ -1,5 +1,7 @@
 class EventGroupsController < ApplicationController
   before_filter :update_event_group_filter
+  helper_method :event_group_filter
+  
   def index
     @event_groups = Whoops::EventGroup.paginate(
       :conditions => event_group_filter.to_query_document,
@@ -21,4 +23,13 @@ class EventGroupsController < ApplicationController
   def update_event_group_filter
     self.event_group_filter = params[:whoops_filter] if params[:whoops_filter]
   end
+  
+  def event_group_filter
+    session[:event_group_filter] ||= Whoops::Filter.new
+  end
+  
+  def event_group_filter=(filter)
+    session[:event_group_filter] = Whoops::Filter.new(filter)
+  end
+  
 end
