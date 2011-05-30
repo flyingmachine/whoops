@@ -2,11 +2,11 @@ module EventsHelper
   def format_detail(detail)
     case detail
     when String, Numeric: detail
-    when Array: detail.join("<br />")
+    when Array: simple_format(detail.join("\n"), :class => "simple")
     when Hash: detail_table(detail)
     else
       detail.to_s
-    end.html_safe
+    end
   end
   
   def detail_table(detail)

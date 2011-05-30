@@ -14,7 +14,7 @@ module EventGroupsHelper
     @filter_options["service"] = Whoops::EventGroup.services.collect{|s| [s, s]}
     
     all_event_groups.each do |event_group|
-      mundane_fields = (Whoops::Filter.field_names & Whoops::EventGroup.field_names) - ["service"]
+      mundane_fields = (Whoops::Filter.field_names & Whoops::EventGroup.field_names) - ["service", "message"]
       mundane_fields.each do |field_name|
         @filter_options[field_name] << [event_group.send(field_name), event_group.send(field_name)]
       end
