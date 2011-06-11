@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.summary = "Insert Whoops summary."
   s.description = "Insert Whoops description."
   s.files = Dir["{app,lib,config}/**/*"] + ["MIT-LICENSE", "Rakefile", "Gemfile", "README.rdoc"]
-  s.version = "0.0.1"
+  s.version = "0.0.2"
   
   s.add_dependency('rake', '0.8.7')
   s.add_dependency('rails', '~>3')
