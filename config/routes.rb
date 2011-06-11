@@ -4,6 +4,4 @@ Rails.application.routes.draw do
   end
   
   resources :events, :as => "whoops_events"
-  
-  root :to => "event_groups#index"
 end

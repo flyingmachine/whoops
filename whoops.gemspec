@@ -9,7 +9,6 @@ Gem::Specification.new do |s|
   
   s.add_dependency('rake', '0.8.7')
   s.add_dependency('rails', '~>3')
-  s.add_dependency("capybara", ">= 0.4.0")
   s.add_dependency('sass')
   s.add_dependency('haml')
   s.add_dependency('mongo')
@@ -23,5 +22,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency('fabrication')
   s.add_development_dependency('ruby-debug')
   s.add_development_dependency('faker')
-  s.add_development_dependency('ruby-debug')
+  s.add_development_dependency("capybara", ">= 0.4.0")
 end

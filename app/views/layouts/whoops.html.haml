@@ -13,7 +13,7 @@
     %header#header
       %hgroup
         %h1.site_title
-          = link_to "Whoops", root_path
+          = link_to "Whoops", whoops_event_groups_path
         %h2.section_title 
 
     / end of header bar
@@ -21,7 +21,7 @@
       .user
       .breadcrumbs_container
         %article.breadcrumbs
-          = link_to "All Events", root_path, :class => ("current" if controller_name == 'event_groups')
+          = link_to "All Events", whoops_event_groups_path, :class => ("current" if controller_name == 'event_groups')
           = yield :breadcrumbs
     / end of secondary bar
     %aside#sidebar.column

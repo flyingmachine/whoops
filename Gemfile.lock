@@ -3,7 +3,6 @@ PATH
   specs:
     whoops (0.0.1)
       bson_ext
-      capybara (>= 0.4.0)
       haml
       json
       mongo
