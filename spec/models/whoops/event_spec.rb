@@ -25,6 +25,17 @@ describe Whoops::Event do
       event.event_time.should == event_group.last_recorded_at
     end
     
+    it "should update the event group's 'last_recorded_at'" do
+      past_time = event_params[:event_time] = Time.now - 500
+      event = Whoops::Event.record(event_params)
+      
+      now = event_params[:event_time] = Time.now
+      event = Whoops::Event.record(event_params)
+      
+      event_group = Whoops::EventGroup.first
+      event_group.last_recorded_at.to_s(:whoops_default).should == now.to_s(:whoops_default)
+    end
+    
     it "should add an event to an existing event group if group identifier matches" do
       2.times{ Whoops::Event.record(event_params) }
       event_group = Whoops::EventGroup.first
