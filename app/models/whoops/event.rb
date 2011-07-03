@@ -24,4 +24,9 @@ class Whoops::Event
     event_group.events.create(event_params)
   end 
   
+  def self.search(query)
+    conditions = Whoops::SearchParser.new(query).mongoid_conditions
+    where(conditions).find(:all)
+  end
+  
 end

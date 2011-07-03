@@ -29,6 +29,20 @@ describe Whoops::Event do
       2.times{ Whoops::Event.record(event_params) }
       event_group = Whoops::EventGroup.first
       Whoops::Event.where(:event_group_id => event_group.id.to_s).size.should == 2
-    end    
+    end
+  end
+  
+  describe ".search" do
+    let(:query) { "details.file /fail/" }
+    it "should return matching records" do
+      event = Whoops::Event.record(event_params)
+      Whoops::Event.search(query).should include(event)
+    end
+    
+    it "should not return non-matching records" do
+      event_params[:details][:file] = 'success.rb'
+      event = Whoops::Event.record(event_params)
+      Whoops::Event.search(query).should_not include(event)
+    end
   end
 end

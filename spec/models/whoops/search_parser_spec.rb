@@ -23,6 +23,13 @@ describe Whoops::SearchParser do
       parsed[:method].should == :in
       parsed[:value].should  == ["Test"]
     end
+    
+    it "provides a key and value without method when no method is present" do
+      parsed = search_parser.parse_line('details.backtrace "Test"')
+      parsed[:key].should == "details.backtrace".to_sym
+      parsed[:method].should be_nil
+      parsed[:value].should  == "Test"
+    end
   end
   
   describe "#parse_value" do
