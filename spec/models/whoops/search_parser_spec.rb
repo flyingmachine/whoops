@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Whoops::SearchParser do
   describe "#mongoid_conditions" do
     let(:search_parser){ Whoops::SearchParser.new("
-      details.backtrace#all [/event_groups_controller/, /event_groups/]
+      details.backtrace#all [/event_groups_controller/, {1:t}, [a,b]]
     ") }
     
     it "correctly handles methods" do
@@ -11,7 +11,7 @@ describe Whoops::SearchParser do
     end
     
     it "correctly handles an array of various values" do
-      search_parser.mongoid_conditions.values.first.should == [/event_groups_controller/, /event_groups/]
+      search_parser.mongoid_conditions.values.first.should == [/event_groups_controller/, {1 => 't'}, ['a', 'b']]
     end
   end
 
