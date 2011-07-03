@@ -3,10 +3,15 @@ require 'spec_helper'
 describe Whoops::SearchParser do
   describe "#mongoid_conditions" do
     let(:search_parser){ Whoops::SearchParser.new("
-      details.backtrace#in 
+      details.backtrace#all [/event_groups_controller/, /event_groups/]
     ") }
-    it "correctly handles mehtods" do
-      
+    
+    it "correctly handles methods" do
+      search_parser.mongoid_conditions.keys.first.should == "details.backtrace".to_sym.all
+    end
+    
+    it "correctly handles an array of various values" do
+      search_parser.mongoid_conditions.values.first.should == [/event_groups_controller/, /event_groups/]
     end
   end
 
@@ -21,10 +26,6 @@ describe Whoops::SearchParser do
   end
   
   describe "#parse_value" do
-    it "handles regular expressions" do
-      search_parser.parse_value('!ruby/regexp "/test/"').should == /test/
-    end
-    
     it "handles regexp short form" do
       search_parser.parse_value('/test/').should == /test/
     end

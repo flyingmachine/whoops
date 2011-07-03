@@ -5,13 +5,20 @@ class Whoops::SearchParser
   end
   
   def mongoid_conditions
-    self.query.split("\n").each do |line|
-      line
+    self.query.split("\n").inject({}) do |conditions, line|
+      line.strip!
+      next(conditions) if line.empty?
+      
+      parsed = parse_line(line)
+      key = parsed[:method] ? parsed[:key].send(parsed[:method]) : parsed[:key]
+      
+      conditions[key] = parsed[:value]
+      conditions
     end
   end
   
   def parse_line(line)
-    key, method, value = line.match(/(.*?)(#.*)? (.*)/)[1..3]
+    key, method, value = line.match(/([^\s]*?)(#[^\s]*)? ([^#]*)/)[1..3]
     
     key = key.to_sym
     method = method.sub(/^#/, '').to_sym
@@ -26,7 +33,8 @@ class Whoops::SearchParser
   # Allows user to enter hashes or array
   def parse_value(value)
     value = value.strip
-    value = "!ruby/regexp \"#{value}\"" if value =~ /^\/.*\/$/
+    # value = "!ruby/regexp \"#{value}\"" if value =~ /^\/.*\/$/
+    value.gsub!(/\/.*?\//, %Q{!ruby/regexp "\\0"})
     return YAML.load(value)
   end
 end
