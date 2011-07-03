@@ -18,8 +18,8 @@ describe Whoops::SearchParser do
     end
     
     it "handles hashes" do
-      search_parser.parse_value('{"1":3, "a":3, a:"test"}').should == {
-        1 => 3,
+      search_parser.parse_value('{"1":3, "a":3, "a":"test"}').should == {
+        '1' => 3,
         'a' => 3,
         'a' => 'test'
       }
