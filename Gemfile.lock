@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    whoops (0.0.2)
+    whoops (0.0.4)
       bson_ext
       haml
       json
