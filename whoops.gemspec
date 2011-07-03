@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.summary = "A logger"
   s.description = "A logger"
   s.files = Dir["{app,lib,config}/**/*"] + ["MIT-LICENSE", "Rakefile", "Gemfile", "README.rdoc"]
-  s.version = "0.0.3"
+  s.version = "0.0.4"
   
   s.add_dependency('rake', '0.8.7')
   s.add_dependency('rails', '~>3')
