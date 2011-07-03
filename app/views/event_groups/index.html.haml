@@ -7,7 +7,13 @@
           %li= f.select field_name, options_from_collection_for_select(options, :first, :last, event_group_filter.send(field_name))
         %li
           %button#reset reset
-
+  .space
+    %h3 Search
+    %form
+      %ul
+        %li= text_area_tag :query
+        %li
+          %button search
 %article.module.width_full
   %header
     %h3 Events

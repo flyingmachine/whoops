@@ -4,7 +4,7 @@ Whoops = {
       $("#new_whoops_filter").submit()
     })
     $("#reset").click(function(){
-      window.location = "/?whoops_filter[service]"
+      window.location = "/event_groups?whoops_filter[service]"
       return false
     })
   },
