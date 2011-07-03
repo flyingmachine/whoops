@@ -313,9 +313,16 @@ text-decoration: none;
     }
   }
   
-  form li {
-    list-style:none;
-    padding:0;
+  form {
+    li {
+      list-style:none;
+      padding:0 15px 0 0;
+    }
+    
+    textarea {
+      height:100px;
+      width:100%;
+    }
   }
 }
 

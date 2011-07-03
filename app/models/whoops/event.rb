@@ -26,7 +26,7 @@ class Whoops::Event
   
   def self.search(query)
     conditions = Whoops::SearchParser.new(query).mongoid_conditions
-    where(conditions).find(:all)
+    where(conditions)
   end
   
 end

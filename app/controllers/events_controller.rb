@@ -3,10 +3,19 @@ class EventsController < ApplicationController
   
   def index
     @event_group = Whoops::EventGroup.find(params[:whoops_event_group_id])
-    @events = @event_group.events.desc(:event_time).paginate(
+    
+    events_base = @event_group.events
+    unless params[:query].blank?
+      conditions = Whoops::SearchParser.new(params[:query]).mongoid_conditions
+      events_base = events_base.where(conditions)
+    end
+    
+    @events = events_base.desc(:event_time).paginate(
       :page => params[:page],
       :per_page => 20
     )
+    
+    puts 'test'
   end
   
   def show

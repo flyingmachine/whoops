@@ -2,11 +2,20 @@
   = breadcrumbs(["Event Details", whoops_event_group_path(@event_group)])
   
 - content_for :sidebar do
-  %h3 Instances
-  = will_paginate @event, :previous_label => "", :next_label => ""
-  %ul#instances
-    - @events.each_with_index do |event, index|
-      %li{:class => ("selected" if index == 0)}= link_to event.event_time.to_s(:whoops_default), event
+  .space
+    %h3 Instances
+    = will_paginate @event, :previous_label => "", :next_label => ""
+    %ul#instances
+      - @events.each_with_index do |event, index|
+        %li{:class => ("selected" if index == 0)}= link_to event.event_time.to_s(:whoops_default), event
+  .space
+    %h3 Search
+    %form
+      %ul
+        %li= text_area_tag :query, params[:query]
+        %li
+          %button search
+          %button reset
 
 %article.module.width_full
   %header
@@ -21,5 +30,8 @@
   %header
     %h3 Details
   #event-details
-    = render :partial => "events/details", :object => @events.first, :as => :event
+    - if @events.empty?
+      %p Your search returned no results.
+    - else 
+      = render :partial => "events/details", :object => @events.first, :as => :event
 

@@ -259,7 +259,10 @@ aside#sidebar {
         color: #2e3192; }
 #sidebar form li {
   list-style: none;
-  padding: 0; }
+  padding: 0 15px 0 0; }
+#sidebar form textarea {
+  height: 100px;
+  width: 100%; }
 
 #sidebar li a:hover {
   color: #444444; }

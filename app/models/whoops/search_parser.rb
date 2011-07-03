@@ -20,8 +20,8 @@ class Whoops::SearchParser
   def parse_line(line)
     key, method, value = line.match(/([^\s]*?)(#[^\s]*)? ([^#]*)/)[1..3]
     
-    key = key.to_sym
-    method = method.sub(/^#/, '').to_sym if method
+    key = key.sub(/:$/, '').to_sym
+    method = method.gsub(/(^#|:$)/, '').to_sym if method
     value = parse_value(value)
     {
       :key => key,
