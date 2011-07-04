@@ -40,11 +40,13 @@ describe Whoops::NotificationRule do
     
     describe "#matching_emails" do
       it "returns a de-duped array of all emails that correspond with matching rules" do
+        rule
         Whoops::NotificationRule.create(
           :email => "daniel@higginbotham.com",
           :matchers => "test.service"
         )
         
+        Whoops::NotificationRule.all.size.should == 2
         matcher.matching_emails.should == ["daniel@higginbotham.com"]
       end
       
