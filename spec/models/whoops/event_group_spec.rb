@@ -11,4 +11,13 @@ describe Whoops::EventGroup do
       Whoops::EventGroup.services.should_not include("app")
     end
   end
+  
+  describe "notification" do
+    it "sets notify_on_next_occurrence to true by default" do
+    end
+    
+    it "sends a notification when notify_on_next_occurrence is true"
+    
+    it "sets notify_on_next_occurrence to false after sending a notification"
+  end
 end

@@ -30,4 +30,6 @@ class Whoops::EventGroup
     end
     services
   end
+  
+  
 end
