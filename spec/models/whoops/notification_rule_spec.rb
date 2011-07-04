@@ -16,10 +16,6 @@ describe Whoops::NotificationRule do
     rule.matchers.should == ["test.service"]
   end
   
-  it "" do
-    rule
-  end
-  
   describe Whoops::NotificationRule::Matcher do
     let(:event_params){ Whoops::Spec::ATTRIBUTES[:event_params] }
     let(:event){ Whoops::Event.record(event_params) }
@@ -43,9 +39,18 @@ describe Whoops::NotificationRule do
     end
     
     describe "#matching_emails" do
-      it "returns a de-duped array of all emails that correspond with matching rules"
+      it "returns a de-duped array of all emails that correspond with matching rules" do
+        Whoops::NotificationRule.create(
+          :email => "daniel@higginbotham.com",
+          :matchers => "test.service"
+        )
+        
+        matcher.matching_emails.should == ["daniel@higginbotham.com"]
+      end
       
       it "returns an empty array when there are no matches" do
+        rule.matchers = "gobbledygook"
+        rule.save
         matcher.matching_emails.should == []
       end
     end
