@@ -7,6 +7,7 @@ class Whoops::EventGroup
     field string_field, :type => String
   end
   field :last_recorded_at, :type => DateTime
+  field :notify_on_next_occurrence, :type => Boolean, :default => true
   
   has_many :events, :class_name => "Whoops::Event"
   
