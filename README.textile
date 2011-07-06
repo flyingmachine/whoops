@@ -1,0 +1,60 @@
+h1. Whoops
+
+h2(#overview). Overview
+
+h3(#purpose). Purpose
+
+whoops was originally conceived as an alternative to Hoptoad. Its allows you to:
+
+* Log arbitrary events. Whoops events use an event\_type field which can be any string - exception, notification, warning, etc.
+* Log arbitrary details. Events are stored in "mongodb":http://www.mongodb.org, giving you the flexibility of a document database.
+* "Search":#searching event details. The search parser maps text to mongoid conditions, allowing you to do queries like "details.current\_user\_id#in [123, 423]"
+* "Extend":#extending the app. Since it's a rails engine, you can make changes to your base rails app without worrying about merge difficulties when you upgrade whoops.
+
+If you find yourself bumping up against limitations in Hoptoad, whoops might be right for you.
+
+h3(#design). Design
+
+whoops consists of two main components: the rails 3 engine and the notifier. The engine provides the following:
+
+* Controllers and views for viewing, "filtering":#filtering, and "searching":#searching events.
+* An end point for receiving event notifications
+* A mailer for sending email notifications
+* "Mongoid":http://www.mongoid.org models
+
+The notifier is documented separately. Briefly, it allows you to create strategies for building an event notification. It also allows you to modify existing strategies.
+
+For example, you could use the "rails 3 notifier":https://github.com/flyingmachine/whoops_rails_notifier , but modify it to include the ID of the currently logged in user. If your app ran background processes, you could create a notification strategy specific to your processes. Both strategies can coexist in the same app.
+
+h2(#usage). Usage
+
+h3(#installation). Installation
+
+# create a new rails app
+# add @gem "whoops"@ to your Gemfile
+# run @bundle@
+# run @bundle exec rails g whoops:assets@ - this copies assets to your public directory (whoops isn't 3.1 compatible yet)
+# *optional* add @root :to => "event_groups#index"@ to your routes file to make the event group listing your home page
+# add "notifiers":https://github.com/flyingmachine/whoops_notifier to the code you want to monitor (documentation forthcoming)
+
+h3(#filtering). Filtering
+
+h3(#searching). Searching
+
+h2(#code-overview). Code
+
+h3(#architecture). Architecture
+
+h3(#extending). Extending
+
+h2(#other-design-notes). Other design notes
+
+h2(#todo). TODO
+
+* finish notifications
+* site-wide search
+* graphing
+
+h2(#license). License
+
+This project uses MIT-LICENSE.
