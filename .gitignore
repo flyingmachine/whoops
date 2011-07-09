@@ -7,3 +7,4 @@ spec/dummy/tmp/
 .DS_Store
 *.tmproj
 README.html
+doc/assets
