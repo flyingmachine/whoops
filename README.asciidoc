@@ -49,7 +49,7 @@ For example, you could use the https://github.com/flyingmachine/whoops_rails_not
 === Filtering
 
 .Filters
-image::doc/images/dash-filters.png[Filters]
+image::https://github.com/flyingmachine/whoops/raw/master/doc/images/dash-filters.png[Filters]
 
 When viewing the Event Group list, you can filter by service, environment, and event type.
 
@@ -58,7 +58,7 @@ When you set a filter, its value is stored in a session and won't be changed unt
 === Searching
 
 .Search
-image::doc/images/dash-filters.png[Filters]
+image::https://github.com/flyingmachine/whoops/raw/master/doc/images/details-search.png[Search]
 
 For now, you need to enter your queries into the textarea shown above. Currently, searches only apply to the events within the current event group.
 
