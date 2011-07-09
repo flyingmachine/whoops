@@ -67,9 +67,9 @@ For now, you need to enter your queries into the textarea shown above. Currently
 key[#method] query
 ----
 
-* _key_ the Event field to search.
-* _method (optional)_ a [http://mongoid.org/docs/querying/criteria.html#where]Mongoid where criteria method
-* _query_ a YAML string
+* _*key*_ the Event field to search.
+* _*method* (optional)_ a http://mongoid.org/docs/querying/criteria.html#where[Mongoid] where criteria method
+* _*query*_ a YAML string
 
 .Examples
 
