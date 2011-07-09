@@ -15,7 +15,7 @@ If you find yourself bumping up against limitations in Hoptoad, whoops might be 
 
 h3(#design). Design
 
-whoops consists of two main components: the rails 3 engine and the notifier. The engine provides the following:
+whoops consists of two main components: the rails 3 engine and the notifier. Hosting is up to you. The engine provides the following:
 
 * Controllers and views for viewing, "filtering":#filtering, and "searching":#searching events.
 * An end point for receiving event notifications
