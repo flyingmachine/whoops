@@ -34,7 +34,7 @@ class Whoops::SearchParser
   def parse_value(value)
     value = value.strip
     # value = "!ruby/regexp \"#{value}\"" if value =~ /^\/.*\/$/
-    value.gsub!(/\/.*?\//, %Q{!ruby/regexp "\\0"})
+    value.gsub!(/!r(\/.*?\/)/, %Q{!ruby/regexp "\\1"})
     return YAML.load(value)
   end
 end

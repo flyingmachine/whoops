@@ -44,7 +44,7 @@ describe Whoops::Event do
   end
   
   describe ".search" do
-    let(:query) { "details.file /fail/" }
+    let(:query) { "details.file !r/fail/" }
     it "should return matching records" do
       event = Whoops::Event.record(event_params)
       Whoops::Event.search(query).should include(event)
