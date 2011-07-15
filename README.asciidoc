@@ -11,13 +11,13 @@ Whoops is a logging system. It consists of a Rails engine (which records logs an
 
 The Whoops server is a Rails engine which records logs and provides an interface to filter, search, and view them. Below is a listing of its features and how it compares to Hoptoad:
 
-.Log Arbitrary Events
+=== Log Arbitrary Events
 
 With Hoptoad, you only log exceptions. With Whoops, it's up to you to tell the Whoops server what you're logging, be it an exception, notification, warning, or whatever. Internally, Whoops EventGroups use the event_type field to store the event type. You can filter on this field when viewing a listing of all events.
 
 image::https://github.com/flyingmachine/whoops/raw/master/doc/images/dash-filters.png[Filters]
 
-.Log Arbitrary Details
+=== Log Arbitrary Details
 
 With Hoptoad, the fields which you can log are pre-defined. They also reflect an assumption that your error happened within the context of handling an HTTP request. Whoops uses mongodb as its database and this allows you to log whatever details you want. For example, you could log the following:
 
@@ -36,7 +36,7 @@ With Hoptoad, the fields which you can log are pre-defined. They also reflect an
 
 This gets stored as-is in Whoops. You can also search these details, as explained below:
 
-.Search Event Details
+=== Search Event Details
 
 As far I know, you can't search Hoptoad. Whoops let's you search all Events within an EventGroup. Eventually, keyword search over all events will be implemented.
 
