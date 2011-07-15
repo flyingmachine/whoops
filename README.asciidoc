@@ -3,31 +3,67 @@ Whoops
 Daniel Higginbotham <daniel@flyingmachinestudios.com>
 2011-07-09
 
-== Overview
+== What is Whoops?
 
-=== Purpose
+Whoops is a logging system. It consists of a Rails engine (which records logs and provides an interface to them) and a logger. Both are described below, along with how they compare to Hoptoad. Note that the comparisons aren't meant to disparage Hoptoad - it's a great product. They're only meant to help describe Whoops and help people decide whether it would be useful to them.
 
-whoops was originally conceived as an alternative to Hoptoad. Its allows you to:
+== Whoops Server
 
-* *Log arbitrary events.* Whoops events use an event_type field which can be any string - exception, notification, warning, etc.
-* *Log arbitrary details.* Events are stored in http://www.mongodb.org[mongodb], giving you the flexibility of a document database.
-* *Search event details.* The search parser maps text to mongoid conditions, allowing you to do queries like +details.current_user_id#in [123, 423]+
-* *Extend the app.* Since it's a rails engine, you can make changes to your base rails app without worrying about merge difficulties when you upgrade whoops.
+The Whoops server is a Rails engine which records logs and provides an interface to filter, search, and view them. Below is a listing of its features and how it compares to Hoptoad:
 
-If you find yourself bumping up against limitations in Hoptoad, whoops might be right for you.
+.Log Arbitrary Events
 
-=== Design
+With Hoptoad, you only log exceptions. With Whoops, it's up to you to tell the Whoops server what you're logging, be it an exception, notification, warning, or whatever. Internally, Whoops EventGroups use the event_type field to store the event type. You can filter on this field when viewing a listing of all events.
 
-whoops consists of two main components: the rails 3 engine and the notifier. Hosting is up to you. The engine provides the following:
+image::https://github.com/flyingmachine/whoops/raw/master/doc/images/dash-filters.png[Filters]
 
-* Controllers and views for viewing, filtering, and searching events.
-* An end point for receiving event notifications
-* A mailer for sending email notifications
-* http://www.mongoid.org[Mongoid] models
+.Log Arbitrary Details
 
-The notifier is documented separately. Briefly, it allows you to create strategies for building an event notification. It also allows you to modify existing strategies.
+With Hoptoad, the fields which you can log are pre-defined. They also reflect an assumption that your error happened within the context of handling an HTTP request. Whoops uses mongodb as its database and this allows you to log whatever details you want. For example, you could log the following:
 
-For example, you could use the https://github.com/flyingmachine/whoops_rails_notifier[rails 3 notifier] , but modify it to include the ID of the currently logged in user. If your app ran background processes, you could create a notification strategy specific to your processes. Both strategies can coexist in the same app.
+----
+{
+  :start_time => 1310748754,
+  :end_time   => 1310949834,
+  :users_imported => [
+    { :id => 413, :succeeded => false },
+    { :id => 835, :succeeded => true },
+    { :id => 894, :succeeded => true },
+    { :id => 124, :succeeded => true },
+  ],
+}
+----
+
+This gets stored as-is in Whoops. You can also search these details, as explained below:
+
+.Search Event Details
+
+As far I know, you can't search Hoptoad. Whoops let's you search all Events within an EventGroup. Eventually, keyword search over all events will be implemented.
+
+Below is example text you would write, and below that is essentially the ruby code that ends up getting run by the server.
+
+----
+details.current_user_id#in [3, 54, 532]      <1>
+details.num_failures#gt 3                    <2>
+details.current_user.first_name Voldemort    <3>
+message#in !r/(yesterday|today)/             <4>
+----
+
+<1> `Event.where( {:"details.current_user_id".in => [3, 54, 532]} )`
+<2> `Event.where( {:"details.num_failure".gt => 3} )`
+<3> `Event.where( {:"details.current_user.first_name" => "Voldemort"} )`
+<4> `Event.where( {:message.in /(yesterday|today/)} )` Note that regular expressions must start with !r.
+  
+The general format is +key[#mongoid_method] query+ . As you can see, +query+ can be a string, number, regex, or array of these values. Hashes are allowed too. If you're not familiar with querying mongo, you can http://www.mongodb.org/display/DOCS/Querying[read more in the mongodb docs]. The http://mongoid.org/docs/querying/criteria.html#where[Mongoid] docs are useful as well.
+
+.Extend the App
+
+Since Whoops is a Rails engine, you can make changes to your base rails app without worrying about merge difficulties when you upgrade Whoops.
+
+=== Demos
+
+* http://whoops-example.heroku.com[Example of the Whoops Rails engine]
+* http://whoops-rails-notifier-example.heroku.com/[Example site which sends logs to whoops]
 
 === Terms / Models
 
@@ -54,40 +90,6 @@ image::https://github.com/flyingmachine/whoops/raw/master/doc/images/dash-filter
 When viewing the Event Group list, you can filter by service, environment, and event type.
 
 When you set a filter, its value is stored in a session and won't be changed until you click "reset". This is so that you won't lose your filter after, for example, viewing a specific event.
-
-=== Searching
-
-.Search
-image::https://github.com/flyingmachine/whoops/raw/master/doc/images/details-search.png[Search]
-
-For now, you need to enter your queries into the textarea shown above. Currently, searches only apply to the events within the current event group.
-
-.Search Syntax
-----
-key[#method] query
-----
-
-* *key* the Event field to search.
-* *method* _(optional)_ a http://mongoid.org/docs/querying/criteria.html#where[Mongoid] where criteria method
-* *query* a YAML string
-
-.Examples
-
-Below is the text you would write, and below that is essentially the ruby code that ends up getting run by the server
-
-----
-details.current_user_id#in [3, 54, 532]      <1>
-details.num_failures#gt 3                    <2>
-details.current_user.first_name Voldemort    <3>
-message#in !r/(yesterday|today)/             <4>
-----
-
-<1> `Event.where( {:"details.current_user_id".in => [3, 54, 532]} )`
-<2> `Event.where( {:"details.num_failure".gt => 3} )`
-<3> `Event.where( {:"details.current_user.first_name" => "Voldemort"} )`
-<4> `Event.where( {:message.in /(yesterday|today/)} )` Note that regular expressions must start with !r.
-
-This syntax is kind of goofy, but it lets you enter constant numbers, strings, arrays, hashes, and regular expressions, just like you could if you were typing in the code directly.
 
 == TODO
 
