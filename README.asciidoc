@@ -60,16 +60,24 @@ The general format is +key[#mongoid_method] query+ . As you can see, +query+ can
 
 Since Whoops is a Rails engine, you can make changes to your base rails app without worrying about merge difficulties when you upgrade Whoops.
 
-=== Demos
+=== No Users or Projects
+
+In Hoptoad, errors are assigned to projects, and access to projects is given to users. In Whoops, there are no users, so it's not necessary to manage access rights or even to log in. Additionally, there is no Project model within the code or database. Instead, each EventGroup has a +service+ field which you can filter on. Services can be namespaced, so that if you have the services "godzilla.web" and "godzilla.background", you can set a filter to show events related to either service or to their common name, "godzilla".
+
+Note that you can add users and/or login to the base rails app if you really want to. 
+
+=== Notifications
+
+Since Whoops doesn't have users, email notification of events is handled by entering an email address along with a newline-separated list of services to receive notifications for. This isn't 100% implemented yet.
+
+=== You Manage the Rails App
+
+If you use Whoops you'll have to manage the Rails app yourself. You'll have to set up mongodb and all that. Heroku has a http://addons.heroku.com/mongolab[great mongodb addon] that gives you 240mb of space for free. Hoptoad doesn't require you to host or manage anything.
+
+== Demos
 
 * http://whoops-example.heroku.com[Example of the Whoops Rails engine]
 * http://whoops-rails-notifier-example.heroku.com/[Example site which sends logs to whoops]
-
-=== Terms / Models
-
-* _Event_ A specific occurrence of an event. The Event model stores details specific to an event.
-* _Event Group_ All Events are associated with an Event Group. Event Groups store details common to all events in the group.
-* _Notification_ The whoops notifier sends Notifications to whoops. A notification contains both Event and Event Group information; whoops sorts it out when it receives a Notification.
 
 == Usage
 
@@ -78,9 +86,10 @@ Since Whoops is a Rails engine, you can make changes to your base rails app with
 . create a new rails app
 . add +gem "whoops"+ to your Gemfile
 . run +bundle+
+. add http://mongoid.org/docs/installation/configuration.html[+config/mongoid.yml+]
 . run +bundle exec rails g whoops:assets+ - this copies assets to your public directory (whoops isn't 3.1 compatible yet)
 . _optional_ add `root :to => "event_groups#index"` to your routes file to make the event group listing your home page
-. add https://github.com/flyingmachine/whoops_notifier[notifiers] to the code you want to monitor
+. add https://github.com/flyingmachine/whoops_logger[loggers] to the code you want to monitor
 
 === Filtering
 
@@ -93,9 +102,10 @@ When you set a filter, its value is stored in a session and won't be changed unt
 
 == TODO
 
-* finish notifications
+* finish email notification of events
 * site-wide search
 * graphing
+* logger documentation
 
 == License
 
