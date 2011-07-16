@@ -107,6 +107,11 @@ When you set a filter, its value is stored in a session and won't be changed unt
 * graphing
 * logger documentation
 
+== Alternatives
+
+* http://airbrakeapp.com/pages/home[Airbrake (the app formerly known as Hoptoad)]
+* https://papertrailapp.com/[papertrail]
+
 == License
 
 This project uses MIT-LICENSE.
