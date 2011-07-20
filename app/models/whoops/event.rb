@@ -5,11 +5,11 @@ class Whoops::Event
   belongs_to :event_group, :class_name => "Whoops::EventGroup"
   
   field :details
+  field :keywords, :type => String
   field :message, :type => String
   field :event_time, :type => DateTime
   
-  validates_presence_of :message
-  
+  validates_presence_of :message  
   def self.record(params)
     params = params.with_indifferent_access
         
@@ -33,5 +33,4 @@ class Whoops::Event
     conditions = Whoops::SearchParser.new(query).mongoid_conditions
     where(conditions)
   end
-  
 end

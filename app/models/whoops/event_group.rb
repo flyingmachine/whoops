@@ -3,7 +3,7 @@ class Whoops::EventGroup
   include Mongoid::Document
   include FieldNames
   
-  [:service, :environment, :event_type, :message, :identifier].each do |string_field|
+  [:service, :environment, :event_type, :message, :identifier, :logging_strategy_name].each do |string_field|
     field string_field, :type => String
   end
   field :last_recorded_at, :type => DateTime
