@@ -1,10 +1,10 @@
-class Whoops::SearchParser
+class Whoops::MongoidSearchParser
   attr_accessor :query
   def initialize(query)
     self.query = query
   end
   
-  def mongoid_conditions
+  def conditions
     self.query.split("\n").inject({}) do |conditions, line|
       line.strip!
       next(conditions) if line.empty?

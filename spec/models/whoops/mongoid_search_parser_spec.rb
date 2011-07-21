@@ -1,21 +1,21 @@
 require 'spec_helper'
 
-describe Whoops::SearchParser do
-  describe "#mongoid_conditions" do
-    let(:search_parser){ Whoops::SearchParser.new("
+describe Whoops::MongoidSearchParser do
+  describe "#conditions" do
+    let(:search_parser){ Whoops::MongoidSearchParser.new("
       details.backtrace#all [!r/event_groups_controller/, {1: t}, [a, b]]
     ") }
     
     it "correctly handles methods" do
-      search_parser.mongoid_conditions.keys.first.should == "details.backtrace".to_sym.all
+      search_parser.conditions.keys.first.should == "details.backtrace".to_sym.all
     end
     
     it "correctly handles an array of various values" do
-      search_parser.mongoid_conditions.values.first.should == [/event_groups_controller/, {1 => 't'}, ['a', 'b']]
+      search_parser.conditions.values.first.should == [/event_groups_controller/, {1 => 't'}, ['a', 'b']]
     end
   end
 
-  let(:search_parser){ Whoops::SearchParser.new("test") }  
+  let(:search_parser){ Whoops::MongoidSearchParser.new("test") }  
   describe "#parse_line" do
     it "provides a key, method, and value when present" do
       parsed = search_parser.parse_line('details.backtrace#in ["Test"]')

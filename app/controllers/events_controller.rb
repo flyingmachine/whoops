@@ -6,7 +6,7 @@ class EventsController < ApplicationController
     
     events_base = @event_group.events
     unless params[:query].blank?
-      conditions = Whoops::SearchParser.new(params[:query]).mongoid_conditions
+      conditions = Whoops::MongoidSearchParser.new(params[:query]).conditions
       events_base = events_base.where(conditions)
     end
     

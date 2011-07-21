@@ -1,5 +1,6 @@
 class Whoops::Event
   include Mongoid::Document
+  include Mongoid::FullTextSearch
   include FieldNames
   
   belongs_to :event_group, :class_name => "Whoops::EventGroup"
@@ -30,7 +31,7 @@ class Whoops::Event
   end 
   
   def self.search(query)
-    conditions = Whoops::SearchParser.new(query).mongoid_conditions
+    conditions = Whoops::MongoidSearchParser.new(query).conditions
     where(conditions)
   end
 end
