@@ -1,1 +1,0 @@
-require 'mongoid_fulltext'

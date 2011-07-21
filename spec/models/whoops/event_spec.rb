@@ -56,4 +56,9 @@ describe Whoops::Event do
       Whoops::Event.search(query).should_not include(event)
     end
   end
+  
+  describe "#add_details_to_keywords" do 
+    event = Whoops::Event.create(:message => "test", :details => {:one => "two", :three => {:four => "five"}})
+    event.keywords.should == "test two five"
+  end
 end
