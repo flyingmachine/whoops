@@ -1,6 +1,5 @@
 class Whoops::Event
   include Mongoid::Document
-  include Mongoid::FullTextSearch
   include FieldNames
   
   belongs_to :event_group, :class_name => "Whoops::EventGroup"
@@ -9,7 +8,7 @@ class Whoops::Event
   field :keywords, :type => String
   field :message, :type => String
   field :event_time, :type => DateTime
-  
+    
   validates_presence_of :message  
   def self.record(params)
     params = params.with_indifferent_access
