@@ -1,3 +1,5 @@
+# Parses text to create corresponding mongoid conditions.
+# See README for details on syntax.
 class Whoops::MongoidSearchParser
   attr_accessor :query
   def initialize(query)
