@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    whoops (0.0.5)
+    whoops (0.1.0)
       bson_ext
       haml
       mongo

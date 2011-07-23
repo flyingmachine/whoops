@@ -319,9 +319,8 @@ aside#sidebar {
 #sidebar a {
   color: #666666;
   text-decoration: none; }
-
-#sidebar a:hover {
-  text-decoration: underline; }
+  #sidebar a:hover {
+    text-decoration: underline; }
 
 #sidebar footer {
   margin-top: 20%; }
@@ -821,3 +820,11 @@ fieldset textarea:focus {
     padding: 0; }
     #main table ul li ul {
       margin-left: 5px; }
+
+.info-revealer {
+  cursor: pointer; }
+
+#sidebar .info {
+  display: none; }
+  #sidebar .info a {
+    text-decoration: underline; }

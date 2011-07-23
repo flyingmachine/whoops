@@ -382,12 +382,12 @@ text-shadow: 0 1px 0 #fff;
 margin: 10px 0 0 0;}
 
 #sidebar a {
-color: #666666;
-text-decoration: none;
-}
-
-#sidebar a:hover {
-text-decoration: underline;
+  color: #666666;
+  text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 #sidebar footer {
@@ -950,5 +950,18 @@ font-size: 14px;}
         margin-left:5px;
       }
     }
+  }
+}
+
+// Info
+.info-revealer {
+  cursor: pointer;
+}
+
+#sidebar .info {
+  display:none;
+  
+  a {
+    text-decoration:underline;
   }
 }

@@ -9,9 +9,14 @@
       - @events.each_with_index do |event, index|
         %li{:class => ("selected" if index == 0)}= link_to event.event_time.to_s(:whoops_default), event
   .space
-    %h3 Search
+    %h3.info-revealer
+      Search
+      = image_tag "/images/_ui/icn_info.png"
     %form
       %ul
+        %li.info
+          For more on searching, see "Search Event Details" in the 
+          = link_to "README", "https://github.com/flyingmachine/whoops/blob/master/README.asciidoc"
         %li= text_area_tag :query, params[:query]
         %li
           %button search
