@@ -1,0 +1,236 @@
+Whoops
+======
+Daniel Higginbotham <daniel@flyingmachinestudios.com>
+2011-07-26
+
+== What is Whoops?
+
+Whoops is a self-hosted logging system. It consists of a Rails engine (which records logs and provides an interface to them) and a logger. Both are described below, along with how they compare to Hoptoad. Note that the comparisons aren't meant to disparage Hoptoad - it's a great product. They're only meant to help describe Whoops and help people decide whether it would be useful to them.
+
+== Whoops Server
+
+The Whoops server is a Rails engine which records logs and provides an interface to filter, search, and view them. Below is a listing of its features and how it compares to Hoptoad:
+
+=== Log Arbitrary Events
+
+With Hoptoad, you only log exceptions. With Whoops, it's up to you to tell the Whoops server what you're logging, be it an exception, notification, warning, or whatever. Internally, Whoops EventGroups use the event_type field to store the event type. You can filter on this field when viewing a listing of all events.
+
+image::https://github.com/flyingmachine/whoops/raw/master/doc/images/dash-filters.png[Filters]
+
+=== Log Arbitrary Details
+
+With Hoptoad, the fields which you can log are pre-defined. They also reflect an assumption that your error happened within the context of handling an HTTP request. Whoops uses mongodb as its database and this allows you to log whatever details you want. For example, you could log the following:
+
+[source,ruby]
+----
+{
+  :start_time => 1310748754,
+  :end_time   => 1310949834,
+  :users_imported => [
+    { :id => 413, :succeeded => false },
+    { :id => 835, :succeeded => true },
+    { :id => 894, :succeeded => true },
+    { :id => 124, :succeeded => true },
+  ],
+}
+----
+
+This gets stored as-is in Whoops. You can also search these details, as explained below:
+
+=== Search Event Details
+
+As far I know, you can't search Hoptoad. Whoops let's you search all Events within an EventGroup. Eventually, keyword search over all events will be implemented.
+
+Below is example text you would write, and below that is essentially the ruby code that ends up getting run by the server.
+
+----
+details.current_user_id#in [3, 54, 532]      <1>
+details.num_failures#gt 3                    <2>
+details.current_user.first_name Voldemort    <3>
+message#in !r/(yesterday|today)/             <4>
+----
+
+<1> `Event.where( {:"details.current_user_id".in => [3, 54, 532]} )`
+<2> `Event.where( {:"details.num_failure".gt => 3} )`
+<3> `Event.where( {:"details.current_user.first_name" => "Voldemort"} )`
+<4> `Event.where( {:message.in /(yesterday|today/)} )` Note that regular expressions must start with !r.
+  
+The general format is +key[#mongoid_method] query+ . As you can see, +query+ can be a string, number, regex, or array of these values. Hashes are allowed too. If you're not familiar with querying mongo, you can http://www.mongodb.org/display/DOCS/Querying[read more in the mongodb docs]. The http://mongoid.org/docs/querying/criteria.html#where[Mongoid] docs are useful as well.
+
+=== Extend the App
+
+Since Whoops is a Rails engine, you can make changes to your base rails app without worrying about merge difficulties when you upgrade Whoops.
+
+=== No Users or Projects
+
+In Hoptoad, errors are assigned to projects, and access to projects is given to users. In Whoops, there are no users, so it's not necessary to manage access rights or even to log in. Additionally, there is no Project model within the code or database. Instead, each EventGroup has a +service+ field which you can filter on. Services can be namespaced, so that if you have the services "godzilla.web" and "godzilla.background", you can set a filter to show events related to either service or to their common name, "godzilla".
+
+Note that you can add users and/or login to the base rails app if you really want to. 
+
+=== Notifications
+
+Since Whoops doesn't have users, email notification of events is handled by entering an email address along with a newline-separated list of services to receive notifications for. This isn't 100% implemented yet.
+
+=== You Manage the Rails App
+
+If you use Whoops you'll have to manage the Rails app yourself. You'll have to set up mongodb and all that. Heroku has a http://addons.heroku.com/mongolab[great mongodb addon] that gives you 240mb of space for free. Hoptoad doesn't require you to host or manage anything.
+
+=== Installation
+
+. create a new rails app
+. add +gem "whoops"+ to your Gemfile
+. run +bundle+
+. add http://mongoid.org/docs/installation/configuration.html[+config/mongoid.yml+]
+. run +bundle exec rails g whoops:assets+ - this copies assets to your public directory (whoops isn't 3.1 compatible yet)
+. _optional_ add `root :to => "event_groups#index"` to your routes file to make the event group listing your home page
+. add https://github.com/flyingmachine/whoops_logger[loggers] to the code you want to monitor
+
+=== Usage
+
+==== Filtering
+
+.Filters
+image::https://github.com/flyingmachine/whoops/raw/master/doc/images/dash-filters.png[Filters]
+
+When viewing the Event Group list, you can filter by service, environment, and event type.
+
+When you set a filter, its value is stored in a session and won't be changed until you click "reset". This is so that you won't lose your filter after, for example, viewing a specific event.
+
+== Whoops Logger
+
+Use Whoops Logger to send log messages to a https://github.com/flyingmachine/whoops[Whoops] server.
+
+=== Installation
+
+Add +whoops_logger+ to your Gemfile
+
+Add +WhoopsLogger.config.set(config_path)+ to your project, where +config_path+ is a path to a YAML file. The YAML file takes the following options:
+
+----
+:host
+:http_open_timeout
+:http_read_timeout,
+:port
+:protocol
+:proxy_host,
+:proxy_pass
+:proxy_port
+:proxy_user
+:secure
+----
+
+You can also use pass a Hash to +WhoopsLogger.config.set+ instead of a path to a YAML file.
+
+=== Usage
+
+Whoops Logger sends Messages to Whoops. Messages are created with Strategies. Below is the basic strategy found in `lib/whoops_logger/basic.rb`:
+
+[source,ruby]
+----
+strategy = WhoopsLogger::Strategy.new("default::basic")
+
+strategy.add_message_builder(:use_basic_hash) do |message, raw_data|
+  message.event_type             = raw_data[:event_type]
+  message.service                = raw_data[:service]
+  message.environment            = raw_data[:environment]
+  message.message                = raw_data[:message]
+  message.event_group_identifier = raw_data[:event_group_identifier]
+  message.event_time             = raw_data[:event_time] if raw_data[:event_time]
+  message.details                = raw_data[:details]
+end
+----
+
+To use this strategy, you would call
+
+[source,ruby]
+----
+WhoopsLogger.log("default::basic", {
+  :event_type             => "your_event_type",
+  :service                => "your_service_name",
+  :environment            => "development",
+  :message                => "String to Show in Whoops Event List",
+  :event_group_identifier => "String used to assign related events to a group",
+  :event_time             => "Defaults to now",
+  :details                => "A string, hash, or array of arbitrary data"
+})
+----
+
+You can create as many strategies as you need. For example, in a Rails app, you could use a strategy for logging exceptions which occur during a controller action (in fact https://github.com/flyingmachine/whoops_rails_logger[there's a gem for that]). You could use a separate strategy for logging exceptions which occur during a background job. With controller actions, you care about params, sessions, and that data. That data isn't even present in background jobs, so it makes sense to use different strategies.
+
+==== Message Builders
+
+Each strategy consists of one or more message builders. The message builders are called in the order in which they are defined.
+
+Internally, each Strategy stores its message builders in the array +message_builders+, and it's possible to modify that array directly if you want. For example, you might want to modify a Strategy provided by a library.
+
+The method +add_message_builder+ is provided for convenience. Below is an example of +add_message_builder+ taken from the https://github.com/flyingmachine/whoops_rails_logger[Whoops Rails Logger]:
+
+[source,ruby]
+----
+strategy.add_message_builder(:basic_details) do |message, raw_data|
+  message.service     = self.service
+  message.environment = self.environment
+  message.event_type  = "exception"
+  message.message     = raw_data[:exception].message
+  message.event_time  = Time.now
+end
+
+strategy.add_message_builder(:details) do |message, raw_data|
+  exception = raw_data[:exception]
+  rack_env  = raw_data[:rack_env]
+  
+  details = {}
+  details[:backtrace] = exception.backtrace.collect{ |line|
+    line.sub(/^#{ENV['GEM_HOME']}/, '$GEM_HOME').sub(/^#{Rails.root}/, '$Rails.root')
+  }
+
+  details[:http_host]      = rack_env["HTTP_HOST"]        
+  details[:params]         = rack_env["action_dispatch.request.parameters"]
+  details[:query_string]   = rack_env["QUERY_STRING"]
+  details[:remote_addr]    = rack_env["REMOTE_ADDR"]
+  details[:request_method] = rack_env["REQUEST_METHOD"]
+  details[:server_name]    = rack_env["SERVER_NAME"]
+  details[:session]        = rack_env["rack.session"]
+  details[:env]            = ENV
+  message.details          = details
+end
+
+strategy.add_message_builder(:create_event_group_identifier) do |message, raw_data|
+  identifier = "#{raw_data[:controller]}##{raw_data[:action]}"
+  identifier << raw_data[:exception].backtrace.collect{|l| l.sub(Rails.root, "")}.join("\n")
+  message.event_group_identifier = Digest::MD5.hexdigest(identifier)
+end
+----
+
+There's a bit more about message builders in the WhoopsLogger::Strategy documentation.
+
+==== Ignore Criteria
+
+Sometimes you want to ignore a message instead of sending it off to whoops. For example, you might not want to log "Record Not Found" exceptions in Rails. If any of the ignore criteria evaluate to true, then the message is ignored. Below is an example:
+
+[source,ruby]
+----
+strategy.add_ignore_criteria(:ignore_record_not_found) do |message|
+  message.message == "Record Not Found"
+end
+
+strategy.add_ignore_criteria(:ignore_dev_environment) do |message|
+ message.environment == "development"
+end
+----
+
+== Git Repos
+
+* https://github.com/flyingmachine/whoops
+* https://github.com/flyingmachine/whoops_logger
+* https://github.com/flyingmachine/whoops_rails_logger
+
+== Demos
+
+* http://whoops-example.heroku.com[Example of the Whoops Rails engine]
+* http://whoops-rails-notifier-example.heroku.com/[Example site which sends logs to whoops]
+
+== Alternatives
+
+* http://airbrakeapp.com/pages/home[Airbrake (the app formerly known as Hoptoad)]
+* https://papertrailapp.com/[papertrail]

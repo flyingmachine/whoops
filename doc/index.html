@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="AsciiDoc 8.6.5">
+<title>Whoops</title>
+<style type="text/css">
+/*
+ * AsciiDoc 'flask' theme for xhtml11 and html5 backends. A shameless knock-off
+ * of the Flask website styling (http://flask.pocoo.org/docs/).
+ *
+ * The implementation is straight-forward, consisting of the asciidoc.css file
+ * followed by theme specific overrides.
+ *
+ * */
+
+
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+pre {
+  padding: 0;
+  margin: 0;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #777777;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+tt {
+  font-family: monospace;
+  font-size: inherit;
+  color: navy;
+}
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+.monospaced {
+  font-family: monospace;
+  font-size: inherit;
+  color: navy;
+}
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * Theme specific overrides of the preceding (asciidoc.css) CSS.
+ *
+ */
+body {
+  font-family: Garamond, Georgia, serif;
+  font-size: 17px;
+  color: #3E4349;
+  line-height: 1.3em;
+}
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Garmond, Georgia, serif;
+  font-weight: normal;
+  border-bottom-width: 0;
+  color: #3E4349;
+}
+div.title, caption.title { color: #596673; font-weight: bold; }
+h1 { font-size: 240%; }
+h2 { font-size: 180%; }
+h3 { font-size: 150%; }
+h4 { font-size: 130%; }
+h5 { font-size: 100%; }
+h6 { font-size: 100%; }
+#header h1 { margin-top: 0; }
+#toc {
+  color: #444444;
+  line-height: 1.5;
+  padding-top: 1.5em;
+}
+#toctitle {
+  font-size: 20px;
+}
+#toc a {
+    border-bottom: 1px dotted #999999;
+    color: #444444 !important;
+    text-decoration: none !important;
+}
+#toc a:hover {
+    border-bottom: 1px solid #6D4100;
+    color: #6D4100 !important;
+    text-decoration: none !important;
+}
+div.toclevel1 { margin-top: 0.2em; font-size: 16px; }
+div.toclevel2 { margin-top: 0.15em; font-size: 14px; }
+em, dt, td.hdlist1 { color: black; }
+strong { color: #3E4349; }
+a { color: #004B6B; text-decoration: none; border-bottom: 1px dotted #004B6B; }
+a:visited { color: #615FA0; border-bottom: 1px dotted #615FA0; }
+a:hover { color: #6D4100; border-bottom: 1px solid #6D4100; }
+div.tableblock > table, table.tableblock { border: 3px solid #E8E8E8; }
+th.tableblock, td.tableblock { border: 1px solid #E8E8E8; }
+ul > li > * { color: #3E4349; }
+pre, tt, .monospaced { font-family: Consolas,Menlo,'Deja Vu Sans Mono','Bitstream Vera Sans Mono',monospace; }
+tt, .monospaced { font-size: 0.9em; color: black;
+}
+div.exampleblock > div.content, div.sidebarblock > div.content, div.listingblock > div.content { border-width: 0 0 0 3px; border-color: #E8E8E8; }
+div.verseblock { border-left-width: 0; margin-left: 3em; }
+div.quoteblock { border-left-width: 3px; margin-left: 0; margin-right: 0;}
+div.admonitionblock td.content { border-left: 3px solid #E8E8E8; }
+/*
+  pygmentize filter
+*/
+.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f4f4f4; }
+.highlight .c { color: #008800; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #AA22FF; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #008800 } /* Comment.Preproc */
+.highlight .c1 { color: #008800; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #008800; font-weight: bold } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #AA22FF } /* Keyword.Pseudo */
+.highlight .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BB4444 } /* Literal.String */
+.highlight .na { color: #BB4444 } /* Name.Attribute */
+.highlight .nb { color: #AA22FF } /* Name.Builtin */
+.highlight .nc { color: #0000FF } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #00A000 } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #B8860B } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BB4444 } /* Literal.String.Backtick */
+.highlight .sc { color: #BB4444 } /* Literal.String.Char */
+.highlight .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BB4444 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BB4444 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BB4444 } /* Literal.String.Single */
+.highlight .ss { color: #B8860B } /* Literal.String.Symbol */
+.highlight .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #B8860B } /* Name.Variable.Class */
+.highlight .vg { color: #B8860B } /* Name.Variable.Global */
+.highlight .vi { color: #B8860B } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+@media screen {
+  body {
+    max-width: 50em; /* approximately 80 characters wide */
+    margin-left: 16em;
+  }
+
+  #toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 13em;
+    padding: 0.5em;
+    padding-bottom: 1.5em;
+    margin: 0;
+    overflow: auto;
+    border-right: 3px solid #f8f8f8;
+  }
+
+  #toc .toclevel1 {
+    margin-top: 0.5em;
+  }
+
+  #toc .toclevel2 {
+    margin-top: 0.25em;
+    display: list-item;
+    color: #aaaaaa;
+  }
+
+  #toctitle {
+    margin-top: 0.5em;
+  }
+}
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([2-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName == 'DIV'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName == 'DIV' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install(2);
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Whoops</h1>
+<span id="author">Daniel Higginbotham</span><br>
+<span id="email" class="monospaced">&lt;<a href="mailto:daniel@flyingmachinestudios.com">daniel@flyingmachinestudios.com</a>&gt;</span><br>
+<span id="revdate">2011-07-26</span>
+<div id="toc">
+  <div id="toctitle">Table of Contents</div>
+  <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_what_is_whoops">What is Whoops?</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Whoops is a self-hosted logging system. It consists of a Rails engine (which records logs and provides an interface to them) and a logger. Both are described below, along with how they compare to Hoptoad. Note that the comparisons aren&#8217;t meant to disparage Hoptoad - it&#8217;s a great product. They&#8217;re only meant to help describe Whoops and help people decide whether it would be useful to them.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whoops_server">Whoops Server</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The Whoops server is a Rails engine which records logs and provides an interface to filter, search, and view them. Below is a listing of its features and how it compares to Hoptoad:</p></div>
+<div class="sect2">
+<h3 id="_log_arbitrary_events">Log Arbitrary Events</h3>
+<div class="paragraph"><p>With Hoptoad, you only log exceptions. With Whoops, it&#8217;s up to you to tell the Whoops server what you&#8217;re logging, be it an exception, notification, warning, or whatever. Internally, Whoops EventGroups use the event_type field to store the event type. You can filter on this field when viewing a listing of all events.</p></div>
+<div class="imageblock">
+<div class="content">
+<img src="https://github.com/flyingmachine/whoops/raw/master/doc/images/dash-filters.png" alt="Filters">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_log_arbitrary_details">Log Arbitrary Details</h3>
+<div class="paragraph"><p>With Hoptoad, the fields which you can log are pre-defined. They also reflect an assumption that your error happened within the context of handling an HTTP request. Whoops uses mongodb as its database and this allows you to log whatever details you want. For example, you could log the following:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="p">{</span>
+  <span class="ss">:start_time</span> <span class="o">=&gt;</span> <span class="mi">1310748754</span><span class="p">,</span>
+  <span class="ss">:end_time</span>   <span class="o">=&gt;</span> <span class="mi">1310949834</span><span class="p">,</span>
+  <span class="ss">:users_imported</span> <span class="o">=&gt;</span> <span class="o">[</span>
+    <span class="p">{</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">413</span><span class="p">,</span> <span class="ss">:succeeded</span> <span class="o">=&gt;</span> <span class="kp">false</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">835</span><span class="p">,</span> <span class="ss">:succeeded</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">894</span><span class="p">,</span> <span class="ss">:succeeded</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">124</span><span class="p">,</span> <span class="ss">:succeeded</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="p">},</span>
+  <span class="o">]</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div></div></div>
+<div class="paragraph"><p>This gets stored as-is in Whoops. You can also search these details, as explained below:</p></div>
+</div>
+<div class="sect2">
+<h3 id="_search_event_details">Search Event Details</h3>
+<div class="paragraph"><p>As far I know, you can&#8217;t search Hoptoad. Whoops let&#8217;s you search all Events within an EventGroup. Eventually, keyword search over all events will be implemented.</p></div>
+<div class="paragraph"><p>Below is example text you would write, and below that is essentially the ruby code that ends up getting run by the server.</p></div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre>details.current_user_id#in [3, 54, 532]      <img src="./images/icons/callouts/1.png" alt="1">
+details.num_failures#gt 3                    <img src="./images/icons/callouts/2.png" alt="2">
+details.current_user.first_name Voldemort    <img src="./images/icons/callouts/3.png" alt="3">
+message#in !r/(yesterday|today)/             <img src="./images/icons/callouts/4.png" alt="4"></pre>
+</div></div>
+<div class="colist arabic"><table>
+<tr><td><img src="./images/icons/callouts/1.png" alt="1"></td><td>
+<span class="monospaced">Event.where( {:"details.current_user_id".in =&gt; [3, 54, 532]} )</span>
+</td></tr>
+<tr><td><img src="./images/icons/callouts/2.png" alt="2"></td><td>
+<span class="monospaced">Event.where( {:"details.num_failure".gt =&gt; 3} )</span>
+</td></tr>
+<tr><td><img src="./images/icons/callouts/3.png" alt="3"></td><td>
+<span class="monospaced">Event.where( {:"details.current_user.first_name" =&gt; "Voldemort"} )</span>
+</td></tr>
+<tr><td><img src="./images/icons/callouts/4.png" alt="4"></td><td>
+<span class="monospaced">Event.where( {:message.in /(yesterday|today/)} )</span> Note that regular expressions must start with !r.
+</td></tr>
+</table></div>
+<div class="paragraph"><p>The general format is <span class="monospaced">key[#mongoid_method] query</span> . As you can see, <span class="monospaced">query</span> can be a string, number, regex, or array of these values. Hashes are allowed too. If you&#8217;re not familiar with querying mongo, you can <a href="http://www.mongodb.org/display/DOCS/Querying">read more in the mongodb docs</a>. The <a href="http://mongoid.org/docs/querying/criteria.html#where">Mongoid</a> docs are useful as well.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_extend_the_app">Extend the App</h3>
+<div class="paragraph"><p>Since Whoops is a Rails engine, you can make changes to your base rails app without worrying about merge difficulties when you upgrade Whoops.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_no_users_or_projects">No Users or Projects</h3>
+<div class="paragraph"><p>In Hoptoad, errors are assigned to projects, and access to projects is given to users. In Whoops, there are no users, so it&#8217;s not necessary to manage access rights or even to log in. Additionally, there is no Project model within the code or database. Instead, each EventGroup has a <span class="monospaced">service</span> field which you can filter on. Services can be namespaced, so that if you have the services "godzilla.web" and "godzilla.background", you can set a filter to show events related to either service or to their common name, "godzilla".</p></div>
+<div class="paragraph"><p>Note that you can add users and/or login to the base rails app if you really want to.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_notifications">Notifications</h3>
+<div class="paragraph"><p>Since Whoops doesn&#8217;t have users, email notification of events is handled by entering an email address along with a newline-separated list of services to receive notifications for. This isn&#8217;t 100% implemented yet.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_you_manage_the_rails_app">You Manage the Rails App</h3>
+<div class="paragraph"><p>If you use Whoops you&#8217;ll have to manage the Rails app yourself. You&#8217;ll have to set up mongodb and all that. Heroku has a <a href="http://addons.heroku.com/mongolab">great mongodb addon</a> that gives you 240mb of space for free. Hoptoad doesn&#8217;t require you to host or manage anything.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_installation">Installation</h3>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+create a new rails app
+</p>
+</li>
+<li>
+<p>
+add <span class="monospaced">gem "whoops"</span> to your Gemfile
+</p>
+</li>
+<li>
+<p>
+run <span class="monospaced">bundle</span>
+</p>
+</li>
+<li>
+<p>
+add <a href="http://mongoid.org/docs/installation/configuration.html"><span class="monospaced">config/mongoid.yml</span></a>
+</p>
+</li>
+<li>
+<p>
+run <span class="monospaced">bundle exec rails g whoops:assets</span> - this copies assets to your public directory (whoops isn&#8217;t 3.1 compatible yet)
+</p>
+</li>
+<li>
+<p>
+<em>optional</em> add <span class="monospaced">root :to =&gt; "event_groups#index"</span> to your routes file to make the event group listing your home page
+</p>
+</li>
+<li>
+<p>
+add <a href="https://github.com/flyingmachine/whoops_logger">loggers</a> to the code you want to monitor
+</p>
+</li>
+</ol></div>
+</div>
+<div class="sect2">
+<h3 id="_usage">Usage</h3>
+<div class="sect3">
+<h4 id="_filtering">Filtering</h4>
+<div class="imageblock">
+<div class="content">
+<img src="https://github.com/flyingmachine/whoops/raw/master/doc/images/dash-filters.png" alt="Filters">
+</div>
+<div class="title">Figure 1. Filters</div>
+</div>
+<div class="paragraph"><p>When viewing the Event Group list, you can filter by service, environment, and event type.</p></div>
+<div class="paragraph"><p>When you set a filter, its value is stored in a session and won&#8217;t be changed until you click "reset". This is so that you won&#8217;t lose your filter after, for example, viewing a specific event.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whoops_logger">Whoops Logger</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Use Whoops Logger to send log messages to a <a href="https://github.com/flyingmachine/whoops">Whoops</a> server.</p></div>
+<div class="sect2">
+<h3 id="_installation_2">Installation</h3>
+<div class="paragraph"><p>Add <span class="monospaced">whoops_logger</span> to your Gemfile</p></div>
+<div class="paragraph"><p>Add <span class="monospaced">WhoopsLogger.config.set(config_path)</span> to your project, where <span class="monospaced">config_path</span> is a path to a YAML file. The YAML file takes the following options:</p></div>
+<div class="listingblock">
+<div class="content monospaced">
+<pre>:host
+:http_open_timeout
+:http_read_timeout,
+:port
+:protocol
+:proxy_host,
+:proxy_pass
+:proxy_port
+:proxy_user
+:secure</pre>
+</div></div>
+<div class="paragraph"><p>You can also use pass a Hash to <span class="monospaced">WhoopsLogger.config.set</span> instead of a path to a YAML file.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_usage_2">Usage</h3>
+<div class="paragraph"><p>Whoops Logger sends Messages to Whoops. Messages are created with Strategies. Below is the basic strategy found in <span class="monospaced">lib/whoops_logger/basic.rb</span>:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="n">strategy</span> <span class="o">=</span> <span class="no">WhoopsLogger</span><span class="o">::</span><span class="no">Strategy</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;default::basic&quot;</span><span class="p">)</span>
+
+<span class="n">strategy</span><span class="o">.</span><span class="n">add_message_builder</span><span class="p">(</span><span class="ss">:use_basic_hash</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">message</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">|</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">event_type</span>             <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:event_type</span><span class="o">]</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">service</span>                <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:service</span><span class="o">]</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">environment</span>            <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:environment</span><span class="o">]</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">message</span>                <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:message</span><span class="o">]</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">event_group_identifier</span> <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:event_group_identifier</span><span class="o">]</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">event_time</span>             <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:event_time</span><span class="o">]</span> <span class="k">if</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:event_time</span><span class="o">]</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">details</span>                <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:details</span><span class="o">]</span>
+<span class="k">end</span>
+</pre></div></div></div>
+<div class="paragraph"><p>To use this strategy, you would call</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="no">WhoopsLogger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;default::basic&quot;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="ss">:event_type</span>             <span class="o">=&gt;</span> <span class="s2">&quot;your_event_type&quot;</span><span class="p">,</span>
+  <span class="ss">:service</span>                <span class="o">=&gt;</span> <span class="s2">&quot;your_service_name&quot;</span><span class="p">,</span>
+  <span class="ss">:environment</span>            <span class="o">=&gt;</span> <span class="s2">&quot;development&quot;</span><span class="p">,</span>
+  <span class="ss">:message</span>                <span class="o">=&gt;</span> <span class="s2">&quot;String to Show in Whoops Event List&quot;</span><span class="p">,</span>
+  <span class="ss">:event_group_identifier</span> <span class="o">=&gt;</span> <span class="s2">&quot;String used to assign related events to a group&quot;</span><span class="p">,</span>
+  <span class="ss">:event_time</span>             <span class="o">=&gt;</span> <span class="s2">&quot;Defaults to now&quot;</span><span class="p">,</span>
+  <span class="ss">:details</span>                <span class="o">=&gt;</span> <span class="s2">&quot;A string, hash, or array of arbitrary data&quot;</span>
+<span class="p">})</span>
+</pre></div></div></div>
+<div class="paragraph"><p>You can create as many strategies as you need. For example, in a Rails app, you could use a strategy for logging exceptions which occur during a controller action (in fact <a href="https://github.com/flyingmachine/whoops_rails_logger">there&#8217;s a gem for that</a>). You could use a separate strategy for logging exceptions which occur during a background job. With controller actions, you care about params, sessions, and that data. That data isn&#8217;t even present in background jobs, so it makes sense to use different strategies.</p></div>
+<div class="sect3">
+<h4 id="_message_builders">Message Builders</h4>
+<div class="paragraph"><p>Each strategy consists of one or more message builders. The message builders are called in the order in which they are defined.</p></div>
+<div class="paragraph"><p>Internally, each Strategy stores its message builders in the array <span class="monospaced">message_builders</span>, and it&#8217;s possible to modify that array directly if you want. For example, you might want to modify a Strategy provided by a library.</p></div>
+<div class="paragraph"><p>The method <span class="monospaced">add_message_builder</span> is provided for convenience. Below is an example of <span class="monospaced">add_message_builder</span> taken from the <a href="https://github.com/flyingmachine/whoops_rails_logger">Whoops Rails Logger</a>:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="n">strategy</span><span class="o">.</span><span class="n">add_message_builder</span><span class="p">(</span><span class="ss">:basic_details</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">message</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">|</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">service</span>     <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">service</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">environment</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">environment</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">event_type</span>  <span class="o">=</span> <span class="s2">&quot;exception&quot;</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">message</span>     <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:exception</span><span class="o">].</span><span class="n">message</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">event_time</span>  <span class="o">=</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span>
+<span class="k">end</span>
+
+<span class="n">strategy</span><span class="o">.</span><span class="n">add_message_builder</span><span class="p">(</span><span class="ss">:details</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">message</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">|</span>
+  <span class="n">exception</span> <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:exception</span><span class="o">]</span>
+  <span class="n">rack_env</span>  <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:rack_env</span><span class="o">]</span>
+
+  <span class="n">details</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="n">details</span><span class="o">[</span><span class="ss">:backtrace</span><span class="o">]</span> <span class="o">=</span> <span class="n">exception</span><span class="o">.</span><span class="n">backtrace</span><span class="o">.</span><span class="n">collect</span><span class="p">{</span> <span class="o">|</span><span class="n">line</span><span class="o">|</span>
+    <span class="n">line</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sr">/^</span><span class="si">#{</span><span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;GEM_HOME&#39;</span><span class="o">]</span><span class="si">}</span><span class="sr">/</span><span class="p">,</span> <span class="s1">&#39;$GEM_HOME&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sr">/^</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="sr">/</span><span class="p">,</span> <span class="s1">&#39;$Rails.root&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="n">details</span><span class="o">[</span><span class="ss">:http_host</span><span class="o">]</span>      <span class="o">=</span> <span class="n">rack_env</span><span class="o">[</span><span class="s2">&quot;HTTP_HOST&quot;</span><span class="o">]</span>
+  <span class="n">details</span><span class="o">[</span><span class="ss">:params</span><span class="o">]</span>         <span class="o">=</span> <span class="n">rack_env</span><span class="o">[</span><span class="s2">&quot;action_dispatch.request.parameters&quot;</span><span class="o">]</span>
+  <span class="n">details</span><span class="o">[</span><span class="ss">:query_string</span><span class="o">]</span>   <span class="o">=</span> <span class="n">rack_env</span><span class="o">[</span><span class="s2">&quot;QUERY_STRING&quot;</span><span class="o">]</span>
+  <span class="n">details</span><span class="o">[</span><span class="ss">:remote_addr</span><span class="o">]</span>    <span class="o">=</span> <span class="n">rack_env</span><span class="o">[</span><span class="s2">&quot;REMOTE_ADDR&quot;</span><span class="o">]</span>
+  <span class="n">details</span><span class="o">[</span><span class="ss">:request_method</span><span class="o">]</span> <span class="o">=</span> <span class="n">rack_env</span><span class="o">[</span><span class="s2">&quot;REQUEST_METHOD&quot;</span><span class="o">]</span>
+  <span class="n">details</span><span class="o">[</span><span class="ss">:server_name</span><span class="o">]</span>    <span class="o">=</span> <span class="n">rack_env</span><span class="o">[</span><span class="s2">&quot;SERVER_NAME&quot;</span><span class="o">]</span>
+  <span class="n">details</span><span class="o">[</span><span class="ss">:session</span><span class="o">]</span>        <span class="o">=</span> <span class="n">rack_env</span><span class="o">[</span><span class="s2">&quot;rack.session&quot;</span><span class="o">]</span>
+  <span class="n">details</span><span class="o">[</span><span class="ss">:env</span><span class="o">]</span>            <span class="o">=</span> <span class="no">ENV</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">details</span>          <span class="o">=</span> <span class="n">details</span>
+<span class="k">end</span>
+
+<span class="n">strategy</span><span class="o">.</span><span class="n">add_message_builder</span><span class="p">(</span><span class="ss">:create_event_group_identifier</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">message</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">|</span>
+  <span class="n">identifier</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">raw_data</span><span class="o">[</span><span class="ss">:controller</span><span class="o">]</span><span class="si">}</span><span class="s2">#</span><span class="si">#{</span><span class="n">raw_data</span><span class="o">[</span><span class="ss">:action</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="n">identifier</span> <span class="o">&lt;&lt;</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:exception</span><span class="o">].</span><span class="n">backtrace</span><span class="o">.</span><span class="n">collect</span><span class="p">{</span><span class="o">|</span><span class="n">l</span><span class="o">|</span> <span class="n">l</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)}</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">event_group_identifier</span> <span class="o">=</span> <span class="no">Digest</span><span class="o">::</span><span class="no">MD5</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></div></div></div>
+<div class="paragraph"><p>There&#8217;s a bit more about message builders in the WhoopsLogger::Strategy documentation.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_ignore_criteria">Ignore Criteria</h4>
+<div class="paragraph"><p>Sometimes you want to ignore a message instead of sending it off to whoops. For example, you might not want to log "Record Not Found" exceptions in Rails. If any of the ignore criteria evaluate to true, then the message is ignored. Below is an example:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="n">strategy</span><span class="o">.</span><span class="n">add_ignore_criteria</span><span class="p">(</span><span class="ss">:ignore_record_not_found</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">message</span><span class="o">|</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">message</span> <span class="o">==</span> <span class="s2">&quot;Record Not Found&quot;</span>
+<span class="k">end</span>
+
+<span class="n">strategy</span><span class="o">.</span><span class="n">add_ignore_criteria</span><span class="p">(</span><span class="ss">:ignore_dev_environment</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">message</span><span class="o">|</span>
+ <span class="n">message</span><span class="o">.</span><span class="n">environment</span> <span class="o">==</span> <span class="s2">&quot;development&quot;</span>
+<span class="k">end</span>
+</pre></div></div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_git_repos">Git Repos</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="https://github.com/flyingmachine/whoops">https://github.com/flyingmachine/whoops</a>
+</p>
+</li>
+<li>
+<p>
+<a href="https://github.com/flyingmachine/whoops_logger">https://github.com/flyingmachine/whoops_logger</a>
+</p>
+</li>
+<li>
+<p>
+<a href="https://github.com/flyingmachine/whoops_rails_logger">https://github.com/flyingmachine/whoops_rails_logger</a>
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_demos">Demos</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="http://whoops-example.heroku.com">Example of the Whoops Rails engine</a>
+</p>
+</li>
+<li>
+<p>
+<a href="http://whoops-rails-notifier-example.heroku.com/">Example site which sends logs to whoops</a>
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_alternatives">Alternatives</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="http://airbrakeapp.com/pages/home">Airbrake (the app formerly known as Hoptoad)</a>
+</p>
+</li>
+<li>
+<p>
+<a href="https://papertrailapp.com/">papertrail</a>
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr></div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2011-07-27 23:34:00 EDT
+</div>
+</div>
+</body>
+</html>

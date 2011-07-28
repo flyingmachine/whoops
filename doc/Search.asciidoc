@@ -1,3 +1,0 @@
-= Search
-
-Uses https://github.com/aaw/mongoid_fulltext[mongoid_fulltext]. Searches each event. Might be good to place event keywords in event group and search that instead.  
