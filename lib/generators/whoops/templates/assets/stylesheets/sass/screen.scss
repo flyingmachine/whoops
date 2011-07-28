@@ -954,7 +954,7 @@ font-size: 14px;}
       padding:0;
       
       ul {
-        margin-left:5px;
+        margin-left:10px;
       }
     }
   }
@@ -975,4 +975,8 @@ font-size: 14px;}
 
 #event-details {
   overflow-x:auto;
+}
+
+span.label {
+  color:blue;
 }
