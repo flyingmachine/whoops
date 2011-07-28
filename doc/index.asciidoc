@@ -1,7 +1,6 @@
 Whoops
 ======
 Daniel Higginbotham <daniel@flyingmachinestudios.com>
-2011-07-26
 
 == What is Whoops?
 
@@ -236,3 +235,9 @@ end
 
 * http://airbrakeapp.com/pages/home[Airbrake (the app formerly known as Hoptoad)]
 * https://papertrailapp.com/[papertrail]
+
+== TODO
+
+* finish email notification of events
+* graphing
+* integrate fully with Rails logger (?)
