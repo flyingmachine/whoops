@@ -9,7 +9,7 @@ Whoops is a self-hosted logging system. It consists of a Rails engine (which rec
 
 == Whoops Server
 
-The Whoops server is a Rails engine which records logs and provides an interface to filter, search, and view them. Below is a listing of its features and how it compares to Hoptoad:
+The Whoops server is a Rails engine which records logs and provides an interface to filter, search, and view them. Below are its features and how it compares to Hoptoad:
 
 === Log Arbitrary Events
 
@@ -65,7 +65,7 @@ Since Whoops is a Rails engine, you can make changes to your base rails app with
 
 In Hoptoad, errors are assigned to projects, and access to projects is given to users. In Whoops, there are no users, so it's not necessary to manage access rights or even to log in. Additionally, there is no Project model within the code or database. Instead, each EventGroup has a +service+ field which you can filter on. Services can be namespaced, so that if you have the services "godzilla.web" and "godzilla.background", you can set a filter to show events related to either service or to their common name, "godzilla".
 
-Note that you can add users and/or login to the base rails app if you really want to. 
+Note that you can add users and/or authentication to the base rails app if you really want to.
 
 === Notifications
 
@@ -75,6 +75,8 @@ Since Whoops doesn't have users, email notification of events is handled by ente
 
 If you use Whoops you'll have to manage the Rails app yourself. You'll have to set up mongodb and all that. Heroku has a http://addons.heroku.com/mongolab[great mongodb addon] that gives you 240mb of space for free. Hoptoad doesn't require you to host or manage anything.
 
+Since Whoops is self-hosted, you can set it up behind your firewall.
+
 === Installation
 
 . create a new rails app
@@ -82,7 +84,7 @@ If you use Whoops you'll have to manage the Rails app yourself. You'll have to s
 . run +bundle+
 . add http://mongoid.org/docs/installation/configuration.html[+config/mongoid.yml+]
 . run +bundle exec rails g whoops:assets+ - this copies assets to your public directory (whoops isn't 3.1 compatible yet)
-. _optional_ add `root :to => "event_groups#index"` to your routes file to make the event group listing your home page
+. _optional_ add +root :to => "event_groups#index"+ to your routes file to make the event group listing your home page
 . add https://github.com/flyingmachine/whoops_logger[loggers] to the code you want to monitor
 
 === Usage
@@ -109,10 +111,10 @@ Add +WhoopsLogger.config.set(config_path)+ to your project, where +config_path+ 
 ----
 :host
 :http_open_timeout
-:http_read_timeout,
+:http_read_timeout
 :port
 :protocol
-:proxy_host,
+:proxy_host
 :proxy_pass
 :proxy_port
 :proxy_user
@@ -150,7 +152,7 @@ WhoopsLogger.log("default::basic", {
   :environment            => "development",
   :message                => "String to Show in Whoops Event List",
   :event_group_identifier => "String used to assign related events to a group",
-  :event_time             => "Defaults to now",
+  :event_time             => Time.now # Defaults to now, so you can leave this out
   :details                => "A string, hash, or array of arbitrary data"
 })
 ----

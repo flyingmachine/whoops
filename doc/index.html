@@ -905,7 +905,7 @@ asciidoc.install(2);
 <div class="sect1">
 <h2 id="_whoops_server">Whoops Server</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>The Whoops server is a Rails engine which records logs and provides an interface to filter, search, and view them. Below is a listing of its features and how it compares to Hoptoad:</p></div>
+<div class="paragraph"><p>The Whoops server is a Rails engine which records logs and provides an interface to filter, search, and view them. Below are its features and how it compares to Hoptoad:</p></div>
 <div class="sect2">
 <h3 id="_log_arbitrary_events">Log Arbitrary Events</h3>
 <div class="paragraph"><p>With Hoptoad, you only log exceptions. With Whoops, it&#8217;s up to you to tell the Whoops server what you&#8217;re logging, be it an exception, notification, warning, or whatever. Internally, Whoops EventGroups use the event_type field to store the event type. You can filter on this field when viewing a listing of all events.</p></div>
@@ -966,7 +966,7 @@ message#in !r/(yesterday|today)/             <img src="./images/icons/callouts/4
 <div class="sect2">
 <h3 id="_no_users_or_projects">No Users or Projects</h3>
 <div class="paragraph"><p>In Hoptoad, errors are assigned to projects, and access to projects is given to users. In Whoops, there are no users, so it&#8217;s not necessary to manage access rights or even to log in. Additionally, there is no Project model within the code or database. Instead, each EventGroup has a <span class="monospaced">service</span> field which you can filter on. Services can be namespaced, so that if you have the services "godzilla.web" and "godzilla.background", you can set a filter to show events related to either service or to their common name, "godzilla".</p></div>
-<div class="paragraph"><p>Note that you can add users and/or login to the base rails app if you really want to.</p></div>
+<div class="paragraph"><p>Note that you can add users and/or authentication to the base rails app if you really want to.</p></div>
 </div>
 <div class="sect2">
 <h3 id="_notifications">Notifications</h3>
@@ -975,6 +975,7 @@ message#in !r/(yesterday|today)/             <img src="./images/icons/callouts/4
 <div class="sect2">
 <h3 id="_you_manage_the_rails_app">You Manage the Rails App</h3>
 <div class="paragraph"><p>If you use Whoops you&#8217;ll have to manage the Rails app yourself. You&#8217;ll have to set up mongodb and all that. Heroku has a <a href="http://addons.heroku.com/mongolab">great mongodb addon</a> that gives you 240mb of space for free. Hoptoad doesn&#8217;t require you to host or manage anything.</p></div>
+<div class="paragraph"><p>Since Whoops is self-hosted, you can set it up behind your firewall.</p></div>
 </div>
 <div class="sect2">
 <h3 id="_installation">Installation</h3>
@@ -1006,7 +1007,7 @@ run <span class="monospaced">bundle exec rails g whoops:assets</span> - this cop
 </li>
 <li>
 <p>
-<em>optional</em> add <span class="monospaced">root :to =&gt; "event_groups#index"</span> to your routes file to make the event group listing your home page
+<em>optional</em> add <span class="monospaced">root :to &#8658; "event_groups#index"</span> to your routes file to make the event group listing your home page
 </p>
 </li>
 <li>
@@ -1044,10 +1045,10 @@ add <a href="https://github.com/flyingmachine/whoops_logger">loggers</a> to the 
 <div class="content monospaced">
 <pre>:host
 :http_open_timeout
-:http_read_timeout,
+:http_read_timeout
 :port
 :protocol
-:proxy_host,
+:proxy_host
 :proxy_pass
 :proxy_port
 :proxy_user
@@ -1079,7 +1080,7 @@ add <a href="https://github.com/flyingmachine/whoops_logger">loggers</a> to the 
   <span class="ss">:environment</span>            <span class="o">=&gt;</span> <span class="s2">&quot;development&quot;</span><span class="p">,</span>
   <span class="ss">:message</span>                <span class="o">=&gt;</span> <span class="s2">&quot;String to Show in Whoops Event List&quot;</span><span class="p">,</span>
   <span class="ss">:event_group_identifier</span> <span class="o">=&gt;</span> <span class="s2">&quot;String used to assign related events to a group&quot;</span><span class="p">,</span>
-  <span class="ss">:event_time</span>             <span class="o">=&gt;</span> <span class="s2">&quot;Defaults to now&quot;</span><span class="p">,</span>
+  <span class="ss">:event_time</span>             <span class="o">=&gt;</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span> <span class="c1"># Defaults to now, so you can leave this out</span>
   <span class="ss">:details</span>                <span class="o">=&gt;</span> <span class="s2">&quot;A string, hash, or array of arbitrary data&quot;</span>
 <span class="p">})</span>
 </pre></div></div></div>
@@ -1202,7 +1203,7 @@ add <a href="https://github.com/flyingmachine/whoops_logger">loggers</a> to the 
 <div id="footnotes"><hr></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2011-07-27 23:34:00 EDT
+Last updated 2011-07-27 23:55:22 EDT
 </div>
 </div>
 </body>
