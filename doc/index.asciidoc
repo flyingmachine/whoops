@@ -4,7 +4,7 @@ Daniel Higginbotham <daniel@flyingmachinestudios.com>
 
 == What is Whoops?
 
-Whoops is a self-hosted logging system. It consists of a Rails engine (which records logs and provides an interface to them) and a logger. Both are described below, along with how they compare to Hoptoad. Note that the comparisons aren't meant to disparage Hoptoad - it's a great product. They're only meant to help describe Whoops and help people decide whether it would be useful to them.
+Whoops is a free, open-source, self-hosted logging system. It consists of a Rails engine (which records logs and provides an interface to them) and a logger. Both are described below, along with how they compare to Hoptoad. Note that the comparisons aren't meant to disparage Hoptoad - it's a great product. They're only meant to help describe Whoops and help people decide whether it would be useful to them.
 
 == Whoops Server
 
