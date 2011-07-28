@@ -823,7 +823,7 @@ fieldset textarea:focus {
     margin: 0;
     padding: 0; }
     #main table ul li ul {
-      margin-left: 5px; }
+      margin-left: 10px; }
 
 .info-revealer {
   cursor: pointer; }
@@ -835,3 +835,9 @@ fieldset textarea:focus {
 
 #event-details {
   overflow-x: auto; }
+
+span.label {
+  color: blue; }
+
+.detail .detail {
+  margin-left: 10px; }
