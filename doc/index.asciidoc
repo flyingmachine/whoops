@@ -235,6 +235,8 @@ end
 
 * http://airbrakeapp.com/pages/home[Airbrake (the app formerly known as Hoptoad)]
 * https://papertrailapp.com/[papertrail]
+* http://graylog2.org/[Graylog2]
+* https://github.com/jdpace/errbit[errbit
 
 == TODO
 
