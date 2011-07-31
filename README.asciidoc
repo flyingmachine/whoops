@@ -16,6 +16,8 @@ Whoops is a logging system. It consists of a Rails engine (which records logs an
 
 * http://airbrakeapp.com/pages/home[Airbrake (the app formerly known as Hoptoad)]
 * https://papertrailapp.com/[papertrail]
+* http://graylog2.org/[Graylog2]
+* https://github.com/jdpace/errbit[errbit]
 
 == License
 
