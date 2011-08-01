@@ -14,9 +14,13 @@ describe Whoops::EventGroup do
   
   describe "notification" do
     it "sets notify_on_next_occurrence to true by default" do
+      w = Whoops::EventGroup.new      
+      w.notify_on_next_occurrence.should be_true
     end
     
-    it "sends a notification when notify_on_next_occurrence is true"
+    it "sends a notification when notify_on_next_occurrence is true" do
+      
+    end
     
     it "sets notify_on_next_occurrence to false after sending a notification"
   end

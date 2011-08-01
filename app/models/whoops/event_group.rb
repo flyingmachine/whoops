@@ -8,10 +8,12 @@ class Whoops::EventGroup
   end
   field :last_recorded_at, :type => DateTime
   field :notify_on_next_occurrence, :type => Boolean, :default => true
-  
+
   has_many :events, :class_name => "Whoops::Event"
   
   validates_presence_of :identifier, :event_type, :service, :message
+  
+  after_validation :send_notifications
   
   def self.identifying_fields
     field_names - ["message", "last_recorded_at"]
@@ -31,5 +33,10 @@ class Whoops::EventGroup
     services
   end
   
+  def send_notifications
+    matcher = Whoops::NotificationRule::Matcher.new(self)
+    Whoops::NotificationMailer.event_notification(self, matcher.matches)
+    self.notify_on_next_occurrence = false
+  end
   
 end
