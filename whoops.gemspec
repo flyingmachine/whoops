@@ -22,4 +22,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency('fabrication')
   s.add_development_dependency('faker')
   s.add_development_dependency("capybara", ">= 0.4.0")
+  s.add_development_dependency("jeweler")
 end

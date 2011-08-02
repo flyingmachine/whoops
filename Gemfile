@@ -7,5 +7,4 @@ group :development do
   else
     gem "ruby-debug19"
   end
-  gem "jeweler"
 end
