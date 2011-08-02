@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 gemspec
 
-group :development
+group :development do
   if RUBY_VERSION =~ /1.8/
     gem "ruby-debug"
   else
