@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    whoops (0.1.5)
+    whoops (0.1.6)
       bson_ext
       haml
       mongo
@@ -62,8 +62,13 @@ GEM
     faker (0.9.5)
       i18n (~> 0.4)
     ffi (1.0.9)
+    git (1.2.5)
     haml (3.1.2)
     i18n (0.5.0)
+    jeweler (1.6.4)
+      bundler (~> 1.0)
+      git (>= 1.2.5)
+      rake
     json_pure (1.5.3)
     linecache (0.46)
       rbx-require-relative (> 0.0.4)
@@ -147,6 +152,7 @@ DEPENDENCIES
   fabrication
   faker
   haml
+  jeweler
   mocha
   mongo
   mongoid (= 2.0.1)
