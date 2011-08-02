@@ -3,10 +3,11 @@
 Gem::Specification.new do |s|
   s.name = "whoops"
   s.authors = ["Daniel Higginbotham"]
-  s.summary = "A logger"
-  s.description = "A logger"
+  s.summary = "A Rails engine which receives logs and provides an interface for them"
+  s.description = "A Rails engine which receives logs and provides an interface for them"
+  s.homepage = "http://www.whoopsapp.com"
   s.files = Dir["{app,lib,config}/**/*"] + ["MIT-LICENSE", "Rakefile", "Gemfile", "README.asciidoc"]
-  s.version = "0.1.5"
+  s.version = "0.1.6"
   
   s.add_dependency('rake', '0.8.7')
   s.add_dependency('rails', '~>3')
@@ -20,7 +21,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency('rspec-rails')
   s.add_development_dependency('mocha')
   s.add_development_dependency('fabrication')
-  s.add_development_dependency('ruby-debug')
   s.add_development_dependency('faker')
   s.add_development_dependency("capybara", ">= 0.4.0")
 end
