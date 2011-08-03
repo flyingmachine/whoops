@@ -22,10 +22,13 @@ class Whoops::Event
     
     event_group = Whoops::EventGroup.first(:conditions => event_group_params.slice(*Whoops::EventGroup.identifying_fields))
     if event_group
-      event_group.attributes = event_group_params
+      event_group.attributes      = event_group_params
+      event_group.recording_event = true
       event_group.save
     else
-      event_group = Whoops::EventGroup.create(event_group_params)
+      event_group = Whoops::EventGroup.new(event_group_params)
+      event_group.recording_event = true
+      event_group.save
     end
         
     event_params = params.slice(*Whoops::Event.field_names)

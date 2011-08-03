@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   s.add_dependency('will_paginate', '~> 3.0.pre2')
   
   s.add_development_dependency('rspec-rails')
-  s.add_development_dependency('mocha')
   s.add_development_dependency('fabrication')
   s.add_development_dependency('faker')
   s.add_development_dependency("capybara", ">= 0.4.0")
