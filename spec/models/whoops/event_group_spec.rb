@@ -2,6 +2,15 @@ require 'spec_helper'
 
 describe Whoops::EventGroup do
   let(:event_params){Whoops::Spec::ATTRIBUTES[:event_params]}
+  let(:event_group_attributes) do
+    {
+      :identifier => "1",
+      :event_type => "test",
+      :service    => "test",
+      :message    => "test"
+    }
+  end
+  
   describe ".services" do
     it "should return the common namespace, even if not actually present in records" do
       Fabricate("Whoops::EventGroup", :service => "app.background.data.processor")
@@ -33,18 +42,30 @@ describe Whoops::EventGroup do
     
     it "only sends notifications when recording_event is true" do
       Whoops::NotificationMailer.should_not_receive(:event_notification)
-      Whoops::EventGroup.create(
-        :identifier => "1",
-        :event_type => "test",
-        :service    => "test",
-        :message    => "test"
-      )
+      Whoops::EventGroup.create(event_group_attributes)
     end
   end
   
   describe "archival" do
-    it "sets notify_on_next_occurrence to false when archived"
+    it "sets notify_on_next_occurrence to false when archived" do
+      eg = Whoops::EventGroup.create(event_group_attributes)
+      eg.notify_on_next_occurrence.should be_true
+      
+      eg.archived = true
+      eg.valid?
+      eg.notify_on_next_occurrence.should be_false
+    end
     
-    it "sets becomes unarchived when a new event is recorded"
+    it "sets archived to false when a new event is recorded" do
+      event = Whoops::Event.record(event_params)
+      eg = event.event_group
+      
+      eg.archived = true
+      eg.save
+      
+      Whoops::Event.record(event_params)
+      
+      eg.reload.archived.should be_false
+    end
   end
 end
