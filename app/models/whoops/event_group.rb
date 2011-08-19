@@ -39,7 +39,8 @@ class Whoops::EventGroup
   def send_notifications
     if self.notify_on_next_occurrence && recording_event
       matcher = Whoops::NotificationRule::Matcher.new(self)
-      Whoops::NotificationMailer.event_notification(self, matcher.matches).deliver
+      addresses = matcher.matches
+      Whoops::NotificationMailer.event_notification(self, addresses).deliver unless addresses.blank?
       self.notify_on_next_occurrence = false
     end
   end
