@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.description = "A Rails engine which receives logs and provides an interface for them"
   s.homepage = "http://www.whoopsapp.com"
   s.files = Dir["{app,lib,config}/**/*"] + ["MIT-LICENSE", "Rakefile", "Gemfile", "README.asciidoc"]
-  s.version = "0.1.7"
+  s.version = "0.1.8"
   
   s.add_dependency('rake', '0.8.7')
   s.add_dependency('rails', '~>3')
