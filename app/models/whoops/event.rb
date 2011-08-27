@@ -15,18 +15,8 @@ class Whoops::Event
   
   def self.record(params)
     params = params.with_indifferent_access
-        
-    event_group_params = params.slice(*Whoops::EventGroup.field_names)
-    event_group_params[:identifier] = params[:event_group_identifier]
-    event_group_params[:last_recorded_at] = params[:event_time]
     
-    event_group = Whoops::EventGroup.first(:conditions => event_group_params.slice(*Whoops::EventGroup.identifying_fields))
-    if event_group
-      event_group.attributes = event_group_params
-      event_group.save
-    else
-      event_group = Whoops::EventGroup.create(event_group_params)
-    end
+    event_group = Whoops::EventGroup.handle_new_event(params)
         
     event_params = params.slice(*Whoops::Event.field_names)
     event_group.events.create(event_params)
