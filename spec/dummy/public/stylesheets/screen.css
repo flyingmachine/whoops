@@ -824,6 +824,16 @@ fieldset textarea:focus {
     padding: 0; }
     #main table ul li ul {
       margin-left: 10px; }
+#main table.event-group-list td {
+  display: table-cell;
+  padding: 0px; }
+#main table.event-group-list tbody tr:hover {
+  background: #ffe; }
+#main table.event-group-list td a {
+  text-decoration: none;
+  display: block;
+  padding: 15px 10px;
+  height: 100%; }
 
 .info-revealer {
   cursor: pointer; }
