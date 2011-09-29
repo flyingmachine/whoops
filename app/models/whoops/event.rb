@@ -11,7 +11,7 @@ class Whoops::Event
     
   validates_presence_of :message  
   
-  before_save :set_keywords
+  before_save :set_keywords, :sanitize_details
   
   def self.record(params)
     params = params.with_indifferent_access
@@ -37,6 +37,39 @@ class Whoops::Event
     add_details_to_keywords(keywords_array)
     self.keywords = keywords_array.join(" ")
   end
+  
+  def sanitize_details
+    if details.is_a? Hash
+      sanitized_details = {}
+      details.each do |key, value|
+        if key =~ /\./
+          key = key.gsub(/\./, "_")
+        end
+        
+        if value.is_a? Hash
+          child_keys = all_keys([value])
+          if child_keys.any?{ |child_key| child_key =~ /\./ } 
+            value = value.to_s
+          end
+        end
+        
+        sanitized_details[key] = value
+      end
+      
+      self.details = sanitized_details
+    end
+  end
+  
+  def all_keys(values)
+    keys = []
+    values.each do |value|
+      if value.is_a? Hash
+        keys |= value.keys
+        keys |= all_keys(value.values)
+      end
+    end
+    keys
+  end
     
   private
   
@@ -53,6 +86,5 @@ class Whoops::Event
         i.to_a.flatten - i.keys
       end.flatten!
     end
-    
   end
 end

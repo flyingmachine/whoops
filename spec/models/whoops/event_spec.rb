@@ -61,4 +61,21 @@ describe Whoops::Event do
     event = Whoops::Event.create(:message => "test", :details => {:one => "two", :three => {:four => "five"}})
     event.keywords.should == "test two five"
   end
+  
+  describe "#sanitize_details" do
+    it "should replace periods with underscores in top-level details keys" do
+      event = Whoops::Event.create(:message => "test", :details => {"has.period" => "yes"})
+      event.details.should == {"has_period" => "yes"}
+    end
+    
+    it "should replace periods with underscores in top-level details keys" do
+      event = Whoops::Event.create(
+        :message => "test",
+        :details => {
+          "outer" => {"inner.period" => true}
+        }
+      )
+      event.details.should == {"outer" => {"inner.period" => true}.to_s }
+    end
+  end
 end
