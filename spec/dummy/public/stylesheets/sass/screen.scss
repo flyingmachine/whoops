@@ -958,6 +958,22 @@ font-size: 14px;}
       }
     }
   }
+  
+  &.event-group-list {
+    td {
+      display:table-cell;
+      padding:0px;
+    }
+    tbody tr:hover {
+      background: #ffe;
+    }
+    td a {
+      text-decoration:none;
+      display:block;
+      padding: 15px 10px;
+      height:100%;
+    }
+  }
 }
 
 // Info

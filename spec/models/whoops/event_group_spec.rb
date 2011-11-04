@@ -3,12 +3,7 @@ require 'spec_helper'
 describe Whoops::EventGroup do
   let(:event_params){Whoops::Spec::ATTRIBUTES[:event_params]}
   let(:event_group_attributes) do
-    {
-      :identifier => "1",
-      :event_type => "test",
-      :service    => "test",
-      :message    => "test"
-    }
+    Fabricate.attributes_for("Whoops::EventGroup", :service => "app.background.data.processor")
   end
   
   describe ".services" do
@@ -23,26 +18,40 @@ describe Whoops::EventGroup do
   end
   
   describe "notification" do
+    def create_event_group
+      Whoops::EventGroup.handle_new_event(event_group_attributes)
+    end
+    
     it "sets notify_on_next_occurrence to true by default" do
       w = Whoops::EventGroup.new
       w.notify_on_next_occurrence.should be_true
     end
     
-    it "only sends a notification when notify_on_next_occurrence is true and recording_event is true" do
-      mailer = double
-      Whoops::NotificationMailer.should_receive(:event_notification).and_return(mailer)
-      mailer.should_receive(:deliver)
-      Whoops::Event.record(event_params)
+    it "sends a notification when notify_on_next_occurrence is true and there are matcher matches" do
+      Whoops::NotificationRule::Matcher.any_instance.stub(:matches).and_return(["test@test.com"])
+      lambda { 
+        create_event_group
+      }.should change(ActionMailer::Base.deliveries, :size)
     end
     
     it "sets notify_on_next_occurrence to false after sending a notification" do
-      event = Whoops::Event.record(event_params)
-      event.event_group.notify_on_next_occurrence.should be_false
+      Whoops::NotificationRule::Matcher.any_instance.stub(:matches).and_return(["test@test.com"])
+      w = create_event_group
+      w.notify_on_next_occurrence.should be_false
     end
     
-    it "only sends notifications when recording_event is true" do
-      Whoops::NotificationMailer.should_not_receive(:event_notification)
-      Whoops::EventGroup.create(event_group_attributes)
+    it "does not send an email if notify_on_next_occurrence is false" do
+      Whoops::NotificationRule::Matcher.any_instance.stub(:matches).and_return(["test@test.com"])
+      lambda { 
+        Fabricate("Whoops::EventGroup", :service => "app.background.data.processor", :notify_on_next_occurrence => false)
+      }.should_not change(ActionMailer::Base.deliveries, :size)
+    end
+    
+    it "does not send an email if there are no notification matcher matches matches" do
+      Whoops::NotificationRule::Matcher.any_instance.stub(:matches).and_return([])
+      lambda { 
+        Fabricate("Whoops::EventGroup", :service => "app.background.data.processor")
+      }.should_not change(ActionMailer::Base.deliveries, :size)
     end
   end
   
@@ -50,9 +59,8 @@ describe Whoops::EventGroup do
     it "sets notify_on_next_occurrence to false when archived" do
       eg = Whoops::EventGroup.create(event_group_attributes)
       eg.notify_on_next_occurrence.should be_true
-      
       eg.archived = true
-      eg.valid?
+      eg.handle_archival
       eg.notify_on_next_occurrence.should be_false
     end
     
@@ -64,7 +72,6 @@ describe Whoops::EventGroup do
       eg.save
       
       Whoops::Event.record(event_params)
-      
       eg.reload.archived.should be_false
     end
   end

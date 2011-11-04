@@ -39,7 +39,7 @@ class Whoops::NotificationRule
     end
     
     def matches
-      Whoops::NotificationRule.where(:matchers => /^#{event_group.service}/)
+      @matches ||= Whoops::NotificationRule.where(:matchers => /^#{event_group.service}/)
     end
   end
 end

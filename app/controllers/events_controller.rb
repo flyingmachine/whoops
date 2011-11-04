@@ -14,8 +14,6 @@ class EventsController < ApplicationController
       :page => params[:page],
       :per_page => 20
     )
-    
-    puts 'test'
   end
   
   def show

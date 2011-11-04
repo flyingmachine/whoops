@@ -3,20 +3,46 @@ class Whoops::EventGroup
   include Mongoid::Document
   include FieldNames
   
-  attr_accessor :recording_event
-  
-  [:service, :environment, :event_type, :message, :identifier, :logging_strategy_name].each do |string_field|
+  [
+    :service,
+    :environment,
+    :event_type,
+    :message,
+    :identifier,
+    :logging_strategy_name
+  ].each do |string_field|
     field string_field, :type => String
   end
+  
   field :last_recorded_at, :type => DateTime
-  field :notify_on_next_occurrence, :type => Boolean, :default => true
   field :archived, :type => Boolean, :default => false
+  field :notify_on_next_occurrence, :type => Boolean, :default => true
 
+  class << self
+    def handle_new_event(params)
+      identifying_params = params.slice(*Whoops::EventGroup.identifying_fields)
+      event_group = Whoops::EventGroup.first(:conditions => identifying_params)
+      
+      if event_group
+        event_group.attributes = params
+      else
+        event_group = Whoops::EventGroup.new(params)
+      end
+      
+      if event_group.valid?
+        event_group.send_notifications
+        event_group.save
+      end
+      
+      event_group
+    end
+  end
+  
   has_many :events, :class_name => "Whoops::Event"
   
   validates_presence_of :identifier, :event_type, :service, :message
   
-  after_validation :handle_archival, :send_notifications
+  before_save :handle_archival
   
   def self.identifying_fields
     field_names - ["message", "last_recorded_at"]
@@ -35,22 +61,9 @@ class Whoops::EventGroup
     end
     services
   end
-  
-  def send_notifications
-    if self.notify_on_next_occurrence && recording_event
-      matcher = Whoops::NotificationRule::Matcher.new(self)
-      addresses = matcher.matches
-      Whoops::NotificationMailer.event_notification(self, addresses).deliver unless addresses.blank?
-      self.notify_on_next_occurrence = false
-    end
-  end
-  
+
   def handle_archival
-    if self.recording_event && self.archived
-      self.archived = false
-    end
-    
-    if self.archived_change
+    if self.archived_change && !self.new_record?
       if self.archived
         self.notify_on_next_occurrence = false
       else
@@ -59,4 +72,11 @@ class Whoops::EventGroup
     end
   end
   
+  
+  def send_notifications
+    return unless self.notify_on_next_occurrence
+    matcher = Whoops::NotificationRule::Matcher.new(self)
+    Whoops::NotificationMailer.event_notification(self, matcher.matches).deliver unless matcher.matches.empty?
+    self.notify_on_next_occurrence = false
+  end
 end
