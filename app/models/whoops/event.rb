@@ -2,13 +2,15 @@ class Whoops::Event
   include Mongoid::Document
   include FieldNames
   
-  belongs_to :event_group, :class_name => "Whoops::EventGroup"
+  belongs_to :event_group, :class_name => "Whoops::EventGroup", :index=>true
   
   field :details
   field :keywords, :type => String
   field :message, :type => String
   field :event_time, :type => DateTime
-    
+
+  index([[:event_group_id,Mongo::ASCENDING],[:event_time, Mongo::DESCENDING]])
+
   validates_presence_of :message  
   
   before_save :set_keywords, :sanitize_details
