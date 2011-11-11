@@ -1,0 +1,22 @@
+#spare {
+  background:#eee;
+  
+  body {
+    background:#eee;
+  }
+  
+  .content {
+    background:white;
+    margin:0 auto 20px;
+    padding:10px 20px 0;
+    @include border-radius;
+    @extend .span5;
+    &.start {
+      padding-bottom:5px;
+    }
+  }  
+ 
+  input[type="text"], input[type="password"] {
+    @extend .span5;
+  }
+}

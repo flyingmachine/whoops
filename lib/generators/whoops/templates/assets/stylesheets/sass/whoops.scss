@@ -1,0 +1,68 @@
+body, html {
+  background-color:#efefef;
+}
+
+table {
+  background:white;
+}
+
+.container-fluid .sidebar {
+  margin-left:-20px;
+  margin-top:-20px;
+  width:240px;
+  
+  .organizer {
+    padding-left:20px;
+    padding-top:20px;
+    background:#fafafa;
+    border-right:1px solid #ccc;
+    border-bottom:1px solid #ccc;
+    
+    ul.lists {
+      margin:0;
+      padding:0;
+      
+      li {
+        list-style-type:none;
+        border-top:1px solid #fafafa;
+        margin-left:-20px;
+        
+        &.selected, &:hover {
+/*          @include vertical-gradient(#dedce3, #ceccd5);*/
+          background: #dedce3;
+          border-top:1px solid #b9b6c2;
+        }
+        
+        &.selected + li, &:hover + li {
+          border-top:1px solid #b9b6c2;
+        }
+        
+        &:last-child {
+          border-bottom:1px solid #fafafa;
+        }
+        
+        &.selected:last-child, &:hover:last-child {
+          border-bottom:1px solid #b9b6c2;
+        }
+        
+        a {
+          display:block;
+          padding:5px 20px 5px 42px;
+          color:#666;
+          background:url(/images/259-list.png) 20px 8px no-repeat;
+          &:hover {
+            text-decoration:none;
+          }
+        }
+      }
+    }
+  }
+  
+  .add {
+    padding: 5px 0;
+  }
+  
+  form {
+    margin:1em;
+  }
+}

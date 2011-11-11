@@ -1,0 +1,111 @@
+/*
+Syntax error: Undefined variable: "$white".
+        on line 11 of /Users/daniel/web_sites/whoops/spec/dummy/public/stylesheets/sass/bootstrap/scaffolding.scss
+
+6: 
+7: // STRUCTURAL LAYOUT
+8: // -----------------
+9: 
+10: html, body {
+11:   background-color: $white;
+12: }
+13: body {
+14:   margin: 0;
+15:   @include sans-serif-font(normal,$basefont,$baseline);
+16:   color: $gray;
+
+Backtrace:
+/Users/daniel/web_sites/whoops/spec/dummy/public/stylesheets/sass/bootstrap/scaffolding.scss:11
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/script/variable.rb:50:in `_perform'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/script/node.rb:40:in `perform'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/perform.rb:214:in `visit_prop'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/perform.rb:234:in `visit_rule'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/perform.rb:27:in `visit_children'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/perform.rb:39:in `with_environment'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/perform.rb:26:in `visit_children'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/perform.rb:47:in `visit_root'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/perform.rb:18:in `visit'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/perform.rb:7:in `send'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/visitors/perform.rb:7:in `visit'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/tree/root_node.rb:20:in `render'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/engine.rb:300:in `_render'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/engine.rb:248:in `render'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/util.rb:297:in `silence_sass_warnings'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/engine.rb:248:in `render'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/plugin/compiler.rb:319:in `update_stylesheet'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/plugin/compiler.rb:181:in `update_stylesheets'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/plugin/compiler.rb:175:in `each'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/plugin/compiler.rb:175:in `update_stylesheets'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/plugin/compiler.rb:173:in `each'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/plugin/compiler.rb:173:in `update_stylesheets'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/plugin.rb:81:in `update_stylesheets'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/plugin.rb:54:in `check_for_updates'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/sass-3.1.10/lib/sass/../sass/plugin/rack.rb:51:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/actionpack-3.0.9/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/actionpack-3.0.9/lib/action_dispatch/middleware/head.rb:14:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/rack-1.2.3/lib/rack/methodoverride.rb:24:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/actionpack-3.0.9/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/actionpack-3.0.9/lib/action_dispatch/middleware/flash.rb:182:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/actionpack-3.0.9/lib/action_dispatch/middleware/session/abstract_store.rb:149:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/actionpack-3.0.9/lib/action_dispatch/middleware/cookies.rb:302:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/actionpack-3.0.9/lib/action_dispatch/middleware/callbacks.rb:46:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/activesupport-3.0.9/lib/active_support/callbacks.rb:416:in `_run_call_callbacks'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/actionpack-3.0.9/lib/action_dispatch/middleware/callbacks.rb:44:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/rack-1.2.3/lib/rack/sendfile.rb:107:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/actionpack-3.0.9/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/actionpack-3.0.9/lib/action_dispatch/middleware/show_exceptions.rb:47:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/railties-3.0.9/lib/rails/rack/logger.rb:13:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/rack-1.2.3/lib/rack/runtime.rb:17:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/activesupport-3.0.9/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/rack-1.2.3/lib/rack/lock.rb:11:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/rack-1.2.3/lib/rack/lock.rb:11:in `synchronize'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/rack-1.2.3/lib/rack/lock.rb:11:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/actionpack-3.0.9/lib/action_dispatch/middleware/static.rb:30:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/railties-3.0.9/lib/rails/application.rb:168:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/railties-3.0.9/lib/rails/application.rb:77:in `send'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/railties-3.0.9/lib/rails/application.rb:77:in `method_missing'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/railties-3.0.9/lib/rails/rack/log_tailer.rb:14:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/rack-1.2.3/lib/rack/content_length.rb:13:in `call'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/rack-1.2.3/lib/rack/handler/webrick.rb:52:in `service'
+/Users/daniel/.rvm/rubies/ree-1.8.7-2011.03/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+/Users/daniel/.rvm/rubies/ree-1.8.7-2011.03/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+/Users/daniel/.rvm/rubies/ree-1.8.7-2011.03/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+/Users/daniel/.rvm/rubies/ree-1.8.7-2011.03/lib/ruby/1.8/webrick/server.rb:162:in `start'
+/Users/daniel/.rvm/rubies/ree-1.8.7-2011.03/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+/Users/daniel/.rvm/rubies/ree-1.8.7-2011.03/lib/ruby/1.8/webrick/server.rb:95:in `start'
+/Users/daniel/.rvm/rubies/ree-1.8.7-2011.03/lib/ruby/1.8/webrick/server.rb:92:in `each'
+/Users/daniel/.rvm/rubies/ree-1.8.7-2011.03/lib/ruby/1.8/webrick/server.rb:92:in `start'
+/Users/daniel/.rvm/rubies/ree-1.8.7-2011.03/lib/ruby/1.8/webrick/server.rb:23:in `start'
+/Users/daniel/.rvm/rubies/ree-1.8.7-2011.03/lib/ruby/1.8/webrick/server.rb:82:in `start'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/rack-1.2.3/lib/rack/handler/webrick.rb:13:in `run'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/rack-1.2.3/lib/rack/server.rb:217:in `start'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/railties-3.0.9/lib/rails/commands/server.rb:65:in `start'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/railties-3.0.9/lib/rails/commands.rb:30
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/railties-3.0.9/lib/rails/commands.rb:27:in `tap'
+/Users/daniel/.rvm/gems/ree-1.8.7-2011.03/gems/railties-3.0.9/lib/rails/commands.rb:27
+script/rails:6:in `require'
+script/rails:6
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Undefined variable: \"$white\".\A         on line 11 of /Users/daniel/web_sites/whoops/spec/dummy/public/stylesheets/sass/bootstrap/scaffolding.scss\A \A 6: \A 7: // STRUCTURAL LAYOUT\A 8: // -----------------\A 9: \A 10: html, body {\A 11:   background-color: $white;\A 12: }\A 13: body {\A 14:   margin: 0;\A 15:   @include sans-serif-font(normal,$basefont,$baseline);\A 16:   color: $gray;"; }

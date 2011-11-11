@@ -1,0 +1,44 @@
+body, html {
+  background-color: #efefef; }
+
+table {
+  background: white; }
+
+.container-fluid .sidebar {
+  margin-left: -20px;
+  margin-top: -20px;
+  width: 240px; }
+  .container-fluid .sidebar .organizer {
+    padding-left: 20px;
+    padding-top: 20px;
+    background: #fafafa;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc; }
+    .container-fluid .sidebar .organizer ul.lists {
+      margin: 0;
+      padding: 0; }
+      .container-fluid .sidebar .organizer ul.lists li {
+        list-style-type: none;
+        border-top: 1px solid #fafafa;
+        margin-left: -20px; }
+        .container-fluid .sidebar .organizer ul.lists li.selected, .container-fluid .sidebar .organizer ul.lists li:hover {
+          /*          @include vertical-gradient(#dedce3, #ceccd5);*/
+          background: #dedce3;
+          border-top: 1px solid #b9b6c2; }
+        .container-fluid .sidebar .organizer ul.lists li.selected + li, .container-fluid .sidebar .organizer ul.lists li:hover + li {
+          border-top: 1px solid #b9b6c2; }
+        .container-fluid .sidebar .organizer ul.lists li:last-child {
+          border-bottom: 1px solid #fafafa; }
+        .container-fluid .sidebar .organizer ul.lists li.selected:last-child, .container-fluid .sidebar .organizer ul.lists li:hover:last-child {
+          border-bottom: 1px solid #b9b6c2; }
+        .container-fluid .sidebar .organizer ul.lists li a {
+          display: block;
+          padding: 5px 20px 5px 42px;
+          color: #666;
+          background: url(/images/259-list.png) 20px 8px no-repeat; }
+          .container-fluid .sidebar .organizer ul.lists li a:hover {
+            text-decoration: none; }
+  .container-fluid .sidebar .add {
+    padding: 5px 0; }
+  .container-fluid .sidebar form {
+    margin: 1em; }

@@ -11,20 +11,13 @@ module EventGroupsHelper
 
     @filter_options = Hash.new{|h, k| h[k] = []}
     
-    @filter_options["service"] = Whoops::EventGroup.services.collect{|s| [s, s]}
+    @filter_options["service"] = Whoops::EventGroup.services
     
     all_event_groups.each do |event_group|
       mundane_fields = (Whoops::Filter.field_names & Whoops::EventGroup.field_names) - ["service", "message"]
       mundane_fields.each do |field_name|
-        @filter_options[field_name] << [event_group.send(field_name), event_group.send(field_name)]
+        @filter_options[field_name] |= [event_group.send(field_name)]
       end
-    end
-    
-    # add the field name as an empty option
-    @filter_options.keys.each do |field_name|
-      @filter_options[field_name].compact!
-      @filter_options[field_name].sort!{|a, b| a.first <=> b.first}.uniq! if @filter_options[field_name]
-      @filter_options[field_name].unshift(["", "--" + field_name.humanize.downcase + " filter--"])
     end
 
     @filter_options

@@ -1,0 +1,255 @@
+.item {
+  min-height:12px;
+  cursor:default;
+  padding:2px 0 3px 25px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+  border:1px solid #fff;
+  
+  &:hover {
+    border-color:#96e9fc;
+  }
+  
+  &.selected {
+    background:#e1f7fc;
+    border-color:#e1f7fc;
+    
+    &:hover {
+      border-color:#96e9fc;
+    }
+  }
+  
+  form {
+    margin:0;
+  }
+}
+
+#app ul {
+  margin:0 0 0 1em;
+  padding:0;
+  
+  &.item-list {
+    margin-left:0;
+    margin-top:1em;
+  }
+  
+  ul {
+    margin-left:20px;
+  }
+  
+  li {
+    list-style-type:none;
+    position:relative;
+    padding:0;
+  }
+  
+  input[type=checkbox] {
+    position:absolute;
+    left:8px;
+    top:4px;
+  }
+  
+}
+#app input[type=checkbox]:checked {
+  opacity:0.3;
+}
+
+#app li form input {
+  width:97%;
+  background:#fff;
+  border:2px solid #96e9fc;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   12px;
+  padding:0 2px 2px 5px;
+  -moz-border-radius:8px;
+  border-radius:8px;
+  outline:none;
+}
+
+.complete {
+  font-style:italic;
+  color:#ddd;
+  background:white;
+}
+
+.story {
+  background:#f9eed5;
+}
+
+.discussion, .question {
+  background:#f5ffe8;
+}
+
+h2.completed {
+  margin-top:15px;
+  padding-top:15px;
+  border-top: 2px solid #ddd;
+  font-weight:normal;
+}
+
+.utility {
+  float:right;
+}
+
+/*commands*/
+#commands tr td:first-child {
+  text-align:right;
+  @extend .span4;
+}
+
+#delete {
+  display:none;
+}
+
+.clear {
+  clear:both;
+}
+
+/* sign in */
+#sign-in {
+  float:left;
+  margin-right:20px;
+  padding-right:20px;
+  border-right:2px solid #eee;
+}
+
+#sign-up {
+  float:left;
+  width:500px;
+}
+
+
+.key {
+  background:#fafafa;
+  padding:0 5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  border:1px solid #ccc;
+  font-family:monospace;
+}
+
+#commands {
+  margin-top:1em;
+  padding-top:1em;
+  border-top:2px solid #eee;
+}
+
+#list h1:hover {
+  background:#e1f7fc;
+}
+
+.container-fluid .sidebar {
+  margin-left:-20px;
+  margin-top:-20px;
+  width:240px;
+  
+  .organizer {
+    padding-left:20px;
+    padding-top:20px;
+    background:#fafafa;
+    border-right:1px solid #ccc;
+    border-bottom:1px solid #ccc;
+    
+    ul.lists {
+      margin:0;
+      padding:0;
+      
+      li {
+        list-style-type:none;
+        border-top:1px solid #fafafa;
+        margin-left:-20px;
+        
+        &.selected, &:hover {
+/*          @include vertical-gradient(#dedce3, #ceccd5);*/
+          background: #dedce3;
+          border-top:1px solid #b9b6c2;
+        }
+        
+        &.selected + li, &:hover + li {
+          border-top:1px solid #b9b6c2;
+        }
+        
+        &:last-child {
+          border-bottom:1px solid #fafafa;
+        }
+        
+        &.selected:last-child, &:hover:last-child {
+          border-bottom:1px solid #b9b6c2;
+        }
+        
+        a {
+          display:block;
+          padding:5px 20px 5px 42px;
+          color:#666;
+          background:url(/images/259-list.png) 20px 8px no-repeat;
+          &:hover {
+            text-decoration:none;
+          }
+        }
+      }
+    }
+  }
+  
+  .add {
+    padding: 5px 0;
+  }
+  
+  form {
+    margin:1em;
+  }
+}
+
+.settings.btn {
+  padding:5px 8px;
+  background-image:none;
+  background-color:#fafafa;
+  
+  &:active img{
+    position:relative;
+    top:2px;
+    left:2px;
+    @include transition(.1s linear all);
+  }
+}
+
+#properties-form {
+  display:none;
+}
+
+#access {
+  td.option {
+    text-align:center;
+    @include transition(.1s linear background-color);
+    
+    &:hover {
+      @include transition(.1s linear background-color);
+      background: #e1f7fc;
+    }
+    &.selected {
+      background:#e1f7fc url("/images/258-checkmark.png") center center no-repeat;
+    }
+    
+    &.none:hover {
+      background: #ffe4e4 url("/images/218-trash2.png") center center no-repeat;
+    }
+  }
+  
+  .everyone .option.none:hover {
+    background-image:none;
+  }
+}
+
+.form-stacked {
+  padding-left:0;
+}
+
+#new {
+  display:none;
+}
+
+#to-anonymous {
+  margin:1em 0 1em 1em;
+  p {
+    margin-bottom:1em;
+  }
+}
