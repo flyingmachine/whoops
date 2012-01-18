@@ -1,0 +1,17 @@
+ul.ui-autocomplete {
+  list-style:none;
+  width:218px;
+    
+  li.ui-menu-item {
+    background:white;
+    border-bottom:1px solid #eee;
+    width:218px;
+
+    a {
+      display:block;
+      width:208px;
+      padding:5px;
+      cursor:pointer;
+    }
+  }
+}
