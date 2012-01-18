@@ -4,7 +4,7 @@ Whoops = {
       $("#new_whoops_filter").submit()
     })
     $("#reset").click(function(){
-      window.location = "/event_groups?whoops_filter[service]"
+      window.location = window.location.pathname
       return false
     })
   },
@@ -35,7 +35,6 @@ Whoops = {
 
 $(function(){
   Whoops.setup();
-  $('.column').equalHeight();
 })
 
 jQuery.ajaxSetup({ 

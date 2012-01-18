@@ -35,6 +35,8 @@ li {
   input[type=text] {
     width:190px;
   }
+    
+
 }
 
 /* for kaminari pagination */
@@ -50,7 +52,7 @@ li {
     margin-right:2px;  
   }
 
-  .last { display:none; }
+  .next, .first, .prev, .last { display:none; }
 }
 
 .content .pagination {
