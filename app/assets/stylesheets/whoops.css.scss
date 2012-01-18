@@ -58,3 +58,25 @@ body {
     border: 0;
   }
 }
+
+/* main page table links */
+.event-group-list {
+  td {
+    padding:0;
+  }  
+  a {
+    display:block;
+    padding:10px 10px 9px;
+    
+    &:hover {
+      text-decoration:none;
+    }
+  }
+  tr:hover {
+    background-color: lighten($blue, 45%);
+  }
+}
+
+.filter_selects label {
+  cursor: hand;
+}

@@ -11,7 +11,7 @@
               = option
   .space
     %h3 Keyword Search
-    - form_tag whoops_event_groups_path, :method => "get" do |f|
+    = form_tag whoops_event_groups_path, :method => "get" do |f|
       %ul.search.unstyled
         %li= text_field_tag :query
         %li= submit_tag "Submit", :class => "btn primary"
