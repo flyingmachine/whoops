@@ -4,7 +4,7 @@
 - content_for :sidebar do
   .space
     %h3 Instances
-    = paginate @event, :previous_label => "", :next_label => ""
+    = paginate @events, :previous_label => "", :next_label => ""
     %ul#instances
       - @events.each_with_index do |event, index|
         %li{:class => ("selected" if index == 0)}= link_to event.event_time.to_s(:whoops_default), event
@@ -13,14 +13,15 @@
       Search
       = image_tag "/images/_ui/icn_info.png"
     %form
-      %ul
-        %li.info
-          For more on searching, see "Search Event Details" in the 
-          = link_to "README", "https://github.com/flyingmachine/whoops/blob/master/README.asciidoc"
-        %li= text_area_tag :query, params[:query]
-        %li
-          %button search
-          %button reset
+      %p
+        For more on searching, see "Search Event Details" in the 
+        = link_to "README", "https://github.com/flyingmachine/whoops/blob/master/README.asciidoc"
+
+      %p= text_area_tag :query, params[:query]
+      
+      %p
+        %button.btn.primary search
+        %button.btn.secondary reset
 
 %article.module.width_full
   %header

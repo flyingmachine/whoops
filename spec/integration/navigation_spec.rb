@@ -14,9 +14,15 @@ describe "Navigation" do
 
 
   it "should display event groups" do
-    e = Whoops::EventGroup.handle_new_event(Whoops::Spec::ATTRIBUTES[:event_params])
-    e.should be_valid
+    Whoops::Event.record(Whoops::Spec::ATTRIBUTES[:event_params])
     visit whoops_event_groups_path
+    page.should have_content("ArgumentError")
+  end
+
+  it "should display event group" do
+    Whoops::Event.record(Whoops::Spec::ATTRIBUTES[:event_params])
+    e = Whoops::EventGroup.first
+    visit whoops_event_group_events_path(e)
     page.should have_content("ArgumentError")
   end
 end
