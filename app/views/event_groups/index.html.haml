@@ -7,8 +7,8 @@
         - options.each do |option|
           %li
             %label
-            %input{:type => 'checkbox'}
-            = option
+              %input{:type => 'checkbox'}
+              = option
   .space
     %h3 Keyword Search
     - form_tag whoops_event_groups_path, :method => "get" do |f|
