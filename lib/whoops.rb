@@ -1,5 +1,5 @@
 require "mongoid"
 require "whoops/engine"
-require "will_paginate"
+require "kaminari"
 require "haml"
 require "sass"

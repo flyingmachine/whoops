@@ -3,6 +3,6 @@ Fabricator("Whoops::EventGroup") do
   environment "production"
   event_type "error"  
   message "ArgumentError"
-  identifier "3r42"
+  event_group_identifier "3r42"
   last_recorded_at { rand(300).seconds.ago }
 end

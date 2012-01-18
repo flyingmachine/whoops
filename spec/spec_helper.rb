@@ -47,7 +47,7 @@ module Whoops
         :environment => "production",
         :message => "ArgumentError",
         :event_group_identifier => "3r42",
-        :event_time => Time.now.to_s,
+        :event_time => Time.zone.now.to_s,
         :details => {
           :line => "32",
           :file => "fail.rb"

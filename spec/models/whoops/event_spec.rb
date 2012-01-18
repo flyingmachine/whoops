@@ -10,7 +10,7 @@ describe Whoops::Event do
       event_group.event_type.should == event_params[:event_type]
       event_group.service.should == event_params[:service]
       event_group.environment.should == event_params[:environment]
-      event_group.identifier.should == event_params[:event_group_identifier]
+      event_group.event_group_identifier.should == event_params[:event_group_identifier]
       event_group.message.should == event_params[:message]
     end
     
@@ -26,10 +26,10 @@ describe Whoops::Event do
     end
     
     it "should update the event group's 'last_recorded_at'" do
-      past_time = event_params[:event_time] = Time.now - 500
+      past_time = event_params[:event_time] = Time.zone.now - 500
       event = Whoops::Event.record(event_params)
       
-      now = event_params[:event_time] = Time.now
+      now = event_params[:event_time] = Time.zone.now
       event = Whoops::Event.record(event_params)
       
       event_group = Whoops::EventGroup.first

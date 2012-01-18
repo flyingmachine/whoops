@@ -8,7 +8,7 @@ class Whoops::EventGroup
     :environment,
     :event_type,
     :message,
-    :identifier,
+    :event_group_identifier,
     :logging_strategy_name
   ].each do |string_field|
     field string_field, :type => String
@@ -33,14 +33,14 @@ class Whoops::EventGroup
         event_group.send_notifications
         event_group.save
       end
-      
+
       event_group
     end
   end
   
   has_many :events, :class_name => "Whoops::Event"
   
-  validates_presence_of :identifier, :event_type, :service, :message
+  validates_presence_of :event_group_identifier, :event_type, :service, :message
   
   before_save :handle_archival
   
