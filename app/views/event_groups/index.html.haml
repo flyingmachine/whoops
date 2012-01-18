@@ -1,7 +1,7 @@
 - content_for :sidebar do
   .space
     %h3 Filters
-    - form_for event_group_filter, :url => whoops_event_groups_path, :html => {:method => "get"} do |f|
+    = form_for event_group_filter, :url => whoops_event_groups_path, :html => {:method => "get"} do |f|
       %ul.filter_selects
         - filter_options.each do |field_name, options|
           %li= f.select field_name, options_from_collection_for_select(options, :first, :last, event_group_filter.send(field_name))
@@ -9,10 +9,11 @@
           %button#reset reset
   .space
     %h3 Keyword Search
-    - form_tag whoops_event_groups_path, :method => "get" do |f|
+    = form_tag whoops_event_groups_path, :method => "get" do |f|
       %ul.search
         %li= text_field_tag :query
         %li= submit_tag "Submit"
+
 %article.module.width_full
   %header
     %h3 Events
