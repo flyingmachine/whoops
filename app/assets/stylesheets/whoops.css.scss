@@ -1,6 +1,6 @@
 body {
   padding-top:60px;
-  color:#666;
+  color:#333;
 }
 
 
@@ -110,4 +110,26 @@ body {
 
 .filter_selects label {
   cursor: pointer;
+}
+
+/* events for event group */
+.key {
+  font-weight:bold;
+  text-align:right;
+}
+
+ul.detail {
+  margin:0;
+    
+  li {
+    list-style:none;
+    ul {
+      margin-left:20px;
+    }
+  }
+  
+  .key {
+    font-weight:normal;
+    color:$blue;
+  }
 }

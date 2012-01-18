@@ -1,5 +1,5 @@
 %ul.detail
   - detail.to_a.sort{|a,b| a[0] <=> b[0]}.each do |sub_detail|
     %li
-      %span.label= sub_detail.first + ":"
+      %span.key= sub_detail.first + ":"
       = format_detail(sub_detail.last)

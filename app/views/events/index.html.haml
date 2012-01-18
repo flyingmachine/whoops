@@ -23,14 +23,14 @@
         %button.btn.primary search
         %button.btn.secondary reset
 
-%article.module.width_full
+%article.span8
   %header
     %h3= @event_group.message
   %table
     - [:environment, :event_type, :last_recorded_at].each do |field|
       %tr
-        %td.label= field.to_s.humanize
-        %td= @event_group.send(field)
+        %td.key= field.to_s.humanize
+        %td.value= @event_group.send(field)
 
 %article.module.width_full
   %header
