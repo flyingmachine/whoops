@@ -14,7 +14,7 @@
     .topbar
       .listfill
         .container-fluid
-          %a.brand{:href => "#"} Whoops
+          = link_to "Whoops", whoops_event_groups_path, :class => "brand"
     .container-fluid
       .sidebar
         = yield :sidebar
