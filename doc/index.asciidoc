@@ -82,9 +82,31 @@ Since Whoops is self-hosted, you can set it up behind your firewall.
 . add +gem "whoops"+ to your Gemfile
 . run +bundle+
 . add http://mongoid.org/docs/installation/configuration.html[+config/mongoid.yml+]
-. run +bundle exec rails g whoops:assets+ - this copies assets to your public directory (whoops isn't 3.1 compatible yet)
 . _optional_ add +root :to => "event_groups#index"+ to your routes file to make the event group listing your home page
 . add https://github.com/flyingmachine/whoops_logger[loggers] to the code you want to monitor
+. ensure that your +config/application.rb+ file looks something like
+the following:
+
+[source,ruby]
+----
+# make sure that you're not requiring active record
+require "action_controller/railtie"
+require "action_view/railtie"
+require "action_mailer/railtie"
+require "sprockets/railtie"
+
+if defined?(Bundler)
+  Bundler.require(*Rails.groups(:assets => %w(development test)))
+end
+
+module WhoopsServer
+  class Application < Rails::Application
+    config.encoding = "utf-8"
+    config.assets.enabled = true
+    config.filter_parameters += [:password]
+  end
+end
+----
 
 === Usage
 

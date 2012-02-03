@@ -1001,11 +1001,6 @@ add <a href="http://mongoid.org/docs/installation/configuration.html"><span clas
 </li>
 <li>
 <p>
-run <span class="monospaced">bundle exec rails g whoops:assets</span> - this copies assets to your public directory (whoops isn&#8217;t 3.1 compatible yet)
-</p>
-</li>
-<li>
-<p>
 <em>optional</em> add <span class="monospaced">root :to &#8658; "event_groups#index"</span> to your routes file to make the event group listing your home page
 </p>
 </li>
@@ -1014,7 +1009,32 @@ run <span class="monospaced">bundle exec rails g whoops:assets</span> - this cop
 add <a href="https://github.com/flyingmachine/whoops_logger">loggers</a> to the code you want to monitor
 </p>
 </li>
+<li>
+<p>
+ensure that your <span class="monospaced">config/application.rb</span> file looks something like
+the following:
+</p>
+</li>
 </ol></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="c1"># make sure that you&#39;re not requiring active record</span>
+<span class="nb">require</span> <span class="s2">&quot;action_controller/railtie&quot;</span>
+<span class="nb">require</span> <span class="s2">&quot;action_view/railtie&quot;</span>
+<span class="nb">require</span> <span class="s2">&quot;action_mailer/railtie&quot;</span>
+<span class="nb">require</span> <span class="s2">&quot;sprockets/railtie&quot;</span>
+
+<span class="k">if</span> <span class="n">defined?</span><span class="p">(</span><span class="no">Bundler</span><span class="p">)</span>
+  <span class="no">Bundler</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="o">*</span><span class="no">Rails</span><span class="o">.</span><span class="n">groups</span><span class="p">(</span><span class="ss">:assets</span> <span class="o">=&gt;</span> <span class="sx">%w(development test)</span><span class="p">))</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">WhoopsServer</span>
+  <span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Rails</span><span class="o">::</span><span class="no">Application</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s2">&quot;utf-8&quot;</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">filter_parameters</span> <span class="o">+=</span> <span class="o">[</span><span class="ss">:password</span><span class="o">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div></div></div>
 </div>
 <div class="sect2">
 <h3 id="_usage">Usage</h3>
@@ -1234,7 +1254,7 @@ integrate fully with Rails logger (?)
 <div id="footnotes"><hr></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2011-08-01 08:12:21 EDT
+Last updated 2012-02-03 11:30:58 EST
 </div>
 </div>
 </body>
