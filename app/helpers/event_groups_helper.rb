@@ -28,4 +28,9 @@ module EventGroupsHelper
 
     @filter_options
   end
+
+  def filter_checked?(field_name, option)
+    filtered_field = session[:event_group_filter].send(field_name)
+    filtered_field && filtered_field.include?(option)
+  end
 end

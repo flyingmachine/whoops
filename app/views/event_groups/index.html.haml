@@ -1,14 +1,16 @@
 - content_for :sidebar do
   .space
     %h3 Filters
-    - filter_options.each do |field_name, options|
-      %h4= field_name
-      %ul.filter_selects.inputs-list
-        - options.each do |option|
-          %li
-            %label
-              %input{:type => 'checkbox'}
-              = option
+    = form_for event_group_filter, :url => whoops_event_groups_path, :html => {:method => "get"} do |f|
+      = hidden_field_tag 'updating_filters', true
+      - filter_options.each do |field_name, options|
+        %h4= field_name
+        %ul.filter_selects.inputs-list
+          - options.each do |option|
+            %li
+              %label
+                %input{:type => 'checkbox', :name => "whoops_filter[#{field_name}][#{option}]", :checked => filter_checked?(field_name, option)}
+                = option
   .space
     %h3 Keyword Search
     = form_tag whoops_event_groups_path, :method => "get" do |f|

@@ -23,7 +23,7 @@ class EventGroupsController < ApplicationController
   end
   
   def update_event_group_filter
-    self.event_group_filter = params[:whoops_filter] if params[:whoops_filter]
+    self.event_group_filter = params[:whoops_filter] if params[:updating_filters]
   end
   
   def event_group_filter
@@ -31,7 +31,7 @@ class EventGroupsController < ApplicationController
   end
   
   def event_group_filter=(filter)
-    session[:event_group_filter] = Whoops::Filter.new(filter)
+    session[:event_group_filter] = Whoops::Filter.new_from_params(filter)
   end
   
 end
