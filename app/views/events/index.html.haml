@@ -26,11 +26,16 @@
 %article
   %header
     %h3= @event_group.message
-  %table.span8
-    - [:environment, :event_type, :last_recorded_at].each do |field|
+  %table.span8.bordered-table
+    %thead
       %tr
-        %td.key= field.to_s.humanize
-        %td.value= @event_group.send(field)
+        %th.key Field
+        %th Value
+    %tbody
+      - [:environment, :event_type, :last_recorded_at].each do |field|
+        %tr
+          %td.key= field.to_s.humanize
+          %td.value= @event_group.send(field)
 
 %article.module.width_full
   %header
