@@ -8,3 +8,7 @@ group :development do
     gem "ruby-debug19"
   end
 end
+
+group :test do
+  gem 'rake'
+end
