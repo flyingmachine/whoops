@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     whoops (0.2.1)
-      bson_ext
       haml
       kaminari
       mongo
@@ -167,6 +166,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bson_ext
   capybara (>= 0.4.0)
   fabrication
   faker

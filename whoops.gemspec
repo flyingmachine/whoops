@@ -13,7 +13,6 @@ Gem::Specification.new do |s|
   s.add_dependency('sass')
   s.add_dependency('haml')
   s.add_dependency('mongo')
-  s.add_dependency('bson_ext')
   s.add_dependency('mongoid', '~>2.4')
   s.add_dependency('kaminari')
 
