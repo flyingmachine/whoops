@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe "Navigation" do
-  include Capybara
-  
+  include Capybara::DSL
+
   it "should be a valid app" do
     ::Rails.application.should be_a(Dummy::Application)
   end
-  
+
   it "should display filters" do
     visit whoops_event_groups_path
     page.should have_content("Filters")
