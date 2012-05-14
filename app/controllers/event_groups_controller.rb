@@ -10,7 +10,7 @@ class EventGroupsController < ApplicationController
       Whoops::EventGroup.where(:_id.in => Whoops::Event.where(:keywords => /#{params[:query]}/i).collect{|e| e.event_group_id}.uniq)
     end
     
-    @event_groups = finder.desc(:last_recorded_at).page(params[:page]).per(2)
+    @event_groups = finder.desc(:last_recorded_at).page(params[:page]).per(30)
     
     respond_to do |format|
       format.html
