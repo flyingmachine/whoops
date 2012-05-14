@@ -1,3 +1,5 @@
+@import "bootstrap.scss";
+
 body {
   padding-top:60px;
   color:#333;
@@ -67,9 +69,10 @@ li {
   @include box-shadow(0 1px 2px rgba(0,0,0,.05));
 
   .page {
-    display: inline;
+    display: inline;  
   }
-  a, .current {
+
+  a, .current, .page.gap {
     float: left;
     padding: 0 14px;
     line-height: ($baseline * 2) - 2;
@@ -90,6 +93,10 @@ li {
   }
   .next a {
     border: 0;
+  }
+
+  .last a {
+    border-left: 1px solid #ddd;
   }
 }
 
