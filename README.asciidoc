@@ -3,6 +3,8 @@ Whoops
 Daniel Higginbotham <daniel@flyingmachinestudios.com>
 2011-07-09
 
+image::https://secure.travis-ci.org/driv3r/whoops.png?branch=master[]
+
 == What is Whoops?
 
 Whoops is a logging system. It consists of a Rails engine (which records logs and provides an interface to them) and a logger. Full documentation can be found at http://www.whoopsapp.com[the Whoops web site].
