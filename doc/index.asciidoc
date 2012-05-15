@@ -46,13 +46,13 @@ Below is example text you would write, and below that is essentially the ruby co
 details.current_user_id#in [3, 54, 532]      <1>
 details.num_failures#gt 3                    <2>
 details.current_user.first_name Voldemort    <3>
-message#in !r/(yesterday|today)/             <4>
+message !r/(yesterday|today)/                <4>
 ----
 
 <1> `Event.where( {:"details.current_user_id".in => [3, 54, 532]} )`
 <2> `Event.where( {:"details.num_failure".gt => 3} )`
 <3> `Event.where( {:"details.current_user.first_name" => "Voldemort"} )`
-<4> `Event.where( {:message.in /(yesterday|today/)} )` Note that regular expressions must start with !r.
+<4> `Event.where( {:message => /(yesterday|today/)} )` Note that regular expressions must start with !r.
   
 The general format is +key[#mongoid_method] query+ . As you can see, +query+ can be a string, number, regex, or array of these values. Hashes are allowed too. If you're not familiar with querying mongo, you can http://www.mongodb.org/display/DOCS/Querying[read more in the mongodb docs]. The http://mongoid.org/docs/querying/criteria.html#where[Mongoid] docs are useful as well.
 

@@ -2,19 +2,9 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="generator" content="AsciiDoc 8.6.5">
+<meta name="generator" content="AsciiDoc 8.6.6">
 <title>Whoops</title>
 <style type="text/css">
-/*
- * AsciiDoc 'flask' theme for xhtml11 and html5 backends. A shameless knock-off
- * of the Flask website styling (http://flask.pocoo.org/docs/).
- *
- * The implementation is straight-forward, consisting of the asciidoc.css file
- * followed by theme specific overrides.
- *
- * */
-
-
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
 
 /* Default font. */
@@ -526,6 +516,29 @@ th.tableblock.valign-bottom, td.tableblock.valign-bottom {
 
 
 /*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+/*
  * Theme specific overrides of the preceding (asciidoc.css) CSS.
  *
  */
@@ -551,7 +564,7 @@ h1 { font-size: 240%; }
 h2 { font-size: 180%; }
 h3 { font-size: 150%; }
 h4 { font-size: 130%; }
-h5 { font-size: 100%; }
+h5 { font-size: 115%; }
 h6 { font-size: 100%; }
 #header h1 { margin-top: 0; }
 #toc {
@@ -672,6 +685,7 @@ div.admonitionblock td.content { border-left: 3px solid #E8E8E8; }
     margin: 0;
     overflow: auto;
     border-right: 3px solid #f8f8f8;
+    background-color: white;
   }
 
   #toc .toclevel1 {
@@ -761,7 +775,7 @@ toc: function (toclevels) {
   var i;
   for (i = 0; i < toc.childNodes.length; i++) {
     var entry = toc.childNodes[i];
-    if (entry.nodeName == 'DIV'
+    if (entry.nodeName == 'div'
      && entry.getAttribute("class")
      && entry.getAttribute("class").match(/^toclevel/))
       tocEntriesToRemove.push(entry);
@@ -807,7 +821,7 @@ footnotes: function () {
   var entriesToRemove = [];
   for (i = 0; i < noteholder.childNodes.length; i++) {
     var entry = noteholder.childNodes[i];
-    if (entry.nodeName == 'DIV' && entry.getAttribute("class") == "footnote")
+    if (entry.nodeName == 'div' && entry.getAttribute("class") == "footnote")
       entriesToRemove.push(entry);
   }
   for (i = 0; i < entriesToRemove.length; i++) {
@@ -940,7 +954,7 @@ asciidoc.install(2);
 <pre>details.current_user_id#in [3, 54, 532]      <img src="./images/icons/callouts/1.png" alt="1">
 details.num_failures#gt 3                    <img src="./images/icons/callouts/2.png" alt="2">
 details.current_user.first_name Voldemort    <img src="./images/icons/callouts/3.png" alt="3">
-message#in !r/(yesterday|today)/             <img src="./images/icons/callouts/4.png" alt="4"></pre>
+message !r/(yesterday|today)/                <img src="./images/icons/callouts/4.png" alt="4"></pre>
 </div></div>
 <div class="colist arabic"><table>
 <tr><td><img src="./images/icons/callouts/1.png" alt="1"></td><td>
@@ -953,7 +967,7 @@ message#in !r/(yesterday|today)/             <img src="./images/icons/callouts/4
 <span class="monospaced">Event.where( {:"details.current_user.first_name" =&gt; "Voldemort"} )</span>
 </td></tr>
 <tr><td><img src="./images/icons/callouts/4.png" alt="4"></td><td>
-<span class="monospaced">Event.where( {:message.in /(yesterday|today/)} )</span> Note that regular expressions must start with !r.
+<span class="monospaced">Event.where( {:message =&gt; /(yesterday|today/)} )</span> Note that regular expressions must start with !r.
 </td></tr>
 </table></div>
 <div class="paragraph"><p>The general format is <span class="monospaced">key[#mongoid_method] query</span> . As you can see, <span class="monospaced">query</span> can be a string, number, regex, or array of these values. Hashes are allowed too. If you&#8217;re not familiar with querying mongo, you can <a href="http://www.mongodb.org/display/DOCS/Querying">read more in the mongodb docs</a>. The <a href="http://mongoid.org/docs/querying/criteria.html#where">Mongoid</a> docs are useful as well.</p></div>
@@ -1254,7 +1268,7 @@ integrate fully with Rails logger (?)
 <div id="footnotes"><hr></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-02-03 11:30:58 EST
+Last updated 2012-05-15 13:43:50 EDT
 </div>
 </div>
 </body>
