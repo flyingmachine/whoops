@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.description = "A Rails engine which receives logs and provides an interface for them"
   s.homepage = "http://www.whoopsapp.com"
   s.files = Dir["{app,lib,config}/**/*"] + ["MIT-LICENSE", "Rakefile", "Gemfile", "README.asciidoc"]
-  s.version = "0.2.2"
+  s.version = "0.2.3"
 
   s.add_dependency('rails', '~>3')
   s.add_dependency('sass')
