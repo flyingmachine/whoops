@@ -73,6 +73,7 @@ class Whoops::Event
   end
     
   private
+
   
   def add_details_to_keywords(keywords_array)
     flattened = details.to_a.flatten
