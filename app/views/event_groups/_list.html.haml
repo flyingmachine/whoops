@@ -18,6 +18,6 @@
         %td= link_to event_group.event_type, whoops_event_group_events_path(event_group)
         %td= link_to event_group.environment, whoops_event_group_events_path(event_group)
         %td= link_to event_group.last_recorded_at.to_s(:whoops_default), whoops_event_group_events_path(event_group)
-        %td= link_to event_group.events.count, whoops_event_group_events_path(event_group)
+        %td= link_to event_group.event_count, whoops_event_group_events_path(event_group)
 
 = paginate(@event_groups)

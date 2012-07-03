@@ -17,6 +17,7 @@ class Whoops::EventGroup
   field :last_recorded_at, :type => DateTime
   field :archived, :type => Boolean, :default => false
   field :notify_on_next_occurrence, :type => Boolean, :default => true
+  field :event_count, :type => Integer, :default => 0
 
   class << self
     def handle_new_event(params)
