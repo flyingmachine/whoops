@@ -7,10 +7,10 @@ describe Whoops::EventGroup do
   end
   
   describe ".services" do
-    it "should not return the common namespace, even if not actually present in records" do
+    it "should not return the common namespace" do
       Fabricate("Whoops::EventGroup", :service => "app.background.data.processor")
       Fabricate("Whoops::EventGroup", :service => "app.background.data.loader")
-
+      
       Whoops::EventGroup.services.should_not include("app.background.data")
       Whoops::EventGroup.services.should_not include("app.background")
       Whoops::EventGroup.services.should_not include("app")
@@ -22,19 +22,28 @@ describe Whoops::EventGroup do
       Whoops::EventGroup.handle_new_event(event_group_attributes)
     end
     
-    it "sends a notification when archived is true and there are matcher matches" do
+    it "sets notify_on_next_occurrence to true by default" do
+      w = Whoops::EventGroup.new
+      w.notify_on_next_occurrence.should be_true
+    end
+    
+    it "sends a notification when notify_on_next_occurrence is true and there are matcher matches" do
       Whoops::NotificationRule::Matcher.any_instance.stub(:matches).and_return(["test@test.com"])
       lambda { 
-        e = create_event_group
-        e.archived = true
-        e.save
+        create_event_group
       }.should change(ActionMailer::Base.deliveries, :size)
     end
     
-    it "does not send an email if archived is false" do
+    it "sets notify_on_next_occurrence to false after sending a notification" do
+      Whoops::NotificationRule::Matcher.any_instance.stub(:matches).and_return(["test@test.com"])
+      w = create_event_group
+      w.notify_on_next_occurrence.should be_false
+    end
+    
+    it "does not send an email if notify_on_next_occurrence is false" do
       Whoops::NotificationRule::Matcher.any_instance.stub(:matches).and_return(["test@test.com"])
       lambda { 
-        Fabricate("Whoops::EventGroup", :service => "app.background.data.processor", :archived => false)
+        Fabricate("Whoops::EventGroup", :service => "app.background.data.processor", :notify_on_next_occurrence => false)
       }.should_not change(ActionMailer::Base.deliveries, :size)
     end
     
@@ -46,7 +55,15 @@ describe Whoops::EventGroup do
     end
   end
   
-  describe "archival" do    
+  describe "archival" do
+    it "sets notify_on_next_occurrence to false when archived" do
+      eg = Whoops::EventGroup.create(event_group_attributes)
+      eg.notify_on_next_occurrence.should be_true
+      eg.archived = true
+      eg.handle_archival
+      eg.notify_on_next_occurrence.should be_false
+    end
+    
     it "sets archived to false when a new event is recorded" do
       event = Whoops::Event.record(event_params)
       eg = event.event_group
