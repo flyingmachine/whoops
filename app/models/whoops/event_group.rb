@@ -31,6 +31,7 @@ class Whoops::EventGroup
       end
       
       if event_group.valid?
+        event_group.event_count += 1
         event_group.send_notifications
         event_group.save
       end
@@ -68,7 +69,7 @@ class Whoops::EventGroup
   def send_notifications
     return unless self.notify_on_next_occurrence
     matcher = Whoops::NotificationRule::Matcher.new(self)
-    Whoops::NotificationMailer.event_notification(self, matcher.matches).deliver unless matcher.matches.empty?
+    Whoops::NotificationMailer.event_notification(self, matcher.matches.collect(&:email)).deliver unless matcher.matches.empty?
     self.notify_on_next_occurrence = false
   end
 end
