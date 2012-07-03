@@ -1,0 +1,15 @@
+%h3 New
+- options = @notification_rule.new_record? ? {:url => whoops_notification_rules_path, :method => :post} : {:url => whoops_notification_rule_path(@notification_rule), :method => :put}
+= form_for :notification_rule, options do |f|
+  #new-notification-rule
+    %p
+      Email
+      %br
+      =f.text_field :email
+    %p
+      Matchers
+      %br
+      = f.text_area :matchers, :value => @notification_rule.matchers.to_a.join("\n")
+    %p= f.submit(:class => "primary btn", :value => "Save Notification Rule")
+
+%p= link_to "Back to notification rules", whoops_notification_rules_path

@@ -1,0 +1,21 @@
+%h3 Notification Rules
+
+- content_for :sidebar do
+  .space
+    = render :partial => "form"
+
+
+
+%table
+  %tr
+    %th Email Address
+    %th Services to Monitor
+    %th
+  
+  - @notification_rules.each do |nr|
+    %tr
+      %td= nr.email
+      %td= nr.matchers.sort.join(", ")
+      %td= link_to "update", edit_whoops_notification_rule_path(nr)
+
+      

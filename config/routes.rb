@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   end
   
   resources :events, :as => "whoops_events"
+  resources :notification_rules, :as => "whoops_notification_rules"
 end

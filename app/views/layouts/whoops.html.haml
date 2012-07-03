@@ -14,9 +14,12 @@
     .topbar
       .listfill
         .container-fluid
-          = link_to "Whoops", whoops_event_groups_path, :class => "brand"
+          = link_to "Event Groups", whoops_event_groups_path, :class => "brand"
+          = link_to "Notification Rules", whoops_notification_rules_path, :class => "brand"
+          = link_to "Whoops Documentation", "http://www.whoopsapp.com/", :class => "documentation"
     .container-fluid
       .sidebar
         = yield :sidebar
       .content
         = yield
+          

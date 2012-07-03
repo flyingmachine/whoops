@@ -4,6 +4,8 @@ class Whoops::NotificationRule
   field :email, :type => String
   field :matchers, :type => Array
 
+  validates_presence_of :email
+
   # This might come in handy in the future?
   # class << self.fields["matchers"]
   #   def set(object)
@@ -19,11 +21,26 @@ class Whoops::NotificationRule
   end
   
   def matchers=(matchers)
-    write_attribute(:matchers, matchers.split("\n").collect{ |m| m.strip })
+    write_attribute(:matchers, split_matchers(matchers).sort)
   end
-  
-  def self.matches(event)
-    
+
+  def add_matchers(new_matchers)
+    split = split_matchers(new_matchers)
+    write_attribute(:matchers, (self.matchers | split).sort)
+    self.save
+  end
+
+  def split_matchers(new_matchers)
+    new_matchers.split("\n").collect{ |m| m.strip }
+  end
+
+  def self.add_rules(params)
+    params[:email] = params[:email].downcase
+    if rule = first(:conditions => {:email => params[:email]})
+      rule.add_matchers(params[:matchers])
+    else
+      create(params)
+    end
   end
   
   class Matcher

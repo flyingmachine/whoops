@@ -147,3 +147,16 @@ ul.detail {
     color:$blue;
   }
 }
+
+/* Notification rules! */
+#new-notification-rule {
+  textarea {
+    height: 100px;
+    width:190px;
+  }
+}
+
+.topbar .documentation {
+  float: right;
+  @extend .brand;
+}

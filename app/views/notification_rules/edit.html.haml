@@ -1,0 +1,8 @@
+%h3 Edit Notification Rules for #{@notification_rule.email}
+
+= render :partial => "form"
+
+%h4 Delete This Rule
+
+= form_for :notification_rule, :method => :delete, :url => whoops_notification_rule_path(@notification_rule) do |f|
+  = f.submit :class => "btn", :value => "Delete it Forever! There's no going back!"
