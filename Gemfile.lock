@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    whoops (0.2.3)
+    whoops (0.2.4)
       haml
       kaminari
       mongo
@@ -81,9 +81,9 @@ GEM
     mime-types (1.18)
     mongo (1.6.1)
       bson (~> 1.6.1)
-    mongoid (2.4.10)
+    mongoid (2.4.11)
       activemodel (~> 3.1)
-      mongo (~> 1.3)
+      mongo (<= 1.6.2)
       tzinfo (~> 0.3.22)
     multi_json (1.0.4)
     nokogiri (1.5.0)
@@ -143,7 +143,7 @@ GEM
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
     rubyzip (0.9.5)
-    sass (3.1.19)
+    sass (3.1.20)
     selenium-webdriver (2.17.0)
       childprocess (>= 0.2.5)
       ffi (~> 1.0.9)
