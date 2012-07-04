@@ -67,7 +67,7 @@ class Whoops::EventGroup
   
   
   def send_notifications
-    return unless self.notify_on_next_occurrence
+    return if !self.notify_on_next_occurrence || !Rails.application.config.whoops_sender
     matcher = Whoops::NotificationRule::Matcher.new(self)
     Whoops::NotificationMailer.event_notification(self, matcher.matches.collect(&:email)).deliver unless matcher.matches.empty?
     self.notify_on_next_occurrence = false
