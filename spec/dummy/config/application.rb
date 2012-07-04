@@ -49,5 +49,6 @@ module Dummy
     # Fix for MongoID
     config.mongoid.use_utc = false
     config.mongoid.use_activesupport_time_zone = true
+    config.whoops_sender = "dummy@test.com"
   end
 end

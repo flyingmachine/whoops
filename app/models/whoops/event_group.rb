@@ -31,6 +31,8 @@ class Whoops::EventGroup
       end
       
       if event_group.valid?
+        event_group.archived = false
+        event_group.handle_archival
         event_group.event_count += 1
         event_group.send_notifications
         event_group.save
@@ -43,8 +45,6 @@ class Whoops::EventGroup
   has_many :events, :class_name => "Whoops::Event"
   
   validates_presence_of :event_group_identifier, :event_type, :service, :message
-  
-  before_save :handle_archival
   
   def self.identifying_fields
     field_names - ["message", "last_recorded_at"]
