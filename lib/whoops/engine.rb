@@ -5,7 +5,11 @@ module Whoops
     end
 
     initializer "default whoops sender", :before => :load_config_initializers do |app|
-      app.config.whoops_sender ||= nil
+      begin
+        app.config.whoops_sender ||= nil
+      rescue NoMethodError
+        app.config.whoops_sender = nil
+      end
     end
   end
 end
