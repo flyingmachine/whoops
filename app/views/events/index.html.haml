@@ -24,7 +24,15 @@
 
 %article
   %header
-    %h3= @event_group.message
+    = form_for :event_group, :url => whoops_event_group_path(@event_group), :method => :put do |f|
+      - if @event_group.archived
+        = f.hidden_field :archived, :value => false
+        = f.submit :class => "btn", :value => "unarchive"
+      - else 
+        = f.hidden_field :archived, :value => true
+        = f.submit :class => "btn", :value => "archive"
+    %h3
+      = @event_group.message
   %table.span8.bordered-table
     %thead
       %tr

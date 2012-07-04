@@ -5,6 +5,7 @@ class EventGroupsController < ApplicationController
   
   def index
     query_document = event_group_filter.to_query_document
+    query_document.merge!(:archived => false) unless params[:show_archived]
     query_document.merge!(:_id.in => Whoops::Event.where(:keywords => /#{params[:query]}/i).distinct(:event_group_id)) unless params[:query].blank?
     
     @event_groups = Whoops::EventGroup.where(query_document).desc(:last_recorded_at).page(params[:page]).per(30)
@@ -29,6 +30,12 @@ class EventGroupsController < ApplicationController
   
   def event_group_filter=(filter)
     session[:event_group_filter] = Whoops::Filter.new_from_params(filter)
+  end
+
+  def update
+    @event_group = Whoops::EventGroup.find(params[:id])
+    @event_group.update_attributes(:archived => params[:event_group][:archived] == "true")
+    redirect_to whoops_event_group_events_path(@event_group)
   end
   
 end

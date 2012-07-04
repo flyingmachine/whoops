@@ -63,8 +63,8 @@ class Whoops::EventGroup
         self.notify_on_next_occurrence = true
       end
     end
+    true
   end
-  
   
   def send_notifications
     return if !self.notify_on_next_occurrence || !Rails.application.config.whoops_sender
