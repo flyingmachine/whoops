@@ -355,7 +355,7 @@ end
 == Demos
 
 * http://whoops-example.heroku.com[Example of the Whoops Rails engine]
-* http://whoops-rails-notifier-example.heroku.com/[Example site which sends logs to whoops]
+* http://whoops-rails-logger-example.heroku.com/[Example site which sends logs to whoops]
 
 == Alternatives
 
