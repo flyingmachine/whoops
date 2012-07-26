@@ -12,3 +12,4 @@ doc/assets
 *#*
 .sass-cache
 doc/site/tmp
+doc/site/output

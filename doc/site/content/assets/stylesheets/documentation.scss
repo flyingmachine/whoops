@@ -30,6 +30,7 @@ $grid-padding   : $gutter-width;  // grid-padding equal to gutters
 
 // Colors
 $purple: #767fa8;
+$light-purple-bg: #eeeff4;
 $dark-teal: #b5c5cf;
 $light-teal: #daedf9;
 $light-teal-bg: #f3fafe;
@@ -113,10 +114,11 @@ a {
     @include span-columns(9 omega,12);
     
     h2 {
-      @include adjust-font-size-to(32px, 1);
+      @include adjust-font-size-to(32px);
       @include leader(1, 32px);
       @include trailer(1, 32px);
       border-left: 8px solid $purple;
+      background: $light-purple-bg;
       padding-left: 8px;
       margin-left: -16px;
     }
@@ -134,6 +136,7 @@ a {
   }
   .secondary{
     @include span-columns(3, 12);
+    @include leader;
     position: fixed;
   }
 }
