@@ -15,14 +15,14 @@ The Whoops server is a Rails engine which records logs and provides an
 interface to filter, search, and view them. Below are its features and
 how it compares to Hoptoad:
 
-image::./assets/dash.png["Dash", link="./assets/dash.png"]
+[![Dash](/assets/images/screens/dash.png)](/assets/images/screens/dash.png)
 
 ### Log Arbitrary Events
 
 With Airbrake, you only log exceptions. With Whoops, it's up to you to
 tell the Whoops server what you're logging, be it an exception,
-notification, warning, or whatever. Internally, +Whoops::EventGroup+
-uses the +event_type+ field to store the event type. You can filter on
+notification, warning, or whatever. Internally, `Whoops::EventGroup`
+uses the `event_type` field to store the event type. You can filter on
 this field when viewing a listing of all events.
 
 ### Log Arbitrary Details
@@ -74,9 +74,9 @@ message !r/(yesterday|today)/                <4>
 The general format is `key[#mongoid_method] query` . As you can see,
 `query` can be a string, number, regex, or array of these values.
 Hashes are allowed too. If you're not familiar with querying mongo,
-you can http://www.mongodb.org/display/DOCS/Querying[read more in the
-mongodb docs]. The
-http://two.mongoid.org/docs/querying/criteria.html#where[Mongoid] docs are
+you can [read more in the
+mongodb docs](http://www.mongodb.org/display/DOCS/Querying). The
+[Mongoid](http://two.mongoid.org/docs/querying/criteria.html#where) docs are
 useful as well.
 
 ### Extend the App
@@ -91,7 +91,7 @@ In Airbrake, errors are assigned to projects, and access to projects is
 given to users. In Whoops, there are no users, so it's not necessary
 to manage access rights or even to log in. Additionally, there is no
 Project model within the code or database. Instead, each EventGroup
-has a +service+ field which you can filter on. Services can be
+has a `service` field which you can filter on. Services can be
 namespaced, so that if you have the services "godzilla.web" and
 "godzilla.background", you can set a filter to show events related to
 either service or both.
@@ -105,8 +105,8 @@ Since Whoops doesn't have users, email notification of events is
 handled by entering an email address along with a newline-separated
 list of services to receive notifications for.
 
-image:./assets/notification-rules.png["Dash",
-link="./assets/notification-rules.png"]
+
+[![Dash](/assets/images/screens/notification-rules.png)](/assets/images/screens/notification-rules.png)
 
 Notifications are sent in two circumstances:
 
@@ -115,16 +115,16 @@ Notifications are sent in two circumstances:
 
 You must set the ActionMailer settings in your base Rails app in order
 to send notifications. Additionally, you must set the "from" email
-address with +Rails.application.config.whoops_sender+
+address with `Rails.application.config.whoops_sender`
 
 ### Archival
 
 You can archive a specific event group when viewing its details page.
 This prevents the event group from showing up in the event group list.
 
-You can view archived event groups by appending +show_archived=true+
+You can view archived event groups by appending `show_archived=true`
 to the event group url. For example:
-+http://localhost:3000/event_groups?show_archived=true+ . A more
+`http://localhost:3000/event_groups?show_archived=true` . A more
 elegant way to do this will be implemented in the future.
 
 If a new event comes in for an event group after the event group is
@@ -134,7 +134,7 @@ archived, a notification will be sent.
 
 If you use Whoops you'll have to manage the Rails app yourself. You'll
 have to set up mongodb and all that. Heroku has a
-http://addons.heroku.com/mongolab[great mongodb addon] that gives you
+[great mongodb addon](http://addons.heroku.com/mongolab) that gives you
 240mb of space for free. Hoptoad doesn't require you to host or manage
 anything.
 
@@ -142,13 +142,13 @@ Since Whoops is self-hosted, you can set it up behind your firewall.
 
 ### Installation
 
-* create a new rails app
-* add +gem "whoops"+ to your Gemfile
-* run +bundle+
-* add http://two.mongoid.org/docs/installation/configuration.html[+config/mongoid.yml+]
-* _optional_ add +root :to => "event_groups#index"+ to your routes file to make the event group listing your home page
-* add https://github.com/flyingmachine/whoops_logger[loggers] to the code you want to monitor
-* ensure that your +config/application.rb+ file looks something like
+1. create a new rails app
+2. add `gem "whoops"` to your Gemfile
+3. run `bundle`
+4. add [`config/mongoid.yml`](http://two.mongoid.org/docs/installation/configuration.html)
+5. _optional_ add `root :to => "event_groups#index"` to your routes file to make the event group listing your home page
+6. add [loggers](https://github.com/flyingmachine/whoops_logger) to the code you want to monitor
+7. ensure that your `config/application.rb` file looks something like
 the following:
 
 ``` ruby
@@ -175,16 +175,16 @@ end
 
 ### Usage
 
-=### Filtering
+#### Filtering
 
 .Filters
-image::./assets/dash.png["Dash", link="./assets/dash.png"]
+[![Dash](/assets/images/screens/dash.png)](/assets/images/screens/dash.png)
 
 When viewing the Event Group list, you can filter by service, environment, and event type.
 
 When you set a filter, its value is stored in a session and won't be changed until you click "reset". This is so that you won't lose your filter after, for example, viewing a specific event.
 
-== Whoops Logger
+## Whoops Logger
 
 Use Whoops Logger to send log messages to a https://github.com/flyingmachine/whoops[Whoops] server.
 
@@ -204,11 +204,11 @@ using the "bare" Ruby client.
 
 ### Installation
 
-Add +whoops_logger+ to your Gemfile
+Add `whoops_logger` to your Gemfile
 
-Add +WhoopsLogger.config.set(config_path)+ to your project, where +config_path+ is a path to a YAML file. The YAML file takes the following options:
+Add `WhoopsLogger.config.set(config_path)` to your project, where `config_path` is a path to a YAML file. The YAML file takes the following options:
 
-----
+``` ruby
 :host
 :http_open_timeout
 :http_read_timeout
@@ -219,11 +219,11 @@ Add +WhoopsLogger.config.set(config_path)+ to your project, where +config_path+ 
 :proxy_port
 :proxy_user
 :secure
-----
+```
 
-You can also use pass a Hash to +WhoopsLogger.config.set+ instead of a path to a YAML file.
+You can also use pass a Hash to `WhoopsLogger.config.set` instead of a path to a YAML file.
 
-### Usage
+## Usage
 
 Whoops Logger sends Messages to Whoops. Messages are created with Strategies. Below is the basic strategy found in `lib/whoops_logger/basic.rb`:
 
@@ -258,19 +258,19 @@ WhoopsLogger.log("default::basic", {
 You can create as many strategies as you need. For example, in a Rails
 app, you could use a strategy for logging exceptions which occur
 during a controller action (in fact
-https://github.com/flyingmachine/whoops_rails_logger[there's a gem for
-that]). You could use a separate strategy for logging exceptions which
-occur during a background job. With controller actions, you care about
+[there's a gem for that](https://github.com/flyingmachine/whoops_rails_logger)).
+You could use a separate strategy for logging exceptions which occur
+during a background job. With controller actions, you care about
 params, sessions, and that data. That data isn't even present in
 background jobs, so it makes sense to use different strategies.
 
-###= Message Builders
+#### Message Builders
 
 Each strategy consists of one or more message builders. The message builders are called in the order in which they are defined.
 
-Internally, each Strategy stores its message builders in the array +message_builders+, and it's possible to modify that array directly if you want. For example, you might want to modify a Strategy provided by a library.
+Internally, each Strategy stores its message builders in the array `message_builders`, and it's possible to modify that array directly if you want. For example, you might want to modify a Strategy provided by a library.
 
-The method +add_message_builder+ is provided for convenience. Below is an example of +add_message_builder+ taken from the https://github.com/flyingmachine/whoops_rails_logger[Whoops Rails Logger]:
+The method `add_message_builder` is provided for convenience. Below is an example of `add_message_builder` taken from the [Whoops Rails Logger](https://github.com/flyingmachine/whoops_rails_logger):
 
 ``` ruby
 # It's not necessary to break up the strategy into 3 message builders,
@@ -320,7 +320,7 @@ strategy.add_message_builder(:basic_details) do |message, raw_data|
 end
 ```
 
-There's a bit more about message builders in the WhoopsLogger::Strategy documentation.
+There's a bit more about message builders in the `WhoopsLogger::Strategy` documentation.
 
 #### Ignore Criteria
 
@@ -341,21 +341,21 @@ end
 
 ## Git Repos
 
-* https://github.com/flyingmachine/whoops
-* https://github.com/flyingmachine/whoops_logger
-* https://github.com/flyingmachine/whoops_rails_logger
+* <https://github.com/flyingmachine/whoops>
+* <https://github.com/flyingmachine/whoops_logger>
+* <https://github.com/flyingmachine/whoops_rails_logger>
 
 ## Demos
 
-* http://whoops-example.heroku.com[Example of the Whoops Rails engine]
-* http://whoops-rails-logger-example.heroku.com/[Example site which sends logs to whoops]
+* [Example of the Whoops Rails engine](http://whoops-example.heroku.com)
+* [Example site which sends logs to whoops](http://whoops-rails-logger-example.heroku.com/)
 
 ## Alternatives
 
-* http://airbrakeapp.com/pages/home[Airbrake (the app formerly known as Hoptoad)]
-* https://papertrailapp.com/[papertrail]
-* http://graylog2.org/[Graylog2]
-* https://github.com/jdpace/errbit[errbit]
+* [Airbrake (the app formerly known as Hoptoad)](http://airbrakeapp.com/pages/home)
+* [papertrail](https://papertrailapp.com/)
+* [Graylog2](http://graylog2.org/)
+* [errbit](https://github.com/jdpace/errbit)
 
 ## TODO
 

@@ -34,6 +34,7 @@ $light-purple-bg: #eeeff4;
 $dark-teal: #b5c5cf;
 $light-teal: #daedf9;
 $light-teal-bg: #f3fafe;
+$light-green-bg: #eef4f1;
 
 // To customize vertical ryhthm, see http://compass-style.org/reference/compass/typography/vertical_rhythm/
 @include establish-baseline;
@@ -133,11 +134,37 @@ a {
       padding-left: 8px;
       margin-left: -12px;
     }
+
+    h4 {
+      font-weight:bold;
+      @include leader;
+      background: $light-green-bg;
+      border-left: 2px solid $dark-teal;
+      padding-left: 8px;
+      margin-left: -10px;
+    }
+
+    li {
+      margin-left: 1em;
+    }
+
+    ul li {
+      list-style: disc;
+    }
+
+    ol li {
+      list-style: decimal;
+    }
   }
   .secondary{
     @include span-columns(3, 12);
     @include leader;
     position: fixed;
+  }
+
+  img {
+    max-width:
+    44em;
   }
 }
 
@@ -148,4 +175,12 @@ pre, code, tt {
 pre {
   @include trailer;
   @include leader;
+}
+
+code {
+  background: #f3f3f3;
+}
+
+.code {
+  background: #f9f9f9;
 }

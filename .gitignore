@@ -13,3 +13,4 @@ doc/assets
 .sass-cache
 doc/site/tmp
 doc/site/output
+doc/site/crash.log
