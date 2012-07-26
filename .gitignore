@@ -11,3 +11,4 @@ doc/assets
 .rvmrc
 *#*
 .sass-cache
+doc/site/tmp

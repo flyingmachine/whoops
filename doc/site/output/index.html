@@ -1,0 +1,424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <title>A Brand New nanoc Site - Whoops</title>
+    <link href='/stylesheets/documentation.css' media='screen' rel='stylesheet' type='text/css' />
+    <link href='/stylesheets/pygments.css' media='screen' rel='stylesheet' type='text/css' />
+    <!-- you don't need to keep this, but it's cool for stats! -->
+    <meta content='nanoc 3.4.0' name='generator' />
+  </head>
+  <body>
+    <div class='container'>
+      <div class='page'>
+        <header role='banner'>
+          <div class='name'>Documentation Theme</div>
+        </header>
+        <nav>
+          <ul>
+            <li>
+              <a href='#'>first</a>
+            </li>
+            <li>
+              <a href='#'>second</a>
+            </li>
+          </ul>
+        </nav>
+        <div class='content'>
+          <div class='main'><h2>What is Whoops?</h2>
+
+<p>Whoops is a free, open-source, self-hosted logging system. It consists
+of a Rails engine (which records logs and provides an interface to
+them) and a logger. The server and Ruby logger are described below,
+along with comparisons to other logging systems.</p>
+
+<h2>Whoops Server</h2>
+
+<p>The Whoops server is a Rails engine which records logs and provides an
+interface to filter, search, and view them. Below are its features and
+how it compares to Hoptoad:</p>
+
+<p>image::./assets/dash.png[&quot;Dash&quot;, link=&quot;./assets/dash.png&quot;]</p>
+
+<h3>Log Arbitrary Events</h3>
+
+<p>With Airbrake, you only log exceptions. With Whoops, it&#39;s up to you to
+tell the Whoops server what you&#39;re logging, be it an exception,
+notification, warning, or whatever. Internally, +Whoops::EventGroup+
+uses the +event_type+ field to store the event type. You can filter on
+this field when viewing a listing of all events.</p>
+
+<h3>Log Arbitrary Details</h3>
+
+<p>With many logging systems, the fields which you can log are
+pre-defined. They also reflect an assumption that your error happened
+within the context of handling an HTTP request. Whoops uses mongodb as
+its database and this allows you to log whatever details you want. For
+example, you could log the following:</p>
+<div class='code pygments'><div class="highlight"><pre><span class="p">{</span>
+  <span class="ss">:start_time</span> <span class="o">=&gt;</span> <span class="mi">1310748754</span><span class="p">,</span>
+  <span class="ss">:end_time</span>   <span class="o">=&gt;</span> <span class="mi">1310949834</span><span class="p">,</span>
+  <span class="ss">:users_imported</span> <span class="o">=&gt;</span> <span class="o">[</span>
+    <span class="p">{</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">413</span><span class="p">,</span> <span class="ss">:succeeded</span> <span class="o">=&gt;</span> <span class="kp">false</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">835</span><span class="p">,</span> <span class="ss">:succeeded</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">894</span><span class="p">,</span> <span class="ss">:succeeded</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">124</span><span class="p">,</span> <span class="ss">:succeeded</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="p">},</span>
+  <span class="o">]</span><span class="p">,</span>
+<span class="p">}</span>
+</pre>
+</div>
+</div>
+<p>This gets stored as-is in Whoops. You can also search these details, as explained below:</p>
+
+<h3>Search Event Details</h3>
+
+<p>As far I know, you can&#39;t search Airbrake or Errbit. Graylog2 provides
+search. Whoops provides two kinds of search: event detail search
+within for all events within an EventGroup, and keywords search across
+all events and event groups.</p>
+
+<p>Below is example text you would write to search event details, and
+below that is essentially the ruby code that ends up getting run by
+the server.</p>
+<div class='code pygments'><div class="highlight"><pre><span class="n">details</span><span class="o">.</span><span class="n">current_user_id</span><span class="c1">#in [3, 54, 532]      &lt;1&gt;</span>
+<span class="n">details</span><span class="o">.</span><span class="n">num_failures</span><span class="c1">#gt 3                    &lt;2&gt;</span>
+<span class="n">details</span><span class="o">.</span><span class="n">current_user</span><span class="o">.</span><span class="n">first_name</span> <span class="no">Voldemort</span>    <span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span>
+<span class="n">message</span> <span class="o">!</span><span class="n">r</span><span class="o">/</span><span class="p">(</span><span class="n">yesterday</span><span class="o">|</span><span class="n">today</span><span class="p">)</span><span class="o">/</span>                <span class="o">&lt;</span><span class="mi">4</span><span class="o">&gt;</span>
+</pre>
+</div>
+</div>
+<ol>
+<li><code>Event.where( {:&quot;details.current_user_id&quot;.in =&gt; [3, 54, 532]} )</code></li>
+<li><code>Event.where( {:&quot;details.num_failure&quot;.gt =&gt; 3} )</code></li>
+<li><code>Event.where( {:&quot;details.current_user.first_name&quot; =&gt; &quot;Voldemort&quot;} )</code></li>
+<li><code>Event.where( {:message =&gt; /(yesterday|today/)} )</code> Note that regular expressions must start with !r.</li>
+</ol>
+
+<p>The general format is <code>key[#mongoid_method] query</code> . As you can see,
+<code>query</code> can be a string, number, regex, or array of these values.
+Hashes are allowed too. If you&#39;re not familiar with querying mongo,
+you can http://www.mongodb.org/display/DOCS/Querying[read more in the
+mongodb docs]. The
+http://two.mongoid.org/docs/querying/criteria.html#where[Mongoid] docs are
+useful as well.</p>
+
+<h3>Extend the App</h3>
+
+<p>Since Whoops is a Rails engine, you can make changes to your base
+rails app without worrying about merge difficulties when you upgrade
+Whoops. For example, you could add basic HTTP authentication.</p>
+
+<h3>No Users or Projects</h3>
+
+<p>In Airbrake, errors are assigned to projects, and access to projects is
+given to users. In Whoops, there are no users, so it&#39;s not necessary
+to manage access rights or even to log in. Additionally, there is no
+Project model within the code or database. Instead, each EventGroup
+has a +service+ field which you can filter on. Services can be
+namespaced, so that if you have the services &quot;godzilla.web&quot; and
+&quot;godzilla.background&quot;, you can set a filter to show events related to
+either service or both.</p>
+
+<p>Note that you can add users and/or authentication to the base rails
+app if you really want to.</p>
+
+<h3>Notifications</h3>
+
+<p>Since Whoops doesn&#39;t have users, email notification of events is
+handled by entering an email address along with a newline-separated
+list of services to receive notifications for.</p>
+
+<p>image:./assets/notification-rules.png[&quot;Dash&quot;,
+link=&quot;./assets/notification-rules.png&quot;]</p>
+
+<p>Notifications are sent in two circumstances:</p>
+
+<ul>
+<li>A new kind of event is received</li>
+<li>An event is received for an archived event group</li>
+</ul>
+
+<p>You must set the ActionMailer settings in your base Rails app in order
+to send notifications. Additionally, you must set the &quot;from&quot; email
+address with +Rails.application.config.whoops_sender+</p>
+
+<h3>Archival</h3>
+
+<p>You can archive a specific event group when viewing its details page.
+This prevents the event group from showing up in the event group list.</p>
+
+<p>You can view archived event groups by appending +show<em>archived=true+
+to the event group url. For example:
++http://localhost:3000/event</em>groups?show_archived=true+ . A more
+elegant way to do this will be implemented in the future.</p>
+
+<p>If a new event comes in for an event group after the event group is
+archived, a notification will be sent.</p>
+
+<h3>You Manage the Rails App</h3>
+
+<p>If you use Whoops you&#39;ll have to manage the Rails app yourself. You&#39;ll
+have to set up mongodb and all that. Heroku has a
+http://addons.heroku.com/mongolab[great mongodb addon] that gives you
+240mb of space for free. Hoptoad doesn&#39;t require you to host or manage
+anything.</p>
+
+<p>Since Whoops is self-hosted, you can set it up behind your firewall.</p>
+
+<h3>Installation</h3>
+
+<ul>
+<li>create a new rails app</li>
+<li>add +gem &quot;whoops&quot;+ to your Gemfile</li>
+<li>run +bundle+</li>
+<li>add http://two.mongoid.org/docs/installation/configuration.html[+config/mongoid.yml+]</li>
+<li><em>optional</em> add +root :to =&gt; &quot;event_groups#index&quot;+ to your routes file to make the event group listing your home page</li>
+<li>add https://github.com/flyingmachine/whoops_logger[loggers] to the code you want to monitor</li>
+<li>ensure that your +config/application.rb+ file looks something like
+the following:</li>
+</ul>
+<div class='code pygments'><div class="highlight"><pre><span class="c1"># make sure that you&#39;re not requiring active record</span>
+<span class="nb">require</span> <span class="s2">&quot;action_controller/railtie&quot;</span>
+<span class="nb">require</span> <span class="s2">&quot;action_view/railtie&quot;</span>
+<span class="nb">require</span> <span class="s2">&quot;action_mailer/railtie&quot;</span>
+<span class="nb">require</span> <span class="s2">&quot;sprockets/railtie&quot;</span>
+
+<span class="k">if</span> <span class="n">defined?</span><span class="p">(</span><span class="no">Bundler</span><span class="p">)</span>
+  <span class="no">Bundler</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="o">*</span><span class="no">Rails</span><span class="o">.</span><span class="n">groups</span><span class="p">(</span><span class="ss">:assets</span> <span class="o">=&gt;</span> <span class="sx">%w(development test)</span><span class="p">))</span>
+<span class="k">end</span>
+
+<span class="k">module</span> <span class="nn">WhoopsServer</span>
+  <span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Rails</span><span class="o">::</span><span class="no">Application</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s2">&quot;utf-8&quot;</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">filter_parameters</span> <span class="o">+=</span> <span class="o">[</span><span class="ss">:password</span><span class="o">]</span>
+    <span class="c1"># optional - only for sending email notifications</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">whoops_sender</span> <span class="o">=</span> <span class="s2">&quot;whoops@yourdomain.com&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+</div>
+<h3>Usage</h3>
+
+<p>=### Filtering</p>
+
+<p>.Filters
+image::./assets/dash.png[&quot;Dash&quot;, link=&quot;./assets/dash.png&quot;]</p>
+
+<p>When viewing the Event Group list, you can filter by service, environment, and event type.</p>
+
+<p>When you set a filter, its value is stored in a session and won&#39;t be changed until you click &quot;reset&quot;. This is so that you won&#39;t lose your filter after, for example, viewing a specific event.</p>
+
+<p>== Whoops Logger</p>
+
+<p>Use Whoops Logger to send log messages to a https://github.com/flyingmachine/whoops[Whoops] server.</p>
+
+<h3>Rails Gem</h3>
+
+<p>Please note that there&#39;s a
+https://github.com/flyingmachine/whoops<em>rails</em>logger[Rails gem] which
+simplifies usage in two ways:</p>
+
+<ol>
+<li>You don&#39;t have to specify the location of a whoops config file; it
+defaults to config/whoops.yml</li>
+<li>It includes an exception logger which will handle all exceptions
+within the context of a controller action.</li>
+</ol>
+
+<p>Below are instructions for adding additional logging strategies and
+using the &quot;bare&quot; Ruby client.</p>
+
+<h3>Installation</h3>
+
+<p>Add +whoops_logger+ to your Gemfile</p>
+
+<p>Add +WhoopsLogger.config.set(config<em>path)+ to your project, where +config</em>path+ is a path to a YAML file. The YAML file takes the following options:</p>
+
+<hr>
+
+<p>:host
+:http<em>open</em>timeout
+:http<em>read</em>timeout
+:port
+:protocol
+:proxy<em>host
+:proxy</em>pass
+:proxy<em>port
+:proxy</em>user</p>
+
+<h2>:secure</h2>
+
+<p>You can also use pass a Hash to +WhoopsLogger.config.set+ instead of a path to a YAML file.</p>
+
+<h3>Usage</h3>
+
+<p>Whoops Logger sends Messages to Whoops. Messages are created with Strategies. Below is the basic strategy found in <code>lib/whoops_logger/basic.rb</code>:</p>
+<div class='code pygments'><div class="highlight"><pre><span class="n">strategy</span> <span class="o">=</span> <span class="no">WhoopsLogger</span><span class="o">::</span><span class="no">Strategy</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;default::basic&quot;</span><span class="p">)</span>
+
+<span class="n">strategy</span><span class="o">.</span><span class="n">add_message_builder</span><span class="p">(</span><span class="ss">:use_basic_hash</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">message</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">|</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">event_type</span>             <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:event_type</span><span class="o">]</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">service</span>                <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:service</span><span class="o">]</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">environment</span>            <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:environment</span><span class="o">]</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">message</span>                <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:message</span><span class="o">]</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">event_group_identifier</span> <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:event_group_identifier</span><span class="o">]</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">event_time</span>             <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:event_time</span><span class="o">]</span> <span class="k">if</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:event_time</span><span class="o">]</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">details</span>                <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:details</span><span class="o">]</span>
+<span class="k">end</span>
+</pre>
+</div>
+</div>
+<p>To use this strategy, you would call</p>
+<div class='code pygments'><div class="highlight"><pre><span class="no">WhoopsLogger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;default::basic&quot;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="ss">:event_type</span>             <span class="o">=&gt;</span> <span class="s2">&quot;your_event_type&quot;</span><span class="p">,</span>
+  <span class="ss">:service</span>                <span class="o">=&gt;</span> <span class="s2">&quot;your_service_name&quot;</span><span class="p">,</span>
+  <span class="ss">:environment</span>            <span class="o">=&gt;</span> <span class="s2">&quot;development&quot;</span><span class="p">,</span>
+  <span class="ss">:message</span>                <span class="o">=&gt;</span> <span class="s2">&quot;String to Show in Whoops Event List&quot;</span><span class="p">,</span>
+  <span class="ss">:event_group_identifier</span> <span class="o">=&gt;</span> <span class="s2">&quot;String used to assign related events to a group&quot;</span><span class="p">,</span>
+  <span class="ss">:event_time</span>             <span class="o">=&gt;</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span> <span class="c1"># Defaults to now, so you can leave this out</span>
+  <span class="ss">:details</span>                <span class="o">=&gt;</span> <span class="s2">&quot;A string, hash, or array of arbitrary data&quot;</span>
+<span class="p">})</span>
+</pre>
+</div>
+</div>
+<p>You can create as many strategies as you need. For example, in a Rails
+app, you could use a strategy for logging exceptions which occur
+during a controller action (in fact
+https://github.com/flyingmachine/whoops<em>rails</em>logger[there&#39;s a gem for
+that]). You could use a separate strategy for logging exceptions which
+occur during a background job. With controller actions, you care about
+params, sessions, and that data. That data isn&#39;t even present in
+background jobs, so it makes sense to use different strategies.</p>
+
+<h3>= Message Builders</h3>
+
+<p>Each strategy consists of one or more message builders. The message builders are called in the order in which they are defined.</p>
+
+<p>Internally, each Strategy stores its message builders in the array +message_builders+, and it&#39;s possible to modify that array directly if you want. For example, you might want to modify a Strategy provided by a library.</p>
+
+<p>The method +add<em>message</em>builder+ is provided for convenience. Below is an example of +add<em>message</em>builder+ taken from the https://github.com/flyingmachine/whoops<em>rails</em>logger[Whoops Rails Logger]:</p>
+<div class='code pygments'><div class="highlight"><pre><span class="c1"># It&#39;s not necessary to break up the strategy into 3 message builders,</span>
+<span class="c1"># but it could help to compartmentalize related portions of message building</span>
+<span class="n">strategy</span><span class="o">.</span><span class="n">add_message_builder</span><span class="p">(</span><span class="ss">:basic_details</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">message</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">|</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">service</span>     <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">service</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">environment</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">environment</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">event_type</span>  <span class="o">=</span> <span class="s2">&quot;exception&quot;</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">message</span>     <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:exception</span><span class="o">].</span><span class="n">message</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">event_time</span>  <span class="o">=</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span>
+<span class="k">end</span>
+
+<span class="n">strategy</span><span class="o">.</span><span class="n">add_message_builder</span><span class="p">(</span><span class="ss">:details</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">message</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">|</span>
+  <span class="n">exception</span> <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:exception</span><span class="o">]</span>
+  <span class="n">rack_env</span>  <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:rack_env</span><span class="o">]</span>
+
+  <span class="n">details</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="n">details</span><span class="o">[</span><span class="ss">:backtrace</span><span class="o">]</span> <span class="o">=</span> <span class="n">exception</span><span class="o">.</span><span class="n">backtrace</span><span class="o">.</span><span class="n">collect</span><span class="p">{</span> <span class="o">|</span><span class="n">line</span><span class="o">|</span>
+    <span class="n">line</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sr">/^</span><span class="si">#{</span><span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;GEM_HOME&#39;</span><span class="o">]</span><span class="si">}</span><span class="sr">/</span><span class="p">,</span> <span class="s1">&#39;$GEM_HOME&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sr">/^</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="sr">/</span><span class="p">,</span> <span class="s1">&#39;$Rails.root&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="n">details</span><span class="o">[</span><span class="ss">:http_host</span><span class="o">]</span>      <span class="o">=</span> <span class="n">rack_env</span><span class="o">[</span><span class="s2">&quot;HTTP_HOST&quot;</span><span class="o">]</span>        
+  <span class="n">details</span><span class="o">[</span><span class="ss">:params</span><span class="o">]</span>         <span class="o">=</span> <span class="n">rack_env</span><span class="o">[</span><span class="s2">&quot;action_dispatch.request.parameters&quot;</span><span class="o">]</span>
+  <span class="n">details</span><span class="o">[</span><span class="ss">:controller</span><span class="o">]</span>     <span class="o">=</span> <span class="n">details</span><span class="o">[</span><span class="ss">:params</span><span class="o">][</span><span class="ss">:controller</span><span class="o">]</span> <span class="k">if</span> <span class="n">details</span><span class="o">[</span><span class="ss">:params</span><span class="o">]</span>
+  <span class="n">details</span><span class="o">[</span><span class="ss">:action</span><span class="o">]</span>         <span class="o">=</span> <span class="n">details</span><span class="o">[</span><span class="ss">:params</span><span class="o">][</span><span class="ss">:action</span><span class="o">]</span>     <span class="k">if</span> <span class="n">details</span><span class="o">[</span><span class="ss">:params</span><span class="o">]</span>
+  <span class="n">details</span><span class="o">[</span><span class="ss">:query_string</span><span class="o">]</span>   <span class="o">=</span> <span class="n">rack_env</span><span class="o">[</span><span class="s2">&quot;QUERY_STRING&quot;</span><span class="o">]</span>
+  <span class="n">details</span><span class="o">[</span><span class="ss">:remote_addr</span><span class="o">]</span>    <span class="o">=</span> <span class="n">rack_env</span><span class="o">[</span><span class="s2">&quot;REMOTE_ADDR&quot;</span><span class="o">]</span>
+  <span class="n">details</span><span class="o">[</span><span class="ss">:request_method</span><span class="o">]</span> <span class="o">=</span> <span class="n">rack_env</span><span class="o">[</span><span class="s2">&quot;REQUEST_METHOD&quot;</span><span class="o">]</span>
+  <span class="n">details</span><span class="o">[</span><span class="ss">:server_name</span><span class="o">]</span>    <span class="o">=</span> <span class="n">rack_env</span><span class="o">[</span><span class="s2">&quot;SERVER_NAME&quot;</span><span class="o">]</span>
+  <span class="n">details</span><span class="o">[</span><span class="ss">:session</span><span class="o">]</span>        <span class="o">=</span> <span class="n">rack_env</span><span class="o">[</span><span class="s2">&quot;rack.session&quot;</span><span class="o">]</span>
+  <span class="n">details</span><span class="o">[</span><span class="ss">:env</span><span class="o">]</span>            <span class="o">=</span> <span class="no">ENV</span><span class="o">.</span><span class="n">to_hash</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">details</span>          <span class="o">=</span> <span class="n">details</span>
+<span class="k">end</span>
+
+<span class="n">strategy</span><span class="o">.</span><span class="n">add_message_builder</span><span class="p">(</span><span class="ss">:create_event_group_identifier</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">message</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">|</span>
+  <span class="n">identifier</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">message</span><span class="o">.</span><span class="n">details</span><span class="o">[</span><span class="ss">:controller</span><span class="o">]</span><span class="si">}</span><span class="s2">#</span><span class="si">#{</span><span class="n">message</span><span class="o">.</span><span class="n">details</span><span class="o">[</span><span class="ss">:action</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="n">identifier</span> <span class="o">&lt;&lt;</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:exception</span><span class="o">].</span><span class="n">backtrace</span><span class="o">.</span><span class="n">collect</span><span class="p">{</span><span class="o">|</span><span class="n">b</span><span class="o">|</span> <span class="n">b</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/:in.*/</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)}</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">event_group_identifier</span> <span class="o">=</span> <span class="no">Digest</span><span class="o">::</span><span class="no">SHA1</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">strategy</span><span class="o">.</span><span class="n">add_message_builder</span><span class="p">(</span><span class="ss">:basic_details</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">message</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">|</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">service</span>     <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">service</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">environment</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">environment</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">event_type</span>  <span class="o">=</span> <span class="s2">&quot;exception&quot;</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">message</span>     <span class="o">=</span> <span class="n">raw_data</span><span class="o">[</span><span class="ss">:exception</span><span class="o">].</span><span class="n">message</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">event_time</span>  <span class="o">=</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span>
+<span class="k">end</span>
+</pre>
+</div>
+</div>
+<p>There&#39;s a bit more about message builders in the WhoopsLogger::Strategy documentation.</p>
+
+<h4>Ignore Criteria</h4>
+
+<p>Sometimes you want to ignore a message instead of sending it off to
+whoops. For example, you might not want to log &quot;Record Not Found&quot;
+exceptions in Rails. If any of the ignore criteria evaluate to true,
+then the message is ignored. Below is an example:</p>
+<div class='code pygments'><div class="highlight"><pre><span class="n">strategy</span><span class="o">.</span><span class="n">add_ignore_criteria</span><span class="p">(</span><span class="ss">:ignore_record_not_found</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">message</span><span class="o">|</span>
+  <span class="n">message</span><span class="o">.</span><span class="n">message</span> <span class="o">==</span> <span class="s2">&quot;Record Not Found&quot;</span>
+<span class="k">end</span>
+
+<span class="n">strategy</span><span class="o">.</span><span class="n">add_ignore_criteria</span><span class="p">(</span><span class="ss">:ignore_dev_environment</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">message</span><span class="o">|</span>
+ <span class="n">message</span><span class="o">.</span><span class="n">environment</span> <span class="o">==</span> <span class="s2">&quot;development&quot;</span>
+<span class="k">end</span>
+</pre>
+</div>
+</div>
+<h2>Git Repos</h2>
+
+<ul>
+<li>https://github.com/flyingmachine/whoops</li>
+<li>https://github.com/flyingmachine/whoops_logger</li>
+<li>https://github.com/flyingmachine/whoops<em>rails</em>logger</li>
+</ul>
+
+<h2>Demos</h2>
+
+<ul>
+<li>http://whoops-example.heroku.com[Example of the Whoops Rails engine]</li>
+<li>http://whoops-rails-logger-example.heroku.com/[Example site which sends logs to whoops]</li>
+</ul>
+
+<h2>Alternatives</h2>
+
+<ul>
+<li>http://airbrakeapp.com/pages/home[Airbrake (the app formerly known as Hoptoad)]</li>
+<li>https://papertrailapp.com/[papertrail]</li>
+<li>http://graylog2.org/[Graylog2]</li>
+<li>https://github.com/jdpace/errbit[errbit]</li>
+</ul>
+
+<h2>TODO</h2>
+
+<ul>
+<li>graphing</li>
+<li>integrate fully with Rails logger (?)</li>
+</ul></div>
+          <div class='secondary'>
+            <h2>Documentation</h2>
+            <ul>
+              <li>
+                <a href='http://nanoc.stoneship.org/docs/'>Documentation</a>
+              </li>
+              <li>
+                <a href='http://nanoc.stoneship.org/docs/3-getting-started/'>Getting Started</a>
+              </li>
+            </ul>
+            <h2>Community</h2>
+            <ul>
+              <li>
+                <a href='http://groups.google.com/group/nanoc/'>Discussion Group</a>
+              </li>
+              <li>
+                <a href='irc://chat.freenode.net/#nanoc'>IRC Channel</a>
+              </li>
+              <li>
+                <a href='http://projects.stoneship.org/trac/nanoc/'>Wiki</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
