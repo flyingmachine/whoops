@@ -67,48 +67,64 @@ a {
   &:visited { color: #8976a8; }
 }
 
-.container {
-  @include padding-trailer;
+
+header, footer { clear: both; }
+header {
+  @include container;
   @include trailer;
-  @include single-box-shadow;
-  background: white;
-  margin-left: 1em;
+  @include sans-family;
+  border-top: 4px solid $purple;
+  .name {
+    @include adjust-font-size-to(60px);
+    @include single-text-shadow(1px, 1px, 2px, black);
+    @include trailer(1, 60px);
+    color: $purple;
+    font-weight:bold;
+    text-align: left;
+
+    .subname {
+      @include adjust-font-size-to(40px, 1, 60px);
+      color: #69b5e4;
+      display:inline;
+      font-style: italic;
+    }
+  }
 }
+
+nav {
+  clear: both;
+  background: $dark-teal;
+
+  li {
+    display:inline-block;
+
+    a {
+      display: block;
+      padding: 0 .5em;
+      color: #333;
+      &:hover {
+        text-decoration: none;
+        background: $light-teal;
+      }
+      &:visited {
+        color:black
+      }
+    }
+  }
+}
+
 
 .page {
   // page acts as a container for our grid.
   @include container;
-  margin:0;
+  @include padding-trailer;
+  @include trailer;
+  @include padding-leader;
+  @include leader;
+  @include single-box-shadow;
+  background: white;
 
   // header and footer are full-width by default.
-  header, footer { clear: both; }
-  header {
-    border-top: 4px solid $purple;
-    .name {
-      @include adjust-font-size-to(30px);
-      @include sans-family;
-      text-align: left;
-    }
-  }
-
-  nav {
-    clear: both;
-    background: $dark-teal;
-
-    li {
-      display:inline-block;
-
-      a {
-        display: block;
-        padding: 0 .5em;
-        color: #333;
-        &:hover {
-          text-decoration: none;
-          background: $light-teal;
-        }
-      }
-    }
-  }
 
   // main content spans 6 of those 9 columns.
   .main {
@@ -158,9 +174,6 @@ a {
   }
   .secondary{
     width: 14em;
-    @include leader;
-    position: fixed;
-
     li a {
       display: block;
     }
@@ -170,6 +183,11 @@ a {
       padding-left: 2px;
       margin-left: -4px;
     }
+  }
+
+  .toc-fixed {
+    position: fixed;
+    top: 40px;
   }
 
   img {
@@ -189,8 +207,11 @@ pre {
 
 code {
   background: #f3f3f3;
+  font-size: 14px;
 }
 
 .code {
   background: #f9f9f9;
+  line-height:1.25em;
+  font-size: 14px;
 }
