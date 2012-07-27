@@ -160,6 +160,16 @@ a {
     width: 14em;
     @include leader;
     position: fixed;
+
+    li a {
+      display: block;
+    }
+    .active > a {
+      background: $light-purple-bg;
+      border-left: 2px solid $purple;
+      padding-left: 2px;
+      margin-left: -4px;
+    }
   }
 
   img {

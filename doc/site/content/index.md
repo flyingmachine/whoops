@@ -59,7 +59,7 @@ Below is example text you would write to search event details, and
 below that is essentially the ruby code that ends up getting run by
 the server.
 
-``` ruby
+```
 details.current_user_id#in [3, 54, 532]      <1>
 details.num_failures#gt 3                    <2>
 details.current_user.first_name Voldemort    <3>
@@ -140,7 +140,7 @@ anything.
 
 Since Whoops is self-hosted, you can set it up behind your firewall.
 
-### Installation
+### Whoops Server Setup
 
 1. create a new rails app
 2. add `gem "whoops"` to your Gemfile
@@ -202,7 +202,7 @@ within the context of a controller action.
 Below are instructions for adding additional logging strategies and
 using the "bare" Ruby client.
 
-### Installation
+### Whoops Logger Setup
 
 Add `whoops_logger` to your Gemfile
 
