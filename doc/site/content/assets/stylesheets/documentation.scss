@@ -72,7 +72,7 @@ a {
   @include trailer;
   @include single-box-shadow;
   background: white;
-  margin-left: 2em;
+  margin-left: 1em;
 }
 
 .page {
@@ -157,7 +157,7 @@ a {
     }
   }
   .secondary{
-    @include span-columns(3, 12);
+    width: 14em;
     @include leader;
     position: fixed;
   }
