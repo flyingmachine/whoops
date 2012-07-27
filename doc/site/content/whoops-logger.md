@@ -4,16 +4,16 @@ title: Whoops Logger
 
 ## Whoops Logger
 
-Use Whoops Logger to send log messages to a https://github.com/flyingmachine/whoops[Whoops] server.
+Use Whoops Logger to send log messages to a Whoops server.
 
 ### Rails Gem
 
 Please note that there's a
-https://github.com/flyingmachine/whoops_rails_logger[Rails gem] which
+[Rails Gem](https://github.com/flyingmachine/whoops_rails_logger) which
 simplifies usage in two ways:
 
 1. You don't have to specify the location of a whoops config file; it
-defaults to config/whoops.yml
+defaults to config/whoops_logger.yml
 2. It includes an exception logger which will handle all exceptions
 within the context of a controller action.
 

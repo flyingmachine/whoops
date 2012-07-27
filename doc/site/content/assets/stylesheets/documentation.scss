@@ -1,118 +1,7 @@
-// Imports -----------------------------------------------------------
-@import "compass/reset";
-@import "compass/utilities/general/clearfix";
-@import "compass/css3/border-radius";
-@import "compass/typography/vertical_rhythm"; // http://compass-style.org/reference/compass/typography/vertical_rhythm/
-@import "compass/css3/box-shadow";
-@import "compass/css3/box-sizing";
-@import "compass/css3/text-shadow";
+@import "_base.scss";
 
-@import "susy"; // grid
-
-// Susy variables -----------------------------------------------------
+// grid variables -----------------------------------------------------
 $total-columns  : 12;             // a 12-column grid
-$column-width   : 4em;            // each column is 4em wide
-$gutter-width   : 1em;            // 1em gutters between columns
-$grid-padding   : $gutter-width;  // grid-padding equal to gutters
-
-// Fonts --------------------------------------------------------------
-@mixin sans-family {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-@mixin serif-family {
-  font-family: Palatino Linotype, Book Antiqua, Palatino, serif;
-}
-
-@mixin monospace-family {
-  font-family: "Bitstream Vera Sans Mono", monospace;
-}
-
-// Colors
-$purple: #767fa8;
-$light-purple-bg: #eeeff4;
-$dark-teal: #b5c5cf;
-$light-teal: #daedf9;
-$light-teal-bg: #f3fafe;
-$light-green-bg: #eef4f1;
-
-// To customize vertical ryhthm, see http://compass-style.org/reference/compass/typography/vertical_rhythm/
-@include establish-baseline;
-
-
-// actual css customization
-.mono {
-  @include monospace-family;
-}
-
-body {
-  @include serif-family;
-  background:url("/assets/images/ui/light_noise_diagonal.png");
-  font-size:16px;
-}
-
-h1 {
-  @include adjust-font-size-to(40px);
-}
-
-
-p {
-  @include leader;
-}
-
-a {
-  text-decoration: none;
-  color: #7694a8;
-  &:hover { text-decoration: underline; }
-  &:visited { color: #8976a8; }
-}
-
-
-header, footer { clear: both; }
-header {
-  @include container;
-  @include trailer;
-  @include sans-family;
-  border-top: 4px solid $purple;
-  .name {
-    @include adjust-font-size-to(60px);
-    @include single-text-shadow(1px, 1px, 2px, black);
-    @include trailer(1, 60px);
-    color: $purple;
-    font-weight:bold;
-    text-align: left;
-
-    .subname {
-      @include adjust-font-size-to(40px, 1, 60px);
-      color: #69b5e4;
-      display:inline;
-      font-style: italic;
-    }
-  }
-}
-
-nav {
-  clear: both;
-  background: $dark-teal;
-
-  li {
-    display:inline-block;
-
-    a {
-      display: block;
-      padding: 0 .5em;
-      color: #333;
-      &:hover {
-        text-decoration: none;
-        background: $light-teal;
-      }
-      &:visited {
-        color:black
-      }
-    }
-  }
-}
-
 
 .page {
   // page acts as a container for our grid.
@@ -159,18 +48,6 @@ nav {
       padding-left: 8px;
       margin-left: -10px;
     }
-
-    li {
-      margin-left: 1em;
-    }
-
-    ul li {
-      list-style: disc;
-    }
-
-    ol li {
-      list-style: decimal;
-    }
   }
   .secondary{
     width: 14em;
@@ -194,24 +71,4 @@ nav {
     max-width:
     44em;
   }
-}
-
-pre, code, tt {
-  @extend .mono;
-}
-
-pre {
-  @include trailer;
-  @include leader;
-}
-
-code {
-  background: #f3f3f3;
-  font-size: 14px;
-}
-
-.code {
-  background: #f9f9f9;
-  line-height:1.25em;
-  font-size: 14px;
 }

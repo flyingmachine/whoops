@@ -63,6 +63,11 @@ route '/assets/javascripts/*' do
 end
 
 
+compile '/' do
+  filter :redcarpet, :options => {:fenced_code_blocks => true}, :renderer => RedcarpetSyntaxHighlighter
+  layout 'home'
+end
+
 compile '*' do
   if item.binary?
     # don’t filter binary items
@@ -97,5 +102,6 @@ route '*' do
     
   end
 end
+
 
 layout '*', :haml

@@ -137,11 +137,14 @@ Since Whoops is self-hosted, you can set it up behind your firewall.
 
 ## Setup
 
+View the [home page](/) for instructions on quickly setting up a
+Heroku server.
+
 1. create a new rails app
 2. add `gem "whoops"` to your Gemfile
 3. run `bundle`
 4. add [`config/mongoid.yml`](http://two.mongoid.org/docs/installation/configuration.html)
-5. _optional_ add `root :to => "event_groups#index"` to your routes file to make the event group listing your home page
+5. *optional* add `root :to => "event_groups#index"` to your routes file to make the event group listing your home page
 6. add [loggers](https://github.com/flyingmachine/whoops_logger) to the code you want to monitor
 7. ensure that your `config/application.rb` file looks something like
 the following:
