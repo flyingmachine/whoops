@@ -4,6 +4,8 @@ title: Whoops
 
 ## Application Logging
 
+[![Dashboard](/assets/images/screens/dash.png)](/assets/images/screens/dash.png)
+
 Whoops is a free, self-hosted tool for logging application events like
 errors or background worker completion. Whoops might be right for you
 if you need to:

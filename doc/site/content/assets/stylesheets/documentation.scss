@@ -21,7 +21,7 @@ $total-columns  : 12;             // a 12-column grid
     
     h2 {
       @include adjust-font-size-to(32px);
-      @include leader(1, 32px);
+
       @include trailer(1, 32px);
       border-left: 8px solid $purple;
       background: $light-purple-bg;
@@ -53,7 +53,12 @@ $total-columns  : 12;             // a 12-column grid
     width: 14em;
     li a {
       display: block;
+      @include adjust-font-size-to(14px);
     }
+    li ul {
+      margin-left:1em;
+    }
+    
     .active > a {
       background: $light-purple-bg;
       border-left: 2px solid $purple;
@@ -65,10 +70,5 @@ $total-columns  : 12;             // a 12-column grid
   .toc-fixed {
     position: fixed;
     top: 40px;
-  }
-
-  img {
-    max-width:
-    44em;
   }
 }
