@@ -68,6 +68,11 @@ compile '/' do
   layout 'home'
 end
 
+compile '/search/' do
+  filter :haml
+  layout 'home'
+end
+
 compile '*' do
   if item.binary?
     # don’t filter binary items

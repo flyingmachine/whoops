@@ -159,6 +159,16 @@ nav {
       @include border-radius(1em 0 0 1em);
     }
   }
+
+  #search {
+    float:right;
+    input {
+      position:relative;
+      top: .6em;
+      right: 2em;
+      padding: 3px 0;
+    }
+  }
 }
 
 .page {
@@ -172,4 +182,7 @@ nav {
   background: white;
 }
 
-
+// Tipue search
+#tipue_search_content_title {
+  @include leader;
+}
