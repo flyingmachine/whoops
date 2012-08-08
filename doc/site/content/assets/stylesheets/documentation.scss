@@ -43,21 +43,21 @@ $total-columns: 12;             // a 12-column grid
     li a {
       display: block;
       @include adjust-font-size-to(14px);
+      padding-left: .3em;
     }
-    li ul {
-      margin-left:1em;
+    li ul a{
+      padding-left:1em;
     }
     
-    .active > a {
+    .active > a, a:hover {
       background: $light-purple-bg;
-      border-left: 2px solid $purple;
-      padding-left: 2px;
-      margin-left: -4px;
+      text-decoration:none;
     }
   }
 
   .toc-fixed {
     position: fixed;
+    width: 14em;
     top: 40px;
   }
 }

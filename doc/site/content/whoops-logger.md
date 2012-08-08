@@ -82,7 +82,7 @@ during a background job. With controller actions, you care about
 params, sessions, and that data. That data isn't even present in
 background jobs, so it makes sense to use different strategies.
 
-#### Message Builders
+### Message Builders
 
 Each strategy consists of one or more message builders. The message builders are called in the order in which they are defined.
 
@@ -140,7 +140,7 @@ end
 
 There's a bit more about message builders in the `WhoopsLogger::Strategy` documentation.
 
-#### Ignore Criteria
+### Ignore Criteria
 
 Sometimes you want to ignore a message instead of sending it off to
 whoops. For example, you might not want to log "Record Not Found"
