@@ -78,6 +78,8 @@ pre, code, tt {
 pre {
   @include trailer;
   @include leader;
+  @include padding-trailer(.5);
+  @include padding-leader(.5);
 }
 
 code {
