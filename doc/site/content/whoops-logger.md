@@ -1,5 +1,6 @@
 ---
 title: Whoops Logger
+kind: page
 ---
 
 ## Whoops Logger

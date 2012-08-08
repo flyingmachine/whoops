@@ -13,54 +13,11 @@
 #   “content/about.html”). To select all children, grandchildren, … of an
 #   item, use the pattern “/about/*/”; “/about/*” will also select the parent,
 #   because “*” matches zero or more characters.
-
-require 'compass'
-require 'susy'
-require 'RedCloth'
-require 'redcarpet'
-require 'lib/custom_tags'
+require "rubygems"
+require "bundler/setup"
+Bundler.require(:default)
 
 Compass.add_project_configuration 'compass/config.rb'
-
-
-# blog
-compile '/atom/' do
-  filter :haml
-end
-
-route '/atom/' do
-  '/atom.xml'
-end
-
-
-
-compile '/assets/stylesheets/*' do
-  unless item.identifier.include?("_") || item.identifier.include?("#")
-    filter(:sass, Compass.sass_engine_options)
-  end
-end
-
-route '/assets/stylesheets/*' do
-  unless item.identifier.include?("_") || item.identifier.include?("#")
-    "/stylesheets/#{File.basename(item.attributes[:filename], File.extname(item.attributes[:filename]))}.css" 
-  end
-end
-
-
-       
-compile '/assets/javascripts/*' do
-  unless item.identifier.include?("_") || item.identifier.include?("#")
-    if item.attributes[:filename] =~ /coffee$/
-      filter :coffeescript
-    end
-  end
-end
-
-route '/assets/javascripts/*' do
-  unless item.identifier.include?("_") || item.identifier.include?("#")
-    "/javascripts/#{File.basename(item.attributes[:filename], File.extname(item.attributes[:filename]))}.js" 
-  end
-end
 
 
 compile '/' do
@@ -73,18 +30,37 @@ compile '/search/' do
   layout 'home'
 end
 
+compile '/assets/javascripts/tipuesearch-data/' do
+  filter :erb
+end
+
 compile '*' do
-  if item.binary?
-    # don’t filter binary items
-  elsif item.attributes[:draft]
-    # don't output drafts
-  else
-    case item.attributes[:filename]
-    when /haml$/ then filter :haml; layout 'default'
-    when /html$/ then filter :erb; layout 'default'
-    when /textile$/ then filter :redcloth; layout 'default'
-    when /(markdown|md)$/ then filter :redcarpet, :options => {:fenced_code_blocks => true}, :renderer => RedcarpetSyntaxHighlighter; layout 'default'
+  unless item.identifier.include?("#") # emacs tmp file
+    if item.binary?
+      # don’t filter binary items
+    elsif item.attributes[:draft]
+      # don't output drafts
+    else
+      case item.attributes[:filename]
+      when /haml$/ then filter :haml; layout 'default'
+      when /textile$/ then filter :redcloth; layout 'default'
+      when /coffee$/ then filter :coffeescript;
+      when /scss$/ then filter(:sass, Compass.sass_engine_options)
+      when /(markdown|md)$/ then filter :redcarpet, :options => {:fenced_code_blocks => true}, :renderer => RedcarpetSyntaxHighlighter; layout 'default'
+      end
     end
+  end
+end
+
+route '/assets/javascripts/*' do
+  unless item.identifier.include?("#") # emacs tmp file
+    "/javascripts/#{File.basename(item.attributes[:filename], File.extname(item.attributes[:filename]))}.js"
+  end
+end
+
+route '/assets/stylesheets/*' do
+  unless item.identifier.include?("#") # emacs tmp file
+    "/stylesheets/#{File.basename(item.attributes[:filename], File.extname(item.attributes[:filename]))}.css" 
   end
 end
 

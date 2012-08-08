@@ -120,7 +120,7 @@ function getTipueSearch(start, replace)
                }
                if (score < 10000000)
                {
-                    found[c++] = score + '^' + tipuesearch.pages[i].title + '^' + tipuesearch.pages[i].text + '^' + tipuesearch.pages[i].loc;
+                    found[c++] = [score,  tipuesearch.pages[i].title, tipuesearch.pages[i].text, tipuesearch.pages[i].loc]
                }
           }
                    
@@ -145,7 +145,7 @@ function getTipueSearch(start, replace)
                var l_o = 0;
                for (var i = 0; i < found.length; i++)
                {
-                    var fo = found[i].split('^');
+                    var fo = found[i];
                     if (l_o >= start && l_o < tipuesearch_show + start)
                     {
                          out += '<div id="tipue_search_content_title"><a href="' + fo[3] + '"' + tipue_search_w + '>' +  fo[1] + '</a></div>';

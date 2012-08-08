@@ -1,5 +1,6 @@
 ---
 title: Whoops Server
+kind: page
 ---
 
 # Whoops Server
