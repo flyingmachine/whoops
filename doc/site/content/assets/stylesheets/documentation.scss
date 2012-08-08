@@ -1,20 +1,9 @@
 @import "_base.scss";
 
 // grid variables -----------------------------------------------------
-$total-columns  : 12;             // a 12-column grid
+$total-columns: 12;             // a 12-column grid
 
 .page {
-  // page acts as a container for our grid.
-  @include container;
-  @include padding-trailer;
-  @include trailer;
-  @include padding-leader;
-  @include leader;
-  @include single-box-shadow;
-  background: white;
-
-  // header and footer are full-width by default.
-
   // main content spans 6 of those 9 columns.
   .main {
     @include span-columns(9 omega,12);

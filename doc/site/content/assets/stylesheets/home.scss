@@ -3,17 +3,6 @@ $total-columns: 9;             // a 12-column grid
 
 @import "_base.scss";
 
-.page {
-  // page acts as a container for our grid.
-  @include container;
-  @include padding-trailer;
-  @include trailer;
-  @include padding-leader;
-  @include leader;
-  @include single-box-shadow;
-  background: white;
-}
-
 
 h2 {
   @include adjust-font-size-to(30px);

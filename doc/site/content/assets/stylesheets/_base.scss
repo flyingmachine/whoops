@@ -71,6 +71,27 @@ a {
   &:visited { color: #8976a8; }
 }
 
+pre, code, tt {
+  @extend .mono;
+}
+
+pre {
+  @include trailer;
+  @include leader;
+}
+
+code {
+  background: #f3f3f3;
+  font-size: 14px;
+}
+
+.code {
+  background: #f9f9f9;
+  line-height:1.25em;
+  font-size: 14px;
+}
+
+
 .main {
   li {
     margin-left: 1.2em;
@@ -95,20 +116,17 @@ header {
   @include container;
   @include trailer;
   @include sans-family;
-  border-top: 4px solid $purple;
+  @include border-radius(0 0 1em 1em);
   .name {
     @include adjust-font-size-to(60px);
-    @include single-text-shadow(1px, 1px, 2px, black);
     @include trailer(1, 60px);
     color: $purple;
     font-weight:bold;
     text-align: left;
 
     .subname {
-      @include adjust-font-size-to(40px, 1, 60px);
       color: #69b5e4;
       display:inline;
-      font-style: italic;
     }
   }
 }
@@ -116,13 +134,15 @@ header {
 nav {
   clear: both;
   background: $dark-teal;
+  margin: 0 -1em;
+  @include border-radius(1em);
 
   li {
     display:inline-block;
 
     a {
       display: block;
-      padding: 0 .5em;
+      padding: .5em 1em;
       color: #333;
       &:hover {
         text-decoration: none;
@@ -132,25 +152,20 @@ nav {
         color:black
       }
     }
+
+    &:first-child a {
+      @include border-radius(1em 0 0 1em);
+    }
   }
 }
 
-pre, code, tt {
-  @extend .mono;
-}
-
-pre {
+.page {
+  // page acts as a container for our grid.
+  @include container;
+  @include padding-trailer;
   @include trailer;
+  @include padding-leader;
   @include leader;
-}
-
-code {
-  background: #f3f3f3;
-  font-size: 14px;
-}
-
-.code {
-  background: #f9f9f9;
-  line-height:1.25em;
-  font-size: 14px;
+  @include border-radius(1em);
+  background: white;
 }
