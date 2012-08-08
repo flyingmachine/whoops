@@ -3,11 +3,11 @@ title: Whoops Logger
 kind: page
 ---
 
-## Whoops Logger
+# Whoops Logger
 
 Use Whoops Logger to send log messages to a Whoops server.
 
-### Rails Gem
+## Rails Gem
 
 Please note that there's a
 [Rails Gem](https://github.com/flyingmachine/whoops_rails_logger) which
@@ -21,7 +21,7 @@ within the context of a controller action.
 Below are instructions for adding additional logging strategies and
 using the "bare" Ruby client.
 
-### Whoops Logger Setup
+## Whoops Logger Setup
 
 Add `whoops_logger` to your Gemfile
 
