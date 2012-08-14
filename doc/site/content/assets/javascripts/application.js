@@ -4,15 +4,13 @@ $(function(){
     , navTop = $('#toc').length && $('#toc').offset().top - 40
     , isFixed = 0
   
-  
-  $($toc).toc({context: ".main", autoId: true})
   $(".secondary").scrollspy()
   _.defer(function(){
     $('[data-spy="scroll"]').each(function () {
       var $spy = $(this).scrollspy('refresh')
     });
     $(".secondary .active").removeClass("active");
-    $(".secondary #toc > ul > li:first-child").addClass("active");
+    $(".secondary #toc > ol > li:first-child").addClass("active");
   })
 
 

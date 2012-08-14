@@ -41,7 +41,7 @@ $total-columns: 12;             // a 12-column grid
       @include adjust-font-size-to(14px);
       padding-left: .3em;
     }
-    li ul a{
+    li ol a{
       padding-left:1em;
     }
     
