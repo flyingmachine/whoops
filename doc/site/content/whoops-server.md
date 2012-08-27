@@ -1,6 +1,7 @@
 ---
 title: Whoops Server
 kind: page
+toc: true
 ---
 
 # Whoops Server

@@ -1,6 +1,7 @@
 --- 
 title: Whoops
 kind: page
+toc: false
 ---
 
 ## Application Logging

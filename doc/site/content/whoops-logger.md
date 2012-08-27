@@ -1,6 +1,7 @@
 ---
 title: Whoops Logger
 kind: page
+toc: true
 ---
 
 # Whoops Logger
