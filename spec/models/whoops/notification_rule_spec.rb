@@ -33,7 +33,19 @@ describe Whoops::NotificationRule do
         matcher.matches.should be_empty
       end
       
-      it "returns all NotificationRule object where the matchers contain a string which match the event group's service" do
+      it "returns all NotificationRule object where the matchers contain a string which match the event group's service and the matcher has no event types" do
+        matcher.matches.should == [rule]
+      end
+
+      it "does not return a NotificationRule object when the environment isn't matched" do
+        rule.matchers = "test.service development"
+        rule.save
+        matcher.matches.should be_empty
+      end
+
+      it "returns a notificationrule object when the environment is specified and matched" do
+        rule.matchers = "test.service production"
+        rule.save
         matcher.matches.should == [rule]
       end
     end
