@@ -56,15 +56,15 @@ describe Whoops::EventGroup do
   end
   
   describe "archival" do
-    it "sets notify_on_next_occurrence to false when archived" do
+    it "sets notify_on_next_occurrence to true when archived" do
       eg = Whoops::EventGroup.create(event_group_attributes)
       eg.notify_on_next_occurrence.should be_true
       eg.archived = true
       eg.handle_archival
-      eg.notify_on_next_occurrence.should be_false
+      eg.notify_on_next_occurrence.should be_true
     end
     
-    it "sets archived to false when a new event is recorded" do
+    it "sets archived to false when a new event is recorded and notify_on_next_occurrence to true" do
       event = Whoops::Event.record(event_params)
       eg = event.event_group
       
@@ -74,6 +74,7 @@ describe Whoops::EventGroup do
       
       Whoops::Event.record(event_params)
       eg.reload.archived.should be_false
+      eg.notify_on_next_occurrence.should be_false
     end
   end
 end

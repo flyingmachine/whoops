@@ -56,7 +56,8 @@ class Whoops::NotificationRule
     end
     
     def matches
-      @matches ||= Whoops::NotificationRule.where(:matchers => /^(#{event_group.service}\S*$|#{event_group.service}.*#{event_group.environment})/)
+      service_matches = event_group.service.split(".").inject([]){|collection, part| collection << [collection.last, part].compact.join(".")}.join("|")
+      @matches ||= Whoops::NotificationRule.where(:matchers => /^((#{service_matches})\S*$|(#{service_matches}).*#{event_group.environment})/)
     end
   end
 end

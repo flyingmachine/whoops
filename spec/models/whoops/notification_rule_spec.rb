@@ -48,6 +48,12 @@ describe Whoops::NotificationRule do
         rule.save
         matcher.matches.should == [rule]
       end
+
+      it "returns a notificationrule object when the matcher is a higher namespace" do
+        rule.matchers = "test"
+        rule.save
+        matcher.matches.should == [rule]
+      end
     end
     
     describe "#matching_emails" do

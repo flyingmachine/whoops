@@ -58,9 +58,9 @@ class Whoops::EventGroup
   def handle_archival
     if self.archived_change && !self.new_record?
       if self.archived
-        self.notify_on_next_occurrence = false
-      else
         self.notify_on_next_occurrence = true
+      else
+        self.notify_on_next_occurrence = false
       end
     end
     true
