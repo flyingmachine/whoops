@@ -16,7 +16,6 @@ class Whoops::EventGroup
   
   field :last_recorded_at, :type => DateTime
   field :archived, :type => Boolean, :default => false
-  field :notify_on_next_occurrence, :type => Boolean, :default => true
   field :event_count, :type => Integer, :default => 0
 
   class << self
@@ -31,10 +30,9 @@ class Whoops::EventGroup
       end
       
       if event_group.valid?
-        event_group.archived = false
-        event_group.handle_archival
-        event_group.event_count += 1
         event_group.send_notifications
+        event_group.archived = false
+        event_group.event_count += 1
         event_group.save
       end
 
@@ -55,21 +53,13 @@ class Whoops::EventGroup
     all.distinct(:service).sort
   end
 
-  def handle_archival
-    if self.archived_change && !self.new_record?
-      if self.archived
-        self.notify_on_next_occurrence = true
-      else
-        self.notify_on_next_occurrence = false
-      end
-    end
-    true
+  def should_send_notifications?
+    (archived || new_record) && Rails.application.config.whoops_sender
   end
   
   def send_notifications
-    return if !self.notify_on_next_occurrence || !Rails.application.config.whoops_sender
+    return unless should_send_notifications?
     matcher = Whoops::NotificationRule::Matcher.new(self)
     Whoops::NotificationMailer.event_notification(self, matcher.matches.collect(&:email)).deliver unless matcher.matches.empty?
-    self.notify_on_next_occurrence = false
   end
 end

@@ -22,28 +22,28 @@ describe Whoops::EventGroup do
       Whoops::EventGroup.handle_new_event(event_group_attributes)
     end
     
-    it "sets notify_on_next_occurrence to true by default" do
-      w = Whoops::EventGroup.new
-      w.notify_on_next_occurrence.should be_true
+    it "should send a notification when archived is true and whoops_sender is set" do
+      eg = create_event_group
+      eg.archived = true
+      eg.save
+      Whoops::NotificationRule::Matcher.any_instance.stub(:matches).and_return([Whoops::NotificationRule.new(:email => "test@test.com")])
+      lambda { 
+        create_event_group
+      }.should change(ActionMailer::Base.deliveries, :size)
     end
-    
-    it "sends a notification when notify_on_next_occurrence is true and there are matcher matches" do
+
+    it "should send a notification when the record is new and whoops_sender is set" do
       Whoops::NotificationRule::Matcher.any_instance.stub(:matches).and_return([Whoops::NotificationRule.new(:email => "test@test.com")])
       lambda { 
         create_event_group
       }.should change(ActionMailer::Base.deliveries, :size)
     end
     
-    it "sets notify_on_next_occurrence to false after sending a notification" do
-      Whoops::NotificationRule::Matcher.any_instance.stub(:matches).and_return([Whoops::NotificationRule.new(:email => "test@test.com")])
-      w = create_event_group
-      w.notify_on_next_occurrence.should be_false
-    end
-    
-    it "does not send an email if notify_on_next_occurrence is false" do
+    it "does not send an email if archived is false and the event group is not a new record" do
+      eg = create_event_group
       Whoops::NotificationRule::Matcher.any_instance.stub(:matches).and_return([Whoops::NotificationRule.new(:email => "test@test.com")])
       lambda { 
-        Fabricate("Whoops::EventGroup", :service => "app.background.data.processor", :notify_on_next_occurrence => false)
+        create_event_group
       }.should_not change(ActionMailer::Base.deliveries, :size)
     end
     
@@ -56,15 +56,7 @@ describe Whoops::EventGroup do
   end
   
   describe "archival" do
-    it "sets notify_on_next_occurrence to true when archived" do
-      eg = Whoops::EventGroup.create(event_group_attributes)
-      eg.notify_on_next_occurrence.should be_true
-      eg.archived = true
-      eg.handle_archival
-      eg.notify_on_next_occurrence.should be_true
-    end
-    
-    it "sets archived to false when a new event is recorded and notify_on_next_occurrence to true" do
+    it "sets archived to false when a new event is recorded" do
       event = Whoops::Event.record(event_params)
       eg = event.event_group
       
@@ -74,7 +66,6 @@ describe Whoops::EventGroup do
       
       Whoops::Event.record(event_params)
       eg.reload.archived.should be_false
-      eg.notify_on_next_occurrence.should be_false
     end
   end
 end
