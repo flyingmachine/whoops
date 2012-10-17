@@ -3,7 +3,7 @@ Whoops
 Daniel Higginbotham <daniel@flyingmachinestudios.com>
 2011-07-09
 
-image::https://secure.travis-ci.org/driv3r/whoops.png?branch=master[]
+image::https://secure.travis-ci.org/driv3r/whoops.png?branch=master[link="https://secure.travis-ci.org/driv3r/whoops"]
 
 == What is Whoops?
 
