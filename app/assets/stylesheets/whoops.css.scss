@@ -25,8 +25,12 @@ li {
   }
 }
 
+.container-fluid {
+  padding-bottom:1em;
+}
+
 /* sidebar */
-.container-fluid .sidebar {
+.cntainer-fluid .sidebar {
   margin-left:-20px;  
   margin-top:-20px;
   padding-left:20px;
