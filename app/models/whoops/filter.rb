@@ -21,7 +21,11 @@ class Whoops::Filter
   class << self
     def new_from_params(params)
       if params
-        f = new(params.inject({}){|hash, current| hash[current.first] = current.last.keys.reject{|k| k == 'all'} ; hash})
+        f = new(params.inject({}){ |hash, current|
+            allowed_values = current.last.keys
+            hash[current.first] = allowed_values.include?("all") ? [] : allowed_values
+            hash
+          })
       else
         new
       end

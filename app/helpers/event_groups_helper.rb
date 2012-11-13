@@ -4,9 +4,9 @@ module EventGroupsHelper
     link_to(event_group.send(scope), whoops_event_groups_path(new_filter))
   end
 
-  def filter_options
-    return @filter_options if @filter_options
-    @filter_options = Hash.new{|h, k| h[k] = [["all"]]}
+  def filter_field_allowed_values
+    return @filter_field_allowed_values if @filter_field_allowed_values
+    @filter_field_allowed_values = Hash.new{|h, k| h[k] = [["all"]]}
 
     # group services by root, eg "sv1.web" and "sv1.resque" are in the
     # same sub array
@@ -14,16 +14,16 @@ module EventGroupsHelper
     Whoops::EventGroup.services.to_a.sort.each { |service|
       service_root = (/(.*?)\./ =~ service && $~[1]) || service
       if service_root == previous_service_root
-        @filter_options["service"].last << service
+        @filter_field_allowed_values["service"].last << service
       else
-        @filter_options["service"] << [service]
+        @filter_field_allowed_values["service"] << [service]
         previous_service_root = service_root
       end
     }
 
-    @filter_options["environment"] << Whoops::EventGroup.all.distinct("environment")
-    @filter_options["event_type"] << Whoops::EventGroup.all.distinct("event_type")
-    @filter_options
+    @filter_field_allowed_values["environment"] << Whoops::EventGroup.all.distinct("environment")
+    @filter_field_allowed_values["event_type"] << Whoops::EventGroup.all.distinct("event_type")
+    @filter_field_allowed_values
   end
 
   def allowed_value_checked?(field_name, allowed_value)

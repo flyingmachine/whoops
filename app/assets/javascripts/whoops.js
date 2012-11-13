@@ -1,10 +1,26 @@
 Whoops = {
   setupFilters: function() {
-    $("#new_whoops_filter input").change(function(){
-      $("#new_whoops_filter").submit()
-    })
+    $("#new_whoops_filter ul").each(function(i, list){
+      var all = $($(list).find("input").get(0));
+      var allowedValues = $(list).find("input").slice(1);
+      var form = $(this).parents("form");
+      
+      all.change(function(event){
+        if ($(this).attr("checked")) {
+          allowedValues.attr("checked", false);
+          form.submit();
+        } else {
+          event.preventDefault();
+        }
+      })
 
-    // check 'all' filter by default
+      $(allowedValues).change(function(event){
+        if ($(this).attr("checked")) {
+          all.attr("checked", false);
+        }
+        form.submit();
+      })
+    });
     
     $("#reset").click(function(){
       window.location = window.location.pathname
