@@ -41,8 +41,6 @@ li {
   input[type=text] {
     width:190px;
   }
-    
-
 }
 
 /* for kaminari pagination */
@@ -126,8 +124,15 @@ li {
   }
 }
 
-.filter_selects label {
-  cursor: pointer;
+.filter-selects {
+  hr {
+    margin:0;
+    border-bottom: 1px dotted #ccc;
+  }
+
+  label {
+    cursor: pointer;
+  }
 }
 
 /* events for event group */

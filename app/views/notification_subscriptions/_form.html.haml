@@ -10,6 +10,4 @@
       Matchers
       %br
       = f.text_area :matchers, :value => @notification_rule.matchers.to_a.join("\n")
-    %p= f.submit(:class => "primary btn", :value => "Save Notification Rule")
-
-%p= link_to "Back to notification rules", whoops_notification_rules_path
+    %p= f.submit(:class => "primary btn", :value => "Save Notification Subscription")

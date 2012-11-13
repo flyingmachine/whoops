@@ -3,24 +3,26 @@ module EventGroupsHelper
     new_filter  = {:whoops_filter => event_group_filter.to_query_document.merge(scope => event_group.send(scope))}
     link_to(event_group.send(scope), whoops_event_groups_path(new_filter))
   end
-  
-  # meant for consumption by options_from_collection_for_select
+
   def filter_options
-    all_event_groups = Whoops::EventGroup.all
     return @filter_options if @filter_options
+    @filter_options = Hash.new{|h, k| h[k] = [["all"]]}
 
-    @filter_options = Hash.new{|h, k| h[k] = []}
-    
-    @filter_options["service"] = Whoops::EventGroup.services.to_a
-    @filter_options["environment"] = Whoops::EventGroup.all.distinct("environment")
-    @filter_options["event_type"] = Whoops::EventGroup.all.distinct("event_type")
+    # group services by root, eg "sv1.web" and "sv1.resque" are in the
+    # same sub array
+    previous_service_root = ""
+    Whoops::EventGroup.services.to_a.sort.each { |service|
+      service_root = (/(.*?)\./ =~ service && $~[1]) || service
+      if service_root == previous_service_root
+        @filter_options["service"].last << service
+      else
+        @filter_options["service"] << [service]
+        previous_service_root = service_root
+      end
+    }
 
-    # add the field name as an empty option
-    @filter_options.keys.each do |field_name|
-      @filter_options[field_name].compact!
-      @filter_options[field_name].sort!{|a, b| a.first <=> b.first}.uniq! if @filter_options[field_name]
-    end
-
+    @filter_options["environment"] << Whoops::EventGroup.all.distinct("environment")
+    @filter_options["event_type"] << Whoops::EventGroup.all.distinct("event_type")
     @filter_options
   end
 
