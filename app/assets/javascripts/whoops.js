@@ -10,7 +10,7 @@ Whoops = {
           allowedValues.attr("checked", false);
           form.submit();
         } else {
-          event.preventDefault();
+          $(this).attr("checked", true);
         }
       })
 
