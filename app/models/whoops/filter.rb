@@ -1,8 +1,10 @@
 class Whoops::Filter
   include Mongoid::Document
   include FieldNames
+
+  FILTERED_FIELDS = [:service, :environment, :event_type, :message, :details]
   
-  [:service, :environment, :event_type, :message, :details].each do |document_field|
+  FILTERED_FIELDS.each do |document_field|
     field document_field, :type => Array
   end
     
@@ -19,7 +21,7 @@ class Whoops::Filter
   class << self
     def new_from_params(params)
       if params
-        new(params.inject({}){|hash, current| hash[current.first] = current.last.keys; hash})
+        f = new(params.inject({}){|hash, current| hash[current.first] = current.last.keys.reject{|k| k == 'all'} ; hash})
       else
         new
       end

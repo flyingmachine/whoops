@@ -3,6 +3,9 @@ Whoops = {
     $("#new_whoops_filter input").change(function(){
       $("#new_whoops_filter").submit()
     })
+
+    // check 'all' filter by default
+    
     $("#reset").click(function(){
       window.location = window.location.pathname
       return false

@@ -6,14 +6,14 @@
       - filter_options.each do |field_name, groups|
         %h4= field_name
         %ul.filter-selects.inputs-list
-          - groups.each do |options|
-            - options.each do |option|
-              %li
+          - groups.each do |allowed_values|
+            - allowed_values.each do |allowed_value|
+              %li.filter-option
                 %label
-                  %input{:type => 'checkbox', :name => "whoops_filter[#{field_name}][#{option}]", :checked => filter_checked?(field_name, option)}
-                  = option
-            - unless options == groups.last
-              %li
+                  %input{:type => 'checkbox', :name => "whoops_filter[#{field_name}][#{allowed_value}]", :checked => allowed_value_checked?(field_name, allowed_value)}
+                  = allowed_value
+            - unless allowed_values == groups.last
+              %li.divider
                 %hr
   .space
     %h3 Keyword Search

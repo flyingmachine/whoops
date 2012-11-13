@@ -26,8 +26,13 @@ module EventGroupsHelper
     @filter_options
   end
 
-  def filter_checked?(field_name, option)
+  def allowed_value_checked?(field_name, allowed_value)
     filtered_field = session[:event_group_filter].send(field_name)
-    filtered_field && filtered_field.include?(option)
+    (allowed_value == "all" && filtered_field_allows_all?(filtered_field)) ||
+      filtered_field.try(:include?, allowed_value)
+  end
+
+  def filtered_field_allows_all?(filtered_field)
+    filtered_field.blank?
   end
 end

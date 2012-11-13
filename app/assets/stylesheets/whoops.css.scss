@@ -130,6 +130,10 @@ li {
     border-bottom: 1px dotted #ccc;
   }
 
+  li.filter-option:hover {
+    background:#e8e5cc;
+  }
+
   label {
     cursor: pointer;
   }
