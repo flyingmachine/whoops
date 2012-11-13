@@ -1,4 +1,4 @@
-class NotificationRulesController < ApplicationController
+class NotificationSubscriptionsController < ApplicationController
   layout 'whoops'
 
   def index
