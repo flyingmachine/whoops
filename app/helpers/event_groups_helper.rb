@@ -16,7 +16,7 @@ module EventGroupsHelper
       if service_root == previous_service_root
         @filter_field_allowed_values["service"].last << service
       else
-        @filter_field_allowed_values["service"] << [service]
+        @filter_field_allowed_values["service"] << ["#{service_root}.*", service]
         previous_service_root = service_root
       end
     }
