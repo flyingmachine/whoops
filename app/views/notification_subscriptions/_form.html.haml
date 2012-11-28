@@ -1,0 +1,11 @@
+- new_record = @notification_subscription.new_record?
+- options = new_record ? {:url => whoops_notification_subscriptions_path, :method => :post} : {:url => whoops_notification_subscription_path(@notification_subscription), :method => :put}
+= form_for :notification_subscription, options do |f|
+  #new-notification-rule
+    %label.nofloat
+      Email
+      %br
+      =f.text_field :email
+    .filters
+      = render(:partial => "filters/filters", :locals => {:filter => @notification_subscription.filter} )
+    = submit_tag (new_record ? "Create" : "Update"), :class => "btn primary"

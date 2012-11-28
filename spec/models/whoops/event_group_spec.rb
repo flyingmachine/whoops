@@ -18,6 +18,9 @@ describe Whoops::EventGroup do
   end
   
   describe "notification" do
+    before(:each) do
+      Whoops::NotificationSubscription::Matcher.any_instance.stub(:matching_emails).and_return([Whoops::NotificationSubscription.new(:email => "test@test.com")])
+    end
     def create_event_group
       Whoops::EventGroup.handle_new_event(event_group_attributes)
     end
@@ -26,14 +29,13 @@ describe Whoops::EventGroup do
       eg = create_event_group
       eg.archived = true
       eg.save
-      Whoops::NotificationRule::Matcher.any_instance.stub(:matches).and_return([Whoops::NotificationRule.new(:email => "test@test.com")])
+      
       lambda { 
         create_event_group
       }.should change(ActionMailer::Base.deliveries, :size)
     end
 
     it "should send a notification when the record is new and whoops_sender is set" do
-      Whoops::NotificationRule::Matcher.any_instance.stub(:matches).and_return([Whoops::NotificationRule.new(:email => "test@test.com")])
       lambda { 
         create_event_group
       }.should change(ActionMailer::Base.deliveries, :size)
@@ -41,14 +43,13 @@ describe Whoops::EventGroup do
     
     it "does not send an email if archived is false and the event group is not a new record" do
       eg = create_event_group
-      Whoops::NotificationRule::Matcher.any_instance.stub(:matches).and_return([Whoops::NotificationRule.new(:email => "test@test.com")])
       lambda { 
         create_event_group
       }.should_not change(ActionMailer::Base.deliveries, :size)
     end
     
     it "does not send an email if there are no notification matcher matches matches" do
-      Whoops::NotificationRule::Matcher.any_instance.stub(:matches).and_return([])
+      Whoops::NotificationSubscription::Matcher.any_instance.stub(:matching_emails).and_return([])
       lambda { 
         Fabricate("Whoops::EventGroup", :service => "app.background.data.processor")
       }.should_not change(ActionMailer::Base.deliveries, :size)

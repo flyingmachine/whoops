@@ -25,6 +25,10 @@ li {
   }
 }
 
+#main {
+  padding-bottom:1em;
+}
+
 /* sidebar */
 .container-fluid .sidebar {
   margin-left:-20px;  
@@ -37,24 +41,28 @@ li {
   input[type=text] {
     width:190px;
   }
-    
-
 }
 
 /* for kaminari pagination */
-.sidebar .pagination {
-  margin:0;
+.sidebar {
+  .pagination {
+    margin:0;
 
-  a, .current {
-    line-height: ($baseline * 2) - 2;
-    padding:0;
-    border:none;
-    display:block;
-    float:left;
-    margin-right:2px;  
+    a, .current {
+      line-height: ($baseline * 2) - 2;
+      padding:0;
+      border:none;
+      display:block;
+      float:left;
+      margin-right:2px;  
+    }
+
+    .next, .first, .prev, .last { display:none; }
   }
+}
 
-  .next, .first, .prev, .last { display:none; }
+.nofloat {
+  float:none;
 }
 
 .content .pagination {
@@ -122,8 +130,19 @@ li {
   }
 }
 
-.filter_selects label {
-  cursor: pointer;
+.filter-selects {
+  hr {
+    margin:0;
+    border-bottom: 1px dotted #ccc;
+  }
+
+  li.filter-option:hover {
+    background:#e8e5cc;
+  }
+
+  label {
+    cursor: pointer;
+  }
 }
 
 /* events for event group */
@@ -163,4 +182,17 @@ ul.detail {
 
 header form {
   float:right;
+}
+
+#notification-subscriptions {
+  .email {
+    width: 20%;
+  }
+
+  span {
+    padding:0 3px;
+    background: #cbdbe5;
+    margin-right:4px;
+    border-radius:3px;
+  }
 }

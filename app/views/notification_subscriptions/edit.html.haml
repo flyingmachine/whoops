@@ -1,0 +1,8 @@
+%h3 Edit Notification Subscription for #{@notification_subscription.email}
+
+= render :partial => "form"
+
+%h4 Delete This Rule
+
+= form_for :notification_subscription, :method => :delete, :url => whoops_notification_subscription_path(@notification_subscription) do |f|
+  = f.submit :class => "btn", :value => "Delete it Forever! There's no going back!"
