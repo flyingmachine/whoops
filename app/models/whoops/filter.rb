@@ -11,7 +11,7 @@ class Whoops::Filter
   belongs_to :filterable, :polymorphic => true
     
   def to_query_document
-    doc = attributes.except(:_id, "_id").delete_if{|k, v| v.blank?}
+    doc = attributes.except(:_id, "_id", :_type, "_type").delete_if{|k, v| v.blank?}
     # match all services under namespace. ie, if "app" given, match "app.web", "app.backend" etc
     doc["service"] = doc["service"].collect{ |d| /^#{d}/ } if doc["service"]
     doc.inject({}) do |hash, current|

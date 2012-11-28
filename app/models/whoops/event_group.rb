@@ -59,7 +59,7 @@ class Whoops::EventGroup
   
   def send_notifications
     return unless should_send_notifications?
-    matcher = Whoops::NotificationRule::Matcher.new(self)
-    Whoops::NotificationMailer.event_notification(self, matcher.matches.collect(&:email)).deliver unless matcher.matches.empty?
+    matcher = Whoops::NotificationSubscription::Matcher.new(self)
+    Whoops::NotificationMailer.event_notification(self, matcher.matching_emails).deliver unless matcher.matching_emails.empty?
   end
 end
