@@ -1,26 +1,35 @@
 Whoops = {
   setupFilters: function() {
-    $("#new_whoops_filter ul").each(function(i, list){
-      var all = $($(list).find("input").get(0));
-      var allowedValues = $(list).find("input").slice(1);
-      var form = $(this).parents("form");
+    function checkboxBehavior(afterChecked) {
+      if (afterChecked === undefined) {
+        afterChecked = function(){}
+      }
       
-      all.change(function(event){
-        if ($(this).attr("checked")) {
-          allowedValues.attr("checked", false);
-          form.submit();
-        } else {
-          $(this).attr("checked", true);
-        }
-      })
+      return function(i, list){
+        var all = $($(list).find("input").get(0));
+        var allowedValues = $(list).find("input").slice(1);
+        var form = $(this).parents("form");
+        
+        all.change(function(event){
+          if ($(this).attr("checked")) {
+            allowedValues.attr("checked", false);
+            afterChecked(form);
+          } else {
+            $(this).attr("checked", true);
+          }
+        })
 
-      $(allowedValues).change(function(event){
-        if ($(this).attr("checked")) {
-          all.attr("checked", false);
-        }
-        form.submit();
-      })
-    });
+        $(allowedValues).change(function(event){
+          if ($(this).attr("checked")) {
+            all.attr("checked", false);
+          }
+          afterChecked(form);
+        })
+      }
+    }
+
+    $("#new_whoops_filter ul").each(checkboxBehavior(function(form){form.submit()}));
+    $("#new-notification-rule .filters ul").each(checkboxBehavior());
     
     $("#reset").click(function(){
       window.location = window.location.pathname

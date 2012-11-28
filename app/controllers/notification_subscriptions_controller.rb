@@ -2,28 +2,32 @@ class NotificationSubscriptionsController < ApplicationController
   layout 'whoops'
 
   def index
-    @notification_rule = Whoops::NotificationRule.new
-    @notification_rules = Whoops::NotificationRule.asc(:email)
+    @notification_subscription = Whoops::NotificationSubscription.new
+    @notification_subscription.build_filter
+    @notification_subscriptions = Whoops::NotificationSubscription.asc(:email)
+    @filter = Whoops::Filter.new
   end
 
   def create
-    Whoops::NotificationRule.add_rules(params[:notification_rule])
-    redirect_to whoops_notification_rules_path
+    ns = Whoops::NotificationSubscription.create(params[:notification_subscription])
+    ns.filter = Whoops::Filter.new_from_params(params[:whoops_filter])
+    ns.filter.save
+    redirect_to whoops_notification_subscriptions_path
   end
 
   def edit
-    @notification_rule = Whoops::NotificationRule.find(params[:id])
+    @notification_subscription = Whoops::NotificationSubscription.find(params[:id])
   end
 
   def update
-    @notification_rule = Whoops::NotificationRule.find(params[:id])
-    @notification_rule.update_attributes(params[:notification_rule])
-    notification_rules = Whoops::NotificationRule.asc(:email)
-    redirect_to whoops_notification_rules_path
+    @notification_subscription = Whoops::NotificationSubscription.find(params[:id])
+    @notification_subscription.update_attributes(params[:notification_subscription])
+    @notification_subscription.filter.update_from_params(params[:whoops_filter])
+    redirect_to whoops_notification_subscriptions_path
   end
 
   def destroy
-    Whoops::NotificationRule.find(params[:id]).destroy
-    redirect_to whoops_notification_rules_path
+    Whoops::NotificationSubscription.find(params[:id]).destroy
+    redirect_to whoops_notification_subscriptions_path
   end
 end

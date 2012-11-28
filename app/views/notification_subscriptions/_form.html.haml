@@ -1,13 +1,11 @@
-%h3 New
-- options = @notification_rule.new_record? ? {:url => whoops_notification_rules_path, :method => :post} : {:url => whoops_notification_rule_path(@notification_rule), :method => :put}
-= form_for :notification_rule, options do |f|
+- new_record = @notification_subscription.new_record?
+- options = new_record ? {:url => whoops_notification_subscriptions_path, :method => :post} : {:url => whoops_notification_subscription_path(@notification_subscription), :method => :put}
+= form_for :notification_subscription, options do |f|
   #new-notification-rule
-    %p
+    %label.nofloat
       Email
       %br
       =f.text_field :email
-    %p
-      Matchers
-      %br
-      = f.text_area :matchers, :value => @notification_rule.matchers.to_a.join("\n")
-    %p= f.submit(:class => "primary btn", :value => "Save Notification Subscription")
+    .filters
+      = render(:partial => "filters/filters", :locals => {:filter => @notification_subscription.filter} )
+    = submit_tag (new_record ? "Create" : "Update"), :class => "btn primary"

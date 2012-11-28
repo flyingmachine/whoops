@@ -30,17 +30,25 @@ class Whoops::Filter
     end
   end
 
+  def update_from_params(params)
+    update_attributes(self.class.clean_params(params))
+  end
+
   class << self
     def new_from_params(params)
       if params
-        f = new(params.inject({}){ |hash, current|
-            allowed_values = current.last.keys
-            hash[current.first] = allowed_values.include?("all") ? [] : allowed_values
-            hash
-          })
+        f = new(clean_params(params))
       else
         new
       end
     end
-  end   
+
+    def clean_params(params)
+      params.inject({}){ |hash, current|
+        allowed_values = current.last.keys
+        hash[current.first] = allowed_values.include?("all") ? [] : allowed_values
+        hash
+      }
+    end
+  end
 end

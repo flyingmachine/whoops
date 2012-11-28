@@ -1,14 +1,19 @@
-%h3 Notification Rules
+%h3 Notification Subscriptions
 
 - content_for :sidebar do
   .space
+    %h3 New Subscription
     = render :partial => "form"
+    
 
-%table
+%table#notification-subscriptions
   %tr
-    %th Email Address
-    %th Services to Monitor
-    %th
-  
+    %th.email Email Address
+    %th.filter Filter
+  - @notification_subscriptions.each do |ns|
+    %tr
+      %td.email= ns.email
+      %td.filter= render :partial => "filters/summary", :locals => {:filter => ns.filter}
+      %td.update= link_to "update", edit_whoops_notification_subscription_path(ns)
 
       

@@ -1,0 +1,12 @@
+- filter_field_allowed_values.each do |field_name, allowed_value_groups|
+  %h4= field_name
+  %ul.filter-selects.inputs-list
+    - allowed_value_groups.each do |allowed_values|
+      - allowed_values.each do |allowed_value|
+        %li.filter-option
+          %label
+            %input{:type => 'checkbox', :name => "whoops_filter[#{field_name}][#{allowed_value}]", :checked => allowed_value_checked?(field_name, allowed_value, filter)}
+            = allowed_value
+      - unless allowed_values == allowed_value_groups.last
+        %li.divider
+          %hr

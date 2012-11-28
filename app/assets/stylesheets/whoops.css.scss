@@ -44,19 +44,25 @@ li {
 }
 
 /* for kaminari pagination */
-.sidebar .pagination {
-  margin:0;
+.sidebar {
+  .pagination {
+    margin:0;
 
-  a, .current {
-    line-height: ($baseline * 2) - 2;
-    padding:0;
-    border:none;
-    display:block;
-    float:left;
-    margin-right:2px;  
+    a, .current {
+      line-height: ($baseline * 2) - 2;
+      padding:0;
+      border:none;
+      display:block;
+      float:left;
+      margin-right:2px;  
+    }
+
+    .next, .first, .prev, .last { display:none; }
   }
+}
 
-  .next, .first, .prev, .last { display:none; }
+.nofloat {
+  float:none;
 }
 
 .content .pagination {
@@ -176,4 +182,17 @@ ul.detail {
 
 header form {
   float:right;
+}
+
+#notification-subscriptions {
+  .email {
+    width: 20%;
+  }
+
+  span {
+    padding:0 3px;
+    background: #cbdbe5;
+    margin-right:4px;
+    border-radius:3px;
+  }
 }
