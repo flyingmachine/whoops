@@ -7,6 +7,8 @@ class Whoops::Filter
   FILTERED_FIELDS.each do |document_field|
     field document_field, :type => Array
   end
+
+  belongs_to :filterable, :polymorphic => true
     
   def to_query_document
     doc = attributes.except(:_id, "_id").delete_if{|k, v| v.blank?}
@@ -15,6 +17,16 @@ class Whoops::Filter
     doc.inject({}) do |hash, current|
       hash[current.first.to_sym.in] = current.last unless current.last.empty?
       hash
+    end
+  end
+
+  def matches_event_group?(event_group)
+    FILTERED_FIELDS.all? do |field|
+      if self.send(field).blank?
+        true
+      else
+        /^(#{self.send(field).join("|")})$/ =~ event_group.send(field)
+      end
     end
   end
 
