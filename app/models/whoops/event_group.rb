@@ -17,28 +17,6 @@ class Whoops::EventGroup
   field :last_recorded_at, :type => DateTime
   field :archived, :type => Boolean, :default => false
   field :event_count, :type => Integer, :default => 0
-
-  class << self
-    def handle_new_event(params)
-      identifying_params = params.slice(*Whoops::EventGroup.identifying_fields)
-      event_group = Whoops::EventGroup.first(:conditions => identifying_params)
-      
-      if event_group
-        event_group.attributes = params
-      else
-        event_group = Whoops::EventGroup.new(params)
-      end
-      
-      if event_group.valid?
-        event_group.send_notifications
-        event_group.archived = false
-        event_group.event_count += 1
-        event_group.save
-      end
-
-      event_group
-    end
-  end
   
   has_many :events, :class_name => "Whoops::Event"
   
@@ -51,15 +29,5 @@ class Whoops::EventGroup
   # @return sorted set of all applicable namespaces
   def self.services
     all.distinct(:service).sort
-  end
-
-  def should_send_notifications?
-    (archived || new_record) && Rails.application.config.whoops_sender
-  end
-  
-  def send_notifications
-    return unless should_send_notifications?
-    matcher = Whoops::NotificationSubscription::Matcher.new(self)
-    Whoops::NotificationMailer.event_notification(self, matcher.matching_emails).deliver unless matcher.matching_emails.empty?
   end
 end

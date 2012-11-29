@@ -15,18 +15,6 @@ class Whoops::Event
   
   before_save :set_keywords, :sanitize_details
   
-  def self.record(params)
-    params = params.with_indifferent_access
-    
-    event_group_params                    = params.slice(*Whoops::EventGroup.field_names)
-    event_group_params[:last_recorded_at] = params[:event_time]
-    event_group_params
-    event_group = Whoops::EventGroup.handle_new_event(event_group_params)
-    
-    event_params = params.slice(*Whoops::Event.field_names)
-    event_group.events.create(event_params)
-  end 
-  
   def self.search(query)
     conditions = Whoops::MongoidSearchParser.new(query).conditions
     where(conditions)

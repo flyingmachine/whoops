@@ -22,7 +22,7 @@ class EventsController < ApplicationController
   
   # TODO break this out into a more metal-y controller
   def create
-    Whoops::Event.record(params[:event])
+    Whoops::NewEvent.new(params[:event]).record!
     render :status => 200, :nothing => true
   end
 end

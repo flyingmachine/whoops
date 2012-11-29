@@ -7,9 +7,14 @@ describe Whoops::NotificationSubscription do
       :filter => Whoops::Filter.new(:service => ["test.*"])
     )
   }
-  let(:event_params){ Whoops::Spec::ATTRIBUTES[:event_params] }
-  let(:event){ Whoops::Event.record(event_params) }
-  let(:event_group){ event.event_group }
+
+  let(:event_params){Whoops::Spec::ATTRIBUTES[:event_params]}
+  let(:event_group){ record_new_event }
+  let(:event){ event_group.events.first }
+
+  def record_new_event
+    Whoops::NewEvent.new(event_params).record!
+  end
   
   it "downcases the email on save" do
     subscription.email.should == "daniel@higginbotham.com"
