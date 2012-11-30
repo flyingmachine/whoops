@@ -1,3 +1,4 @@
+# Receives new event params and processes them
 class Whoops::NewEvent
   def initialize(params)
     @params = params.with_indifferent_access
@@ -18,7 +19,7 @@ class Whoops::NewEvent
   private
 
   def find_or_build_event_group
-    @event_group = Whoops::EventGroup.first(:conditions => @params.slice(*Whoops::EventGroup.identifying_fields)) || Whoops::EventGroup.new(event_group_params)
+    @event_group = Whoops::EventGroup.first(:conditions => event_group_identifying_fields) || Whoops::EventGroup.new(event_group_params)
   end
 
   def update_event_group_attributes
@@ -27,11 +28,6 @@ class Whoops::NewEvent
       @event_group.last_recorded_at = Time.now
       @event_group.event_count += 1
     end
-  end
-
-  def save_event_group(event_group)
-    event_group.archived = false
-    event_group.save
   end
 
   def should_send_notifications?
@@ -44,8 +40,13 @@ class Whoops::NewEvent
     Whoops::NotificationMailer.event_notification(@event_group, matcher.matching_emails).deliver unless matcher.matching_emails.empty?
   end
 
+  # TODO does it make sense to have a separate params object?
   def event_group_params
     @params.slice(*Whoops::EventGroup.field_names)
+  end
+
+  def event_group_identifying_fields
+    @params.slice(*Whoops::EventGroup.identifying_fields)
   end
 
   def event_params
