@@ -1,0 +1,3 @@
+class WhoopsController < ApplicationController
+  
+end

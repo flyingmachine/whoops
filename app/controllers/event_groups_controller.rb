@@ -1,5 +1,4 @@
-class EventGroupsController < ApplicationController
-  layout 'whoops'
+class EventGroupsController < WhoopsController
   before_filter :update_event_group_filter
   helper_method :event_group_filter
   

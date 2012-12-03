@@ -1,6 +1,4 @@
-class NotificationSubscriptionsController < ApplicationController
-  layout 'whoops'
-
+class NotificationSubscriptionsController < WhoopsController
   def index
     @notification_subscription = Whoops::NotificationSubscription.new
     @notification_subscription.build_filter
