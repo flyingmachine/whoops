@@ -1,4 +1,4 @@
-- filter_field_allowed_values.each do |field_name, allowed_value_groups|
+- %w{service environment event_type}.map{|k| [k, filter_field_allowed_values[k]]}.each do |field_name, allowed_value_groups|
   %h4= field_name
   %ul.filter-selects.inputs-list
     - allowed_value_groups.each do |allowed_values|

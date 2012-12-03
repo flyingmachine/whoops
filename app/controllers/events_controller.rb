@@ -1,6 +1,6 @@
 class EventsController < WhoopsController  
   def index
-    @event_group = Whoops::EventGroup.find(params[:whoops_event_group_id])
+    @event_group = Whoops::EventGroup.where(new_whoops_filter.to_query_document).find(params[:whoops_event_group_id])
     
     events_base = @event_group.events
     unless params[:query].blank?

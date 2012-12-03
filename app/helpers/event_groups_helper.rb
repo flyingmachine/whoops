@@ -11,7 +11,7 @@ module EventGroupsHelper
     # group services by root, eg "sv1.web" and "sv1.resque" are in the
     # same sub array
     previous_service_root = ""
-    Whoops::EventGroup.services.to_a.sort.each { |service|
+    authorized_service_lookup.filter_authorized(Whoops::EventGroup.services).to_a.sort.each { |service|
       service_root = (/(.*?)\./ =~ service && $~[1]) || service
       if service_root == previous_service_root
         @filter_field_allowed_values["service"].last << service

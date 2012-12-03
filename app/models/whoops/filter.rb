@@ -51,7 +51,7 @@ class Whoops::Filter
   end
   
   def authorized_services
-    authorized_service_lookup.filter_authorized(attributes["service"])
+    authorized_service_lookup.filter_authorized(attributes["service"].to_a)
   end
 
   class << self

@@ -24,11 +24,13 @@ class EventGroupsController < WhoopsController
   end
   
   def event_group_filter
-    session[:event_group_filter] ||= Whoops::Filter.new
+    session[:event_group_filter] ||= new_whoops_filter
   end
   
   def event_group_filter=(filter)
-    session[:event_group_filter] = Whoops::Filter.new_from_params(filter)
+    filter = Whoops::Filter.new_from_params(filter)
+    filter.authorized_service_lookup = authorized_service_lookup
+    session[:event_group_filter] = filter
   end
 
   def update
