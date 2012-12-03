@@ -1,4 +1,6 @@
 class Whoops::Filter
+  attr_accessor :authorized_service_lookup
+  
   include Mongoid::Document
   include FieldNames
 
@@ -13,7 +15,7 @@ class Whoops::Filter
   def to_query_document
     doc = attributes.except(:_id, "_id", :_type, "_type").delete_if{|k, v| v.blank?}
     # match all services under namespace. ie, if "app" given, match "app.web", "app.backend" etc
-    doc["service"] = doc["service"].collect{ |d| /^#{d}/ } if doc["service"]
+    doc["service"] = service.collect{ |d| /^#{d}/ } unless service.blank?
     doc.inject({}) do |hash, current|
       hash[current.first.to_sym.in] = current.last unless current.last.empty?
       hash
@@ -32,6 +34,24 @@ class Whoops::Filter
 
   def update_from_params(params)
     update_attributes(self.class.clean_params(params))
+  end
+
+  def service
+    if authorized_services_provided?
+      authorized_services
+    else
+      attributes["service"]
+    end
+  end
+
+  private
+
+  def authorized_services_provided?
+    authorized_service_lookup
+  end
+  
+  def authorized_services
+    authorized_service_lookup.filter_authorized(attributes["service"])
   end
 
   class << self

@@ -21,7 +21,10 @@ class Whoops::NotificationSubscription
     end
     
     def matching_emails
-      Whoops::NotificationSubscription.all.select{ |ns| ns.filter.matches_event_group?(self.event_group) }.collect(&:email)
+      Whoops::NotificationSubscription.all.select do |ns|
+        lookup = Whoops::AuthorizedServiceLookup.new(ns.email)
+        ns.filter.matches_event_group?(self.event_group)
+      end.collect(&:email)
     end
   end
 end
