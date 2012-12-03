@@ -78,6 +78,13 @@ describe Whoops::Filter do
         filter.authorized_service_lookup = lookup          
         filter.service.should == ["app2.*"]
       end
+
+      it "should return authorized services when the lookup has multiple authorized services" do
+        filter.service = ["app.web"]
+        lookup.stub(:authorized_services).and_return(["app2.*", "app.*"])
+        filter.authorized_service_lookup = lookup          
+        filter.service.should == ["app.web"]
+      end
     end
   end
 end

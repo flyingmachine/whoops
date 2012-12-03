@@ -29,12 +29,8 @@ class Whoops::AuthorizedServiceLookup
   # one thing to note is that if both services and authorized_services
   # are blank, then no filter will be applied to service at all
   def filter_authorized(services)
-    if services.blank?
-      authorized_services
-    else
-      selected = services.select{ |s| service_authorized?(s) }
-      selected.blank? ? authorized_services : selected
-    end
+    matches = services.select{ |s| service_authorized?(s) }
+    matches.empty? ? authorized_services : matches
   end
 
   # Overwrite this in your subclasses if you want to implement
@@ -44,6 +40,6 @@ class Whoops::AuthorizedServiceLookup
   end
 
   def service_authorized?(service)
-    authorized_services.blank? || /#{authorized_services.join("|")}/ =~ service
+    authorized_services.blank? || /^(#{authorized_services.join("|")})/ =~ service
   end
 end
