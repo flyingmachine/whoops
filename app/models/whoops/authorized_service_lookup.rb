@@ -1,5 +1,3 @@
-# This class is meant to be overwritten in host applications
-#
 # Authorized Service Lookups interact with filters to limit the
 # services which a user is allowed to see. This allows host
 # applications to more easily implement authorization.
