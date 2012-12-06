@@ -2,7 +2,7 @@ module EventsHelper
   def format_detail(detail)
     case detail
     when String, Numeric then detail
-    when Array           then simple_format(detail.join("\n"), :class => "simple")
+    when Array           then "<ul>#{detail.collect{|d| "<li>- #{format_detail(d)}</li>" }.join}</ul>"
     when Hash            then detail_table(detail)
     else
       detail.to_s
@@ -12,7 +12,7 @@ module EventsHelper
   def detail_table(detail)
     render :partial => 'events/detail', :object => detail
   end
-  
+
   def breadcrumbs(*groups)
     breadcrumbs = ""
     groups.each do |group|

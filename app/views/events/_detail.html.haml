@@ -2,4 +2,4 @@
   - detail.to_a.sort{|a,b| a[0] <=> b[0]}.each do |sub_detail|
     %li
       %span.key= sub_detail.first + ":"
-      = format_detail(sub_detail.last)
+      = format_detail(sub_detail.last).html_safe
