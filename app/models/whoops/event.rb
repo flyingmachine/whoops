@@ -13,7 +13,7 @@ class Whoops::Event
 
   validates_presence_of :message  
   
-  before_save :set_keywords, :sanitize_details
+  before_save :set_keywords, :sanitize_details, :set_event_time
   
   def self.search(query)
     conditions = Whoops::MongoidSearchParser.new(query).conditions
@@ -76,5 +76,9 @@ class Whoops::Event
         i.to_a.flatten - i.keys
       end.flatten!
     end
+  end
+
+  def set_event_time
+    self.event_time = Time.now
   end
 end

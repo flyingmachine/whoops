@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    whoops (0.4.0)
+    whoops (0.5.0)
       haml
       kaminari
       mongo
@@ -67,10 +67,9 @@ GEM
     i18n (0.6.0)
     journey (1.0.3)
     json (1.6.5)
-    kaminari (0.13.0)
+    kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-      railties (>= 3.0.0)
     linecache (0.46)
       rbx-require-relative (> 0.0.4)
     linecache19 (0.5.12)
