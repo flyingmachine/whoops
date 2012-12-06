@@ -2,7 +2,7 @@ module EventsHelper
   def format_detail(detail)
     case detail
     when String, Numeric then detail
-    when Array           then "<ul>#{detail.collect{|d| "<li>- #{format_detail(d)}</li>" }.join}</ul>"
+    when Array           then "<ul class='array'>#{detail.collect{|d| "<li>- #{format_detail(d)}</li>" }.join}</ul>".html_safe
     when Hash            then detail_table(detail)
     else
       detail.to_s
