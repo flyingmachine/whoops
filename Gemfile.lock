@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    whoops (0.5.0)
+    whoops (0.5.3)
       haml
       kaminari
       mongo
