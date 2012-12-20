@@ -31,7 +31,7 @@ class Whoops::NewEvent
   end
 
   def should_send_notifications?
-    @event_group.valid? && (@event_group.archived || @event_group.new_record) && Rails.application.config.whoops_sender
+    @event_group.valid? && (!@event_group.archived? || @event_group.new_record?) && Rails.application.config.whoops_sender.present?
   end
 
   def send_notifications_for_event_group
