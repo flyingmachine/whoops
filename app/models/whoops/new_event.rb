@@ -11,7 +11,7 @@ class Whoops::NewEvent
     send_notifications_for_event_group
     
     @event_group.archived = false
-    @event_group.save
+    @event_group.save!
     @event_group.events.create(event_params)
     @event_group
   end
