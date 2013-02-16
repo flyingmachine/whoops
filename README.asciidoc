@@ -20,6 +20,8 @@ Whoops is a logging system. It consists of a Rails engine (which records logs an
 * https://papertrailapp.com/[papertrail]
 * http://graylog2.org/[Graylog2]
 * https://github.com/errbit/errbit[errbit]
+* http://loggly.com[loggly]
+* https://logentries.com[logentries]
 
 == License
 
