@@ -5,7 +5,7 @@ module EventsHelper
     when Array           then "<ul class='array'>#{detail.collect{|d| "<li>- #{format_detail(d)}</li>" }.join}</ul>".html_safe
     when Hash            then detail_table(detail)
     else
-      detail.to_s
+      detail.to_s.html_safe
     end
   end
   
