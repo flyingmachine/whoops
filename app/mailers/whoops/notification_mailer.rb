@@ -11,7 +11,8 @@ class Whoops::NotificationMailer < ActionMailer::Base
       :to      => addresses.join(", "),
       :from    => Rails.application.config.whoops_sender,
       :subject => "Whoops Notification | #{event_group.service}: #{event_group.environment}: #{event_group.message}",
-      :body    => body
+      :body    => body,
+      :content_type => "text/plain"
     )
   end
 end
