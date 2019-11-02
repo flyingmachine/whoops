@@ -17,7 +17,9 @@ GEM
       colored (>= 1.2)
     ffi (1.0.11)
     fssm (0.2.9)
-    haml (3.1.6)
+    haml (5.0.0)
+      temple (>= 0.8.0)
+      tilt
     kramdown (0.13.6)
     linecache (0.46)
       rbx-require-relative (> 0.0.4)
@@ -42,6 +44,8 @@ GEM
     susy (1.0.rc.1)
       compass (>= 0.12.2.rc.0)
       sass (>= 3.2.0.alpha.237)
+    temple (0.8.2)
+    tilt (2.0.10)
 
 PLATFORMS
   ruby
