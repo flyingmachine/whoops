@@ -29,7 +29,7 @@ GEM
       rubypython (~> 0.5.3)
     rack (1.4.1)
     rbx-require-relative (0.0.9)
-    redcarpet (2.1.1)
+    redcarpet (3.5.1)
     ruby-debug (0.10.4)
       columnize (>= 0.1)
       ruby-debug-base (~> 0.10.4.0)
